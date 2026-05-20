@@ -2,15 +2,14 @@
 
 #include <stdint.h>
 #include <stddef.h>
-#include <string.h>
 
 #include <zephyr/kernel.h>
 #include <zephyr/sys/printk.h>
 
 #include <zephyr/bluetooth/bluetooth.h>
 #include <zephyr/bluetooth/conn.h>
-#include <zephyr/bluetooth/gatt.h>
 #include <zephyr/bluetooth/gap.h>
+#include <zephyr/bluetooth/gatt.h>
 #include <zephyr/bluetooth/hci.h>
 #include <zephyr/bluetooth/uuid.h>
 
@@ -41,6 +40,15 @@ static const struct bt_data ad[] = {
 static const struct bt_data sd[] = {
     BT_DATA(BT_DATA_NAME_COMPLETE, DEVICE_NAME, DEVICE_NAME_LEN),
 };
+
+/* Advertise on channel 37 only, which makes Nordic Sniffer captures easier. */
+static const struct bt_le_adv_param adv_param =
+    BT_LE_ADV_PARAM_INIT(BT_LE_ADV_OPT_CONN |
+                         BT_LE_ADV_OPT_DISABLE_CHAN_38 |
+                         BT_LE_ADV_OPT_DISABLE_CHAN_39,
+                         BT_GAP_ADV_FAST_INT_MIN_1,
+                         BT_GAP_ADV_FAST_INT_MAX_1,
+                         NULL);
 
 static ssize_t read_bj_chr(struct bt_conn *conn,
                            const struct bt_gatt_attr *attr,
@@ -74,6 +82,7 @@ static ssize_t write_bj_chr(struct bt_conn *conn,
     return len;
 }
 
+/* Fixed benchmark profile: one custom service with one read and one write characteristic. */
 BT_GATT_SERVICE_DEFINE(bj_svc,
     BT_GATT_PRIMARY_SERVICE(&bj_svc_uuid.uuid),
 
@@ -120,16 +129,7 @@ int main(void)
 
     printk("Bluetooth initialized\n");
 
-    static const struct bt_le_adv_param adv_param =
-        BT_LE_ADV_PARAM_INIT(BT_LE_ADV_OPT_CONN |
-                            BT_LE_ADV_OPT_DISABLE_CHAN_38 |
-                            BT_LE_ADV_OPT_DISABLE_CHAN_39,
-                            BT_GAP_ADV_FAST_INT_MIN_1,
-                            BT_GAP_ADV_FAST_INT_MAX_1,
-                            NULL);
-
     err = bt_le_adv_start(&adv_param, ad, ARRAY_SIZE(ad), sd, ARRAY_SIZE(sd));
-
     if (err) {
         printk("Advertising failed to start (err %d)\n", err);
         return 0;
