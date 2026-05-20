@@ -1,6 +1,0 @@
-{
-    "nrf-connect.applications": [
-        "${workspaceFolder}\\central",
-        "${workspaceFolder}\\peripheral"
-    ]
-}
