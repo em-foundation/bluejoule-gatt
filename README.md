@@ -79,6 +79,32 @@ timeout:      400  // 4 s
 
 This makes the central drive the transaction aggressively. In current testing, the transaction completed in roughly 150 ms from `CONNECT_IND` to `LL_TERMINATE_IND`.
 
+
+## Example sniffer trace
+
+The following Nordic Sniffer / Wireshark capture shows the expected benchmark exchange. Empty LL data PDUs are suppressed in this view; normally one or two empty PDUs may appear between ATT request/response pairs.
+
+![Wireshark trace of BlueJoule GATT-RW benchmark](docs/wireshark-gatt-rw-trace.png)
+
+Visible sequence:
+
+```text
+CONNECT_IND
+Find By Type Value Request: primary service UUID
+Find By Type Value Response
+Find By Type Value Request: continue service search
+Error Response: Attribute Not Found
+Read By Type Request: characteristics in service range
+Read By Type Response: read characteristic
+Read By Type Request: next characteristic range
+Read By Type Response: write characteristic
+Read By Type Request: end of range
+Error Response: Attribute Not Found
+Read Request / Read Response
+Write Request / Write Response
+LL_TERMINATE_IND
+```
+
 ## Building
 
 From the repository root, build and flash the central:
