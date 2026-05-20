@@ -2,7 +2,6 @@
 
 #include <zephyr/types.h>
 #include <stddef.h>
-#include <errno.h>
 #include <stdbool.h>
 #include <string.h>
 
@@ -29,6 +28,14 @@
 #define BJ_CONN_LATENCY 0
 #define BJ_CONN_TIMEOUT 400
 
+enum bench_phase {
+    BENCH_DISC_PRIMARY,
+    BENCH_DISC_CHARACTERISTIC,
+    BENCH_READ,
+    BENCH_WRITE,
+    BENCH_DONE,
+};
+
 static void start_scan(void);
 static void start_discovery(void);
 static void start_read(void);
@@ -47,7 +54,9 @@ static struct bt_conn *default_conn;
 static struct bt_gatt_discover_params discover_params;
 static struct bt_gatt_read_params read_params;
 static struct bt_gatt_write_params write_params;
+
 static bool done;
+static enum bench_phase phase = BENCH_DISC_PRIMARY;
 
 static struct bt_uuid_128 bj_svc_uuid = BT_UUID_INIT_128(BT_UUID_BJ_SVC_VAL);
 static struct bt_uuid_128 bj_read_chr_uuid = BT_UUID_INIT_128(BT_UUID_BJ_READ_CHR_VAL);
@@ -68,16 +77,6 @@ static uint16_t bj_read_handle;
 static uint16_t bj_write_handle;
 
 static uint8_t bj_write_value[] = { 0x42 };
-
-enum bench_phase {
-    BENCH_DISC_PRIMARY,
-    BENCH_DISC_CHARACTERISTIC,
-    BENCH_READ,
-    BENCH_WRITE,
-    BENCH_DONE,
-};
-
-static enum bench_phase phase = BENCH_DISC_PRIMARY;
 
 static void reset_benchmark_state(void)
 {
@@ -106,6 +105,7 @@ static void disconnect_now(void)
     }
 }
 
+/* Accept only advertisements containing the BlueJoule service UUID. */
 static bool ad_parse_func(struct bt_data *data, void *user_data)
 {
     bool *found = user_data;
@@ -115,7 +115,8 @@ static bool ad_parse_func(struct bt_data *data, void *user_data)
         return true;
     }
 
-    for (uint8_t i = 0; i + sizeof(bj_svc_ad_uuid) <= data->data_len; i += sizeof(bj_svc_ad_uuid)) {
+    for (uint8_t i = 0; i + sizeof(bj_svc_ad_uuid) <= data->data_len;
+         i += sizeof(bj_svc_ad_uuid)) {
         if (!memcmp(&data->data[i], bj_svc_ad_uuid, sizeof(bj_svc_ad_uuid))) {
             *found = true;
             return false;
@@ -226,6 +227,7 @@ static uint8_t discover_func(struct bt_conn *conn, const struct bt_gatt_attr *at
     return BT_GATT_ITER_CONTINUE;
 }
 
+/* Benchmark action: read one value, write one value, then disconnect. */
 static uint8_t read_func(struct bt_conn *conn, uint8_t err,
                          struct bt_gatt_read_params *params,
                          const void *data, uint16_t length)
@@ -340,8 +342,7 @@ static void device_found(const bt_addr_le_t *addr, int8_t rssi, uint8_t type,
         return;
     }
 
-    err = bt_conn_le_create(addr, BT_CONN_LE_CREATE_CONN,
-                            &bj_conn_param, &default_conn);
+    err = bt_conn_le_create(addr, BT_CONN_LE_CREATE_CONN, &bj_conn_param, &default_conn);
     if (err) {
         printk("Create conn to %s failed (err %d)\n", addr_str, err);
         done = true;
