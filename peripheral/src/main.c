@@ -17,20 +17,20 @@
 #define DEVICE_NAME_LEN (sizeof(DEVICE_NAME) - 1)
 
 #define BT_UUID_BJ_SVC_VAL \
-    BT_UUID_128_ENCODE(0x3f7a0001, 0x7d4a, 0x4b2d, 0x9f2c, 0x5a1d6e8c0001)
+    BT_UUID_128_ENCODE(0x0000b100, 0x0000, 0x1000, 0x8000, 0x00805f9b34fb)
 
-#define BT_UUID_BJ_READ_CHR_VAL \
-    BT_UUID_128_ENCODE(0x3f7a0002, 0x7d4a, 0x4b2d, 0x9f2c, 0x5a1d6e8c0001)
+#define BT_UUID_BJ_STATUS_CHR_VAL \
+    BT_UUID_128_ENCODE(0x0000b101, 0x0000, 0x1000, 0x8000, 0x00805f9b34fb)
 
-#define BT_UUID_BJ_WRITE_CHR_VAL \
-    BT_UUID_128_ENCODE(0x3f7a0003, 0x7d4a, 0x4b2d, 0x9f2c, 0x5a1d6e8c0001)
+#define BT_UUID_BJ_COMMAND_CHR_VAL \
+    BT_UUID_128_ENCODE(0x0000b102, 0x0000, 0x1000, 0x8000, 0x00805f9b34fb)
 
 static struct bt_uuid_128 bj_svc_uuid = BT_UUID_INIT_128(BT_UUID_BJ_SVC_VAL);
-static struct bt_uuid_128 bj_read_chr_uuid = BT_UUID_INIT_128(BT_UUID_BJ_READ_CHR_VAL);
-static struct bt_uuid_128 bj_write_chr_uuid = BT_UUID_INIT_128(BT_UUID_BJ_WRITE_CHR_VAL);
+static struct bt_uuid_128 bj_status_chr_uuid = BT_UUID_INIT_128(BT_UUID_BJ_STATUS_CHR_VAL);
+static struct bt_uuid_128 bj_command_chr_uuid = BT_UUID_INIT_128(BT_UUID_BJ_COMMAND_CHR_VAL);
 
-static uint8_t bj_read_value = 0x37;
-static uint8_t bj_write_value;
+static uint8_t bj_status_value = 0x80;
+static uint8_t bj_command_value;
 
 static const struct bt_data ad[] = {
     BT_DATA_BYTES(BT_DATA_FLAGS, BT_LE_AD_GENERAL | BT_LE_AD_NO_BREDR),
@@ -50,66 +50,61 @@ static const struct bt_le_adv_param adv_param =
                          BT_GAP_ADV_FAST_INT_MAX_1,
                          NULL);
 
-static ssize_t read_bj_chr(struct bt_conn *conn,
-                           const struct bt_gatt_attr *attr,
-                           void *buf,
-                           uint16_t len,
-                           uint16_t offset)
+static ssize_t read_status_chr(struct bt_conn *conn,
+                               const struct bt_gatt_attr *attr,
+                               void *buf,
+                               uint16_t len,
+                               uint16_t offset)
 {
     const uint8_t *value = attr->user_data;
 
     return bt_gatt_attr_read(conn, attr, buf, len, offset, value, sizeof(*value));
 }
 
-static ssize_t write_bj_chr(struct bt_conn *conn,
-                            const struct bt_gatt_attr *attr,
-                            const void *buf,
-                            uint16_t len,
-                            uint16_t offset,
-                            uint8_t flags)
+static ssize_t write_command_chr(struct bt_conn *conn,
+                                 const struct bt_gatt_attr *attr,
+                                 const void *buf,
+                                 uint16_t len,
+                                 uint16_t offset,
+                                 uint8_t flags)
 {
-    uint8_t *value = attr->user_data;
-
     if (offset != 0) {
         return BT_GATT_ERR(BT_ATT_ERR_INVALID_OFFSET);
     }
 
     if (len > 0) {
-        *value = ((const uint8_t *)buf)[0];
+        bj_command_value = ((const uint8_t *)buf)[0];
+        bj_status_value = bj_command_value | 0x80;
     }
 
-    printk("BJ write len %u value 0x%02x\n", len, *value);
     return len;
 }
 
-/* Fixed benchmark profile: one custom service with one read and one write characteristic. */
 BT_GATT_SERVICE_DEFINE(bj_svc,
     BT_GATT_PRIMARY_SERVICE(&bj_svc_uuid.uuid),
 
-    BT_GATT_CHARACTERISTIC(&bj_read_chr_uuid.uuid,
+    BT_GATT_CHARACTERISTIC(&bj_status_chr_uuid.uuid,
                            BT_GATT_CHRC_READ,
                            BT_GATT_PERM_READ,
-                           read_bj_chr, NULL, &bj_read_value),
+                           read_status_chr, NULL, &bj_status_value),
 
-    BT_GATT_CHARACTERISTIC(&bj_write_chr_uuid.uuid,
+    BT_GATT_CHARACTERISTIC(&bj_command_chr_uuid.uuid,
                            BT_GATT_CHRC_WRITE | BT_GATT_CHRC_WRITE_WITHOUT_RESP,
                            BT_GATT_PERM_WRITE,
-                           NULL, write_bj_chr, &bj_write_value),
+                           NULL, write_command_chr, NULL),
 );
 
 static void connected(struct bt_conn *conn, uint8_t err)
 {
     if (err) {
         printk("Connection failed, err 0x%02x %s\n", err, bt_hci_err_to_str(err));
-        return;
     }
-
-    printk("Connected\n");
 }
 
 static void disconnected(struct bt_conn *conn, uint8_t reason)
 {
-    printk("Disconnected, reason 0x%02x %s\n", reason, bt_hci_err_to_str(reason));
+    printk("Disconnected, reason 0x%02x %s, command 0x%02x, status 0x%02x\n",
+           reason, bt_hci_err_to_str(reason), bj_command_value, bj_status_value);
 }
 
 BT_CONN_CB_DEFINE(conn_callbacks) = {
