@@ -15,40 +15,43 @@
 #include <zephyr/bluetooth/uuid.h>
 
 #define BT_UUID_BJ_SVC_VAL \
-    BT_UUID_128_ENCODE(0x3f7a0001, 0x7d4a, 0x4b2d, 0x9f2c, 0x5a1d6e8c0001)
+    BT_UUID_128_ENCODE(0x0000b100, 0x0000, 0x1000, 0x8000, 0x00805f9b34fb)
 
-#define BT_UUID_BJ_READ_CHR_VAL \
-    BT_UUID_128_ENCODE(0x3f7a0002, 0x7d4a, 0x4b2d, 0x9f2c, 0x5a1d6e8c0001)
+#define BT_UUID_BJ_STATUS_CHR_VAL \
+    BT_UUID_128_ENCODE(0x0000b101, 0x0000, 0x1000, 0x8000, 0x00805f9b34fb)
 
-#define BT_UUID_BJ_WRITE_CHR_VAL \
-    BT_UUID_128_ENCODE(0x3f7a0003, 0x7d4a, 0x4b2d, 0x9f2c, 0x5a1d6e8c0001)
+#define BT_UUID_BJ_COMMAND_CHR_VAL \
+    BT_UUID_128_ENCODE(0x0000b102, 0x0000, 0x1000, 0x8000, 0x00805f9b34fb)
 
 #define BJ_CONN_INTERVAL_MIN 6
 #define BJ_CONN_INTERVAL_MAX 6
 #define BJ_CONN_LATENCY 0
 #define BJ_CONN_TIMEOUT 400
 
+#define BJ_COMMAND_TEST_VALUE 0x04
+#define BJ_STATUS_EXPECTED_VALUE 0x84
+
 enum bench_phase {
     BENCH_DISC_PRIMARY,
     BENCH_DISC_CHARACTERISTIC,
-    BENCH_READ,
-    BENCH_WRITE,
+    BENCH_WRITE_COMMAND,
+    BENCH_READ_STATUS,
     BENCH_DONE,
 };
 
 static void start_scan(void);
 static void start_discovery(void);
-static void start_read(void);
-static void start_write(void);
+static void start_write_command(void);
+static void start_read_status(void);
 static void disconnect_now(void);
 
 static uint8_t discover_func(struct bt_conn *conn, const struct bt_gatt_attr *attr,
                              struct bt_gatt_discover_params *params);
-static uint8_t read_func(struct bt_conn *conn, uint8_t err,
-                         struct bt_gatt_read_params *params,
-                         const void *data, uint16_t length);
-static void write_func(struct bt_conn *conn, uint8_t err,
-                       struct bt_gatt_write_params *params);
+static uint8_t read_status_func(struct bt_conn *conn, uint8_t err,
+                                struct bt_gatt_read_params *params,
+                                const void *data, uint16_t length);
+static void write_command_func(struct bt_conn *conn, uint8_t err,
+                               struct bt_gatt_write_params *params);
 
 static struct bt_conn *default_conn;
 static struct bt_gatt_discover_params discover_params;
@@ -56,11 +59,13 @@ static struct bt_gatt_read_params read_params;
 static struct bt_gatt_write_params write_params;
 
 static bool done;
+static bool passed;
+static bool status_seen;
 static enum bench_phase phase = BENCH_DISC_PRIMARY;
 
 static struct bt_uuid_128 bj_svc_uuid = BT_UUID_INIT_128(BT_UUID_BJ_SVC_VAL);
-static struct bt_uuid_128 bj_read_chr_uuid = BT_UUID_INIT_128(BT_UUID_BJ_READ_CHR_VAL);
-static struct bt_uuid_128 bj_write_chr_uuid = BT_UUID_INIT_128(BT_UUID_BJ_WRITE_CHR_VAL);
+static struct bt_uuid_128 bj_status_chr_uuid = BT_UUID_INIT_128(BT_UUID_BJ_STATUS_CHR_VAL);
+static struct bt_uuid_128 bj_command_chr_uuid = BT_UUID_INIT_128(BT_UUID_BJ_COMMAND_CHR_VAL);
 
 static const uint8_t bj_svc_ad_uuid[] = { BT_UUID_BJ_SVC_VAL };
 
@@ -73,18 +78,22 @@ static const struct bt_le_conn_param bj_conn_param = {
 
 static uint16_t bj_service_start;
 static uint16_t bj_service_end;
-static uint16_t bj_read_handle;
-static uint16_t bj_write_handle;
+static uint16_t bj_status_handle;
+static uint16_t bj_command_handle;
 
-static uint8_t bj_write_value[] = { 0x42 };
+static uint8_t bj_command_value[] = { BJ_COMMAND_TEST_VALUE };
+static uint8_t bj_status_value;
 
 static void reset_benchmark_state(void)
 {
     phase = BENCH_DISC_PRIMARY;
+    passed = false;
+    status_seen = false;
+    bj_status_value = 0;
     bj_service_start = 0;
     bj_service_end = 0;
-    bj_read_handle = 0;
-    bj_write_handle = 0;
+    bj_status_handle = 0;
+    bj_command_handle = 0;
 }
 
 static void disconnect_now(void)
@@ -96,8 +105,6 @@ static void disconnect_now(void)
         return;
     }
 
-    printk("Disconnecting\n");
-
     err = bt_conn_disconnect(default_conn, BT_HCI_ERR_REMOTE_USER_TERM_CONN);
     if (err) {
         printk("Disconnect failed (err %d)\n", err);
@@ -105,7 +112,6 @@ static void disconnect_now(void)
     }
 }
 
-/* Accept only advertisements containing the BlueJoule service UUID. */
 static bool ad_parse_func(struct bt_data *data, void *user_data)
 {
     bool *found = user_data;
@@ -146,13 +152,11 @@ static void start_discovery(void)
         discover_params.type = BT_GATT_DISCOVER_PRIMARY;
         discover_params.start_handle = BT_ATT_FIRST_ATTRIBUTE_HANDLE;
         discover_params.end_handle = BT_ATT_LAST_ATTRIBUTE_HANDLE;
-        printk("Discovering BJ primary service\n");
     } else if (phase == BENCH_DISC_CHARACTERISTIC) {
         discover_params.uuid = NULL;
         discover_params.type = BT_GATT_DISCOVER_CHARACTERISTIC;
         discover_params.start_handle = bj_service_start + 1;
         discover_params.end_handle = bj_service_end;
-        printk("Discovering BJ characteristics\n");
     } else {
         disconnect_now();
         return;
@@ -182,15 +186,15 @@ static uint8_t discover_func(struct bt_conn *conn, const struct bt_gatt_attr *at
         }
 
         if (phase == BENCH_DISC_CHARACTERISTIC) {
-            if (!bj_read_handle || !bj_write_handle) {
-                printk("BJ characteristics incomplete: read 0x%04x write 0x%04x\n",
-                       bj_read_handle, bj_write_handle);
+            if (!bj_status_handle || !bj_command_handle) {
+                printk("BJ characteristics incomplete: status 0x%04x command 0x%04x\n",
+                       bj_status_handle, bj_command_handle);
                 disconnect_now();
                 return BT_GATT_ITER_STOP;
             }
 
-            phase = BENCH_READ;
-            start_read();
+            phase = BENCH_WRITE_COMMAND;
+            start_write_command();
             return BT_GATT_ITER_STOP;
         }
 
@@ -203,112 +207,96 @@ static uint8_t discover_func(struct bt_conn *conn, const struct bt_gatt_attr *at
 
         bj_service_start = attr->handle;
         bj_service_end = svc->end_handle;
-
-        printk("BJ service 0x%04x-0x%04x\n", bj_service_start, bj_service_end);
         return BT_GATT_ITER_CONTINUE;
     }
 
     if (phase == BENCH_DISC_CHARACTERISTIC) {
         struct bt_gatt_chrc *chrc = attr->user_data;
-        char uuid_str[BT_UUID_STR_LEN];
 
-        bt_uuid_to_str(chrc->uuid, uuid_str, sizeof(uuid_str));
-
-        printk("Characteristic decl 0x%04x value 0x%04x props 0x%02x uuid %s\n",
-               attr->handle, chrc->value_handle, chrc->properties, uuid_str);
-
-        if (!bt_uuid_cmp(chrc->uuid, &bj_read_chr_uuid.uuid)) {
-            bj_read_handle = chrc->value_handle;
-        } else if (!bt_uuid_cmp(chrc->uuid, &bj_write_chr_uuid.uuid)) {
-            bj_write_handle = chrc->value_handle;
+        if (!bt_uuid_cmp(chrc->uuid, &bj_status_chr_uuid.uuid)) {
+            bj_status_handle = chrc->value_handle;
+        } else if (!bt_uuid_cmp(chrc->uuid, &bj_command_chr_uuid.uuid)) {
+            bj_command_handle = chrc->value_handle;
         }
     }
 
     return BT_GATT_ITER_CONTINUE;
 }
 
-/* Benchmark action: read one value, write one value, then disconnect. */
-static uint8_t read_func(struct bt_conn *conn, uint8_t err,
-                         struct bt_gatt_read_params *params,
-                         const void *data, uint16_t length)
+static void write_command_func(struct bt_conn *conn, uint8_t err,
+                               struct bt_gatt_write_params *params)
 {
     if (err) {
-        printk("BJ read failed (err 0x%02x)\n", err);
+        printk("BJ command write failed (err 0x%02x)\n", err);
         disconnect_now();
-        return BT_GATT_ITER_STOP;
+        return;
     }
 
-    if (data) {
-        printk("BJ read data, len %u", length);
-
-        if (length) {
-            const uint8_t *bytes = data;
-
-            printk(", first 0x%02x", bytes[0]);
-        }
-
-        printk("\n");
-        return BT_GATT_ITER_CONTINUE;
-    }
-
-    printk("BJ read complete\n");
-
-    phase = BENCH_WRITE;
-    start_write();
-
-    return BT_GATT_ITER_STOP;
+    phase = BENCH_READ_STATUS;
+    start_read_status();
 }
 
-static void start_read(void)
-{
-    int err;
-
-    (void)memset(&read_params, 0, sizeof(read_params));
-
-    read_params.func = read_func;
-    read_params.handle_count = 1;
-    read_params.single.handle = bj_read_handle;
-    read_params.single.offset = 0;
-
-    printk("Reading BJ characteristic 0x%04x\n", bj_read_handle);
-
-    err = bt_gatt_read(default_conn, &read_params);
-    if (err) {
-        printk("BJ read failed to start (err %d)\n", err);
-        disconnect_now();
-    }
-}
-
-static void write_func(struct bt_conn *conn, uint8_t err,
-                       struct bt_gatt_write_params *params)
-{
-    if (err) {
-        printk("BJ write failed (err 0x%02x)\n", err);
-    } else {
-        printk("BJ write complete\n");
-    }
-
-    phase = BENCH_DONE;
-    disconnect_now();
-}
-
-static void start_write(void)
+static void start_write_command(void)
 {
     int err;
 
     (void)memset(&write_params, 0, sizeof(write_params));
 
-    write_params.func = write_func;
-    write_params.handle = bj_write_handle;
+    write_params.func = write_command_func;
+    write_params.handle = bj_command_handle;
     write_params.offset = 0;
-    write_params.data = bj_write_value;
-    write_params.length = sizeof(bj_write_value);
-
-    printk("Writing BJ characteristic 0x%04x\n", bj_write_handle);
+    write_params.data = bj_command_value;
+    write_params.length = sizeof(bj_command_value);
 
     err = bt_gatt_write(default_conn, &write_params);
     if (err) {
-        printk("BJ write failed to start (err %d)\n", err);
+        printk("BJ command write failed to start (err %d)\n", err);
+        disconnect_now();
+    }
+}
+
+static uint8_t read_status_func(struct bt_conn *conn, uint8_t err,
+                                struct bt_gatt_read_params *params,
+                                const void *data, uint16_t length)
+{
+    if (err) {
+        printk("BJ status read failed (err 0x%02x)\n", err);
+        disconnect_now();
+        return BT_GATT_ITER_STOP;
+    }
+
+    if (data) {
+        if (length > 0) {
+            const uint8_t *bytes = data;
+
+            bj_status_value = bytes[0];
+            status_seen = true;
+        }
+
+        return BT_GATT_ITER_CONTINUE;
+    }
+
+    passed = status_seen && bj_status_value == BJ_STATUS_EXPECTED_VALUE;
+    phase = BENCH_DONE;
+    disconnect_now();
+
+    return BT_GATT_ITER_STOP;
+}
+
+static void start_read_status(void)
+{
+    int err;
+
+    (void)memset(&read_params, 0, sizeof(read_params));
+
+    read_params.func = read_status_func;
+    read_params.handle_count = 1;
+    read_params.single.handle = bj_status_handle;
+    read_params.single.offset = 0;
+
+    err = bt_gatt_read(default_conn, &read_params);
+    if (err) {
+        printk("BJ status read failed to start (err %d)\n", err);
         disconnect_now();
     }
 }
@@ -333,7 +321,6 @@ static void device_found(const bt_addr_le_t *addr, int8_t rssi, uint8_t type,
     }
 
     bt_addr_le_to_str(addr, addr_str, sizeof(addr_str));
-    printk("BJ target found: %s (RSSI %d)\n", addr_str, rssi);
 
     err = bt_le_scan_stop();
     if (err) {
@@ -386,8 +373,6 @@ static void connected(struct bt_conn *conn, uint8_t err)
         return;
     }
 
-    printk("Connected: %s\n", addr);
-
     reset_benchmark_state();
     start_discovery();
 }
@@ -404,6 +389,13 @@ static void disconnected(struct bt_conn *conn, uint8_t reason)
 
     printk("Disconnected: %s, reason 0x%02x %s\n",
            addr, reason, bt_hci_err_to_str(reason));
+    printk("BJ result: %s, service 0x%04x-0x%04x, status 0x%04x, command 0x%04x, value 0x%02x\n",
+           passed ? "PASS" : "FAIL",
+           bj_service_start,
+           bj_service_end,
+           bj_status_handle,
+           bj_command_handle,
+           bj_status_value);
 
     bt_conn_unref(default_conn);
     default_conn = NULL;
