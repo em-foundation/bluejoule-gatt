@@ -109,3 +109,10 @@ This measurement covers the connection transaction only. Advertising before the 
 This report records the current Zephyr reference baseline.
 
 Further Zephyr tuning may reduce image size or energy.
+
+<p align="right">
+  <sub>
+    drafted with ChatGPT &ndash; reviewed/approved by
+    <a href="https://github.com/biosbob">@biosbob</a>
+  </sub>
+</p>
