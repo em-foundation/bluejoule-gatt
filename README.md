@@ -42,14 +42,14 @@ assets/
 
 ## Reports
 
-1. [BlueJoule-GATT v0 Definition](reports/2026-05-25-bluejoule-gatt-v0-definition.md)  
-   Defines the candidate benchmark transaction, profile, targeted-discovery model, and measurement window.
+1. [BlueJoule-GATT Definition](reports/01-bluejoule-gatt-definition.md)  
+   Defines the benchmark profile, central/peripheral requirements, discovery model, measurement window, and scoring intent.
 
-2. [Zephyr Reference Status](reports/2026-05-25-zephyr-reference-status.md)  
-   Documents the Zephyr central/peripheral reference implementation, packet trace, build size, and baseline measurement.
+2. [Zephyr Reference Implementation](reports/02-zephyr-reference-implementation.md)  
+   Documents the current Zephyr central/peripheral reference implementation, tested hardware, build flow, packet trace, and baseline measurement.
 
-3. [EM•Script Candidate Status](reports/2026-05-25-emscript-candidate-status.md)  
-   Summarizes the EM•Script candidate implementation and same-hardware comparison against the Zephyr reference.
+3. [EM•Script Candidate Implementation](reports/03-emscript-candidate-implementation.md)  
+   Documents the EM•Script candidate implementation and same-hardware comparison against the Zephyr reference.
 
 ## Status
 
