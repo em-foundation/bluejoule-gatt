@@ -9,6 +9,9 @@
 - It complements the original BlueJoule advertising benchmark.
 - The benchmark measures a short GATT transaction, not advertising.
 - The peripheral advertises a custom BlueJoule-GATT service.
+- The peripheral advertises connectably.
+- The service UUID appears in the primary advertising packet.
+- The peripheral transmits at 0 dBm.
 - The central connects, discovers handles, writes `Command`, reads `Status`, and disconnects.
 - UUIDs use the Bluetooth base-UUID form: service `0xB100`, status `0xB101`, command `0xB102`.
 - The central uses targeted discovery, not full generic GATT browsing.
@@ -59,9 +62,23 @@ The `Status` characteristic is read by the benchmark central after the command w
 
 ## 3. Peripheral Advertising
 
-The peripheral should advertise the BlueJoule-GATT Service UUID.
+The peripheral shall advertise connectably.
+
+The peripheral shall include the BlueJoule-GATT Service UUID in the primary advertising packet.
 
 This lets the benchmark central discover candidate peripherals without hard-coded device addresses.
+
+The peripheral may provide a scan response.
+
+The scan response may include a local name, such as:
+
+```text
+BlueJoule-GATT
+```
+
+The peripheral shall transmit at 0 dBm.
+
+This applies to peripheral transmissions during both advertising and the connection transaction.
 
 Advertising energy is not included in the scored BlueJoule-GATT connection window.
 
