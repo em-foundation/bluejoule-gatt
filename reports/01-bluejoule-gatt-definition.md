@@ -154,14 +154,12 @@ The primary score should be energy per completed transaction.
 Preferred reporting unit:
 
 ```text
-µJ per completed BlueJoule-GATT transaction
+joules per completed BlueJoule-GATT transaction
 ```
 
-Charge may also be reported when useful:
+For engineering notes, smaller units such as µJ may be used for readability.
 
-```text
-µC per completed transaction
-```
+Charge may also be reported when useful, but final BlueJoule-style scoring should be based on energy.
 
 At fixed voltage, energy can be estimated as:
 
@@ -169,11 +167,7 @@ At fixed voltage, energy can be estimated as:
 energy = charge × voltage
 ```
 
-For example, at 3.0 V:
-
-```text
-45 µC × 3.0 V = 135 µJ
-```
+The scored energy covers only the connection transaction. Advertising energy before the connection is excluded.
 
 ## 9. Required Reported Conditions
 
@@ -213,6 +207,8 @@ This v0 definition covers:
 - BLE 1M PHY
 - BLE 4.2-style connection behavior
 - custom BlueJoule-GATT service
+- connectable advertising with the BlueJoule-GATT Service UUID
+- peripheral transmissions at 0 dBm
 - targeted service discovery
 - targeted characteristic discovery
 - write `Command`
@@ -238,6 +234,12 @@ Remaining work toward a stable BlueJoule-GATT 1.0 definition:
 - automate repeated one-second-style benchmark cycles
 - trim captured current data to isolate connection transactions
 - standardize result reporting
-- include reference packet traces
-- document the Zephyr reference implementation
-- document early EM•Script candidate results
+- document reference packet traces
+- document reference implementations and candidate results
+
+<p align="right">
+  <sub>
+    drafted with ChatGPT &ndash; reviewed/approved by
+    <a href="https://github.com/biosbob">@biosbob</a>
+  </sub>
+</p>
