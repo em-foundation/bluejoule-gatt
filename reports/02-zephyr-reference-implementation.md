@@ -92,14 +92,14 @@ The packet trace demonstrates that this Zephyr implementation completes the Blue
 Add the selected trace image here:
 
 ```markdown
-![Zephyr reference packet trace](../assets/wireshark/zephyr-reference-gatt-trace.png)
+![Zephyr reference packet trace](../assets/02-packets.png)
 ```
 
 Trace summary:
 
 ```text
-connection duration: <fill in exact value>
-connection events:   <fill in exact count>
+connection duration: 122 ms
+connection events:   17
 ```
 
 Observed transaction:
