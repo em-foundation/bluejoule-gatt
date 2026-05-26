@@ -1,6 +1,5 @@
 # BlueJoule-GATT v0 Definition
 
-**Date:** 2026-05-25  
 **Status:** Candidate benchmark definition  
 **Repository:** `bluejoule-gatt`
 
