@@ -15,6 +15,10 @@
 
 #include <zephyr/drivers/gpio.h>
 
+#if !defined(CONFIG_PRINTK)
+#define printk(...)
+#endif
+
 static const struct gpio_dt_spec bj_mark = {
     .port = DEVICE_DT_GET(DT_NODELABEL(gpio0)),
     .pin = 4,
