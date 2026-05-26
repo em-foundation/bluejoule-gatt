@@ -12,8 +12,8 @@
 - The peripheral runs on a Nordic nRF54L15 DK.
 - The peripheral build uses about **130 KB flash** and **25.6 KB RAM**.
 - The packet trace shows a **122 ms** connection transaction over **17 connection events**.
-- The measured connection charge is about **57 µC**.
-- At 3.0 V, this corresponds to about **171 µJ**.
+- The measured connection charge is about **55 µC**.
+- At 3.0 V, this corresponds to about **165 µJ**.
 
 ## 1. Purpose
 
@@ -92,12 +92,12 @@ connection events:   17
 
 ## 7. Energy Measurement
 
-The measured connection charge is about **57 µC**.
+The measured connection charge is about **55 µC**.
 
 At 3.0 V:
 
 ```text
-57 µC × 3.0 V = 171 µJ
+55 µC × 3.0 V = 165 µJ
 ```
 
 ![Zephyr reference energy trace](../assets/02-current.png)
