@@ -169,3 +169,10 @@ The narrower claim is:
 This report records the current EM•Script candidate baseline.
 
 Further tuning may reduce the packet count, connection duration, image size, or energy, but the present result already demonstrates the core BlueJoule-GATT comparison.
+
+<p align="right">
+  <sub>
+    drafted with ChatGPT &ndash; reviewed/approved by
+    <a href="https://github.com/biosbob">@biosbob</a>
+  </sub>
+</p>
