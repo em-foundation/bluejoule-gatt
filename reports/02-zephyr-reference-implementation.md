@@ -100,7 +100,7 @@ At 3.0 V:
 57 µC × 3.0 V = 171 µJ
 ```
 
-![Zephyr reference energy trace](../assets/02-energy.png)
+![Zephyr reference energy trace](../assets/02-current.png)
 
 This measurement covers the connection transaction only. Advertising before the connection is excluded.
 
