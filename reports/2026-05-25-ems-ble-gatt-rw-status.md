@@ -8,19 +8,27 @@
 
 ## TLDR
 
-- We implemented a specialized BLE 4.2-style peripheral path in EM•Script for a proposed BlueJoule BLE GATT-RW connection benchmark.
-- The transaction is intentionally small but real: connect, discover a custom service, write a `Command` characteristic, read a `Status` characteristic, then disconnect.
-- The reported energy covers only the connection transaction, not the preceding advertising period.
-- The benchmark central uses targeted discovery: UUIDs are known, handles are discovered, and unrelated GAP/GATT/default services are not explored.
-- The current EM•Script implementation interoperates with a Zephyr central and completes the bounded transaction cleanly.
-- On the same Nordic nRF54L15-class hardware at 3.0 V, the current EM•Script path measures about **135 µJ** versus about **171 µJ** for the optimized Zephyr reference, or roughly **20% lower energy**.
-- The connection window is roughly **115–125 ms**, with about **15–17 connection events**.
-- The current EM•Script code footprint is about **5 KB**, versus about **130 KB flash** for the trimmed Zephyr peripheral reference.
-- The key architectural point is not just smaller code; it is that EM•Script can specialize the BLE/GATT path around a known application profile at build time.
-- Meta-domain schema knowledge enables static resources, compact handle layout, generated/specialized binding paths, tightly sized buffers, and reduced persistent state.
-- Small code and compact data contribute directly to the low-energy story: less active work, better locality, less retained RAM, and faster return to sleep.
-- This is not a drop-in full BLE stack. It is evidence that a profile-specialized BLE peripheral can be dramatically smaller and measurably lower-energy for a bounded transaction.
-- The next milestone is to move from manually inspected runs to automated EM•Scope measurement runs, similar in spirit to the existing BLE advertising benchmark.
+- Implemented a specialized BLE 4.2-style peripheral path in EM•Script.
+- Target benchmark: BlueJoule BLE GATT-RW connection transaction.
+- Transaction: connect, discover service, write `Command`, read `Status`, disconnect.
+- Energy number covers the connection only, not prior advertising.
+- Central uses targeted discovery: known UUIDs, discovered handles.
+- Central does not explore unrelated GAP/GATT/default services.
+- EM•Script interoperates with the Zephyr benchmark central.
+- Current same-hardware result at 3.0 V:
+    - EM•Script: about **135 µJ**
+    - Zephyr reference: about **171 µJ**
+    - EM•Script is roughly **20% lower energy**
+- Connection window is about **115–125 ms**.
+- Transaction uses about **15–17 connection events**.
+- EM•Script code footprint is about **5 KB**.
+- Trimmed Zephyr reference uses about **130 KB flash**.
+- EM•Script specializes the BLE/GATT path at build time.
+- Meta-domain schema knowledge drives handles, thunks, buffers, and persistent state.
+- Small code and compact data support the low-energy result.
+- This is not a drop-in full BLE stack.
+- It is a candidate implementation for a bounded profile-specialized BLE benchmark.
+- Next milestone: automated EM•Scope measurement runs.
 
 ## 1. Purpose
 
