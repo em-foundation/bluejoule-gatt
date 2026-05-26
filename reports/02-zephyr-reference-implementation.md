@@ -10,11 +10,10 @@
 - Zephyr is used for both the benchmark central and reference peripheral.
 - The central runs on a Nordic nRF52 DK.
 - The peripheral runs on a Nordic nRF54L15 DK.
-- The implementation conforms to the BlueJoule-GATT v0 definition.
 - The peripheral build uses about **130 KB flash** and **25.6 KB RAM**.
+- The packet trace shows a **122 ms** connection transaction over **17 connection events**.
 - The measured connection charge is about **57 µC**.
 - At 3.0 V, this corresponds to about **171 µJ**.
-- Advertising energy is excluded from this measurement.
 
 ## 1. Purpose
 
@@ -26,14 +25,7 @@ The benchmark itself is defined separately in:
 reports/01-bluejoule-gatt-definition.md
 ```
 
-This report records:
-
-- where the Zephyr source lives
-- how to build the central and peripheral
-- what hardware was tested
-- the peripheral build size
-- packet-trace evidence for the transaction
-- the measured connection energy
+This report records the Zephyr source layout, build flow, tested hardware, peripheral build size, packet trace, and measured connection energy.
 
 ## 2. Source Layout
 
@@ -89,11 +81,7 @@ This is the current Zephyr reference baseline.
 
 The packet trace demonstrates that this Zephyr implementation completes the BlueJoule-GATT transaction defined in report 01.
 
-Add the selected trace image here:
-
-```markdown
 ![Zephyr reference packet trace](../assets/02-packets.png)
-```
 
 Trace summary:
 
@@ -102,37 +90,22 @@ connection duration: 122 ms
 connection events:   17
 ```
 
-Observed transaction:
-
-```text
-connect
-targeted service discovery
-targeted characteristic discovery
-Command write
-Status read
-disconnect
-```
-
 ## 7. Energy Measurement
 
-Measured connection charge:
+The measured connection charge is about **57 µC**.
+
+At 3.0 V:
 
 ```text
-charge:  ~57 µC
-voltage: 3.0 V
-energy:  ~171 µJ
+57 µC × 3.0 V = 171 µJ
 ```
 
-This is the connection transaction only. Advertising before connection is excluded.
+![Zephyr reference energy trace](../assets/02-energy.png)
 
-Add the selected current trace image here, if useful:
-
-```markdown
-![Zephyr reference current trace](../assets/current/zephyr-reference-current-trace.png)
-```
+This measurement covers the connection transaction only. Advertising before the connection is excluded.
 
 ## 8. Closing Note
 
-This is a compliant Zephyr implementation of the current BlueJoule-GATT v0 definition.
+This report records the current Zephyr reference baseline.
 
-Further Zephyr tuning may reduce image size or energy, but this report records the current reference baseline.
+Further Zephyr tuning may reduce image size or energy.
