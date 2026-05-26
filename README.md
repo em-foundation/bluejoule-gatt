@@ -40,6 +40,12 @@ assets/
     screenshots, packet traces, and measurement images
 ```
 
+## Related Projects
+
+- [BlueJoule](https://github.com/em-foundation/BlueJoule/blob/main/docs/ReadMore.md)
+- [EM•Scope](https://github.com/em-foundation/emscope/blob/docs-stable/docs/ReadMore.md)
+- [EM•Script](https://www.openem.org/emscript/)
+
 ## Reports
 
 1. [BlueJoule-GATT Definition](reports/01-bluejoule-gatt-definition.md)  
@@ -64,3 +70,10 @@ Current work is focused on:
 - refining the benchmark toward a stable 1.0 definition
 
 Discussion and feedback are welcome as the benchmark definition evolves.
+
+<p align="right">
+  <sub>
+    drafted with ChatGPT &ndash; reviewed/approved by
+    <a href="https://github.com/biosbob">@biosbob</a>
+  </sub>
+</p>
