@@ -15,19 +15,11 @@
 #include <zephyr/bluetooth/hci.h>
 #include <zephyr/bluetooth/uuid.h>
 
-#include <zephyr/drivers/gpio.h>
-
 #if !defined(CONFIG_PRINTK)
 #define printk(...)
 #endif
 
 #define BJ_PERIOD_MS 1000
-
-static const struct gpio_dt_spec bj_mark = {
-    .port = DEVICE_DT_GET(DT_NODELABEL(gpio0)),
-    .pin = 4,
-    .dt_flags = GPIO_ACTIVE_LOW
-};
 
 #define DEVICE_NAME CONFIG_BT_DEVICE_NAME
 #define DEVICE_NAME_LEN (sizeof(DEVICE_NAME) - 1)
@@ -73,13 +65,6 @@ static const struct bt_le_adv_param adv_param =
 
 static void bj_cycle_work_handler(struct k_work *work);
 K_WORK_DELAYABLE_DEFINE(bj_cycle_work, bj_cycle_work_handler);
-
-static void bj_mark_pulse(void)
-{
-    gpio_pin_set_dt(&bj_mark, 1);
-    k_busy_wait(10);
-    gpio_pin_set_dt(&bj_mark, 0);
-}
 
 static void start_advertising(void)
 {
@@ -167,16 +152,12 @@ static void connected(struct bt_conn *conn, uint8_t err)
     bj_connected = true;
     bj_advertising = false;
     bj_conn_count++;
-    bj_mark_pulse();
 }
 
 static void disconnected(struct bt_conn *conn, uint8_t reason)
 {
     bj_connected = false;
     bj_advertising = false;
-
-    bj_mark_pulse();
-
     printk("Disconnected, reason 0x%02x %s, cycle %u, conn %u, command 0x%02x, status 0x%02x\n",
            reason, bt_hci_err_to_str(reason), bj_cycle_count, bj_conn_count,
            bj_command_value, bj_status_value);
@@ -198,17 +179,6 @@ int main(void)
     }
 
     printk("Bluetooth initialized\n");
-
-    if (!device_is_ready(bj_mark.port)) {
-        printk("BJ marker GPIO not ready\n");
-        return 0;
-    }
-
-    err = gpio_pin_configure_dt(&bj_mark, GPIO_OUTPUT_INACTIVE);
-    if (err) {
-        printk("BJ marker GPIO config failed (err %d)\n", err);
-        return 0;
-    }
 
     printk("BlueJoule-GATT peripheral ready as %s\n", DEVICE_NAME);
 
