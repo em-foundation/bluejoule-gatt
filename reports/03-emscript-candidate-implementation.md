@@ -12,10 +12,11 @@
 - The candidate peripheral runs on a Nordic nRF54L15 DK.
 - The EM•Script peripheral completes the same BlueJoule-GATT transaction as the Zephyr reference.
 - The EM•Script build uses about **5 KB** of code.
-- The measured connection charge is about **43 µC**.
-- At 3.0 V, this corresponds to about **129 µJ**.
-- The Zephyr reference measured about **165 µJ**.
-- The EM•Script candidate is therefore about **22% lower energy** for this transaction.
+- The packet trace shows a **116.67 ms** connection transaction over **16 connection events**.
+- The measured connection charge is about **45.09 µC**.
+- At 3.0 V, this corresponds to about **135.3 µJ**.
+- The Zephyr reference measured about **171.0 µJ**.
+- The EM•Script candidate is therefore about **21% lower energy** for this transaction.
 
 ## 1. Purpose
 
@@ -81,18 +82,18 @@ The packet trace demonstrates that the EM•Script peripheral completes the Blue
 Trace summary:
 
 ```text
-connection duration: 114 ms
+connection duration: 116.67 ms
 connection events:   16
 ```
 
 ## 5. Energy Measurement
 
-The measured connection charge is about **43 µC**.
+The measured connection charge is about **45.09 µC**.
 
 At 3.0 V:
 
 ```text
-43 µC × 3.0 V = 129 µJ
+45.0937 µC × 3.0 V = 135.281 µJ
 ```
 
 ![EM•Script candidate energy trace](../assets/03-current.png)
@@ -104,20 +105,54 @@ This measurement covers the connection transaction only. Advertising before the 
 Current same-hardware comparison:
 
 ```text
-Zephyr reference:      ~55 µC × 3.0 V = 165 µJ
-EM•Script candidate:   ~43 µC × 3.0 V = 129 µJ
+EM•Script candidate:   45.0937 µC × 3.0 V = 135.281 µJ
+Zephyr reference:      56.9883 µC × 3.0 V = 170.965 µJ
 ```
 
 Energy reduction:
 
 ```text
-165 µJ - 129 µJ = 36 µJ
-36 µJ / 165 µJ ≈ 22%
+170.965 µJ - 135.281 µJ = 35.684 µJ
+35.684 µJ / 170.965 µJ ≈ 21%
 ```
 
-For this bounded BlueJoule-GATT transaction, the EM•Script candidate is about **22% lower energy** than the Zephyr reference.
+For this bounded BlueJoule-GATT transaction, the EM•Script candidate is about **21% lower energy** than the Zephyr reference.
 
-## 7. Why EM•Script Matters
+## 7. Matched Connection-Event Comparison
+
+To separate whole-transaction effects from per-event implementation overhead, one matched connection event was inspected in both captures.
+
+In both traces, the selected event is the penultimate connection interval before disconnect. The central sends an empty data PDU and the peripheral responds with an empty data PDU.
+
+This gives a useful like-for-like comparison: the same logical BLE exchange, measured inside the same benchmark transaction.
+
+![Matched connection-event current comparison](../assets/03-event-compare.png)
+
+Measured event summary:
+
+```text
+EM•Script candidate:
+    duration: 1.10524 ms
+    charge:   1.99983 µC
+    energy:   5.99949 µJ at 3.0 V
+
+Zephyr reference:
+    duration: 1.74639 ms
+    charge:   2.57529 µC
+    energy:   7.72587 µJ at 3.0 V
+
+Event-level reduction:
+
+```text
+time reduction:   ≈ 37%
+energy reduction: ≈ 22%
+```
+
+Although the EM•Script event has slightly higher average current, it completes substantially sooner. The area under the curve is lower, producing about **22% lower energy** for this matched event.
+
+This supports the broader benchmark result: the EM•Script candidate is not only completing the full transaction with less total energy, but also uses less energy for a comparable individual connection event.
+
+## 8. Why EM•Script Matters
 
 This implementation is not just a small hand-written BLE example.
 
@@ -136,7 +171,7 @@ Key mechanisms include:
 
 A conventional BLE stack must support many profiles, services, callbacks, configuration layers, queues, and database-walking paths. The EM•Script candidate only implements the bounded behavior required by this benchmark transaction.
 
-## 8. Why Smaller Code and Data Reduce Energy
+## 9. Why Smaller Code and Data Reduce Energy
 
 The measured energy reduction is not attributed to one single mechanism.
 
@@ -154,7 +189,7 @@ Likely contributors include:
 
 The EM•Script candidate keeps the persistent BLE state small and static. Packet buffers and transient protocol state are sized for this benchmark rather than for a general-purpose BLE stack.
 
-## 9. Scope of the Result
+## 10. Scope of the Result
 
 This is a candidate implementation for a bounded BlueJoule-GATT transaction.
 
@@ -164,7 +199,7 @@ The narrower claim is:
 
 > EM•Script demonstrates that a profile-specialized BLE peripheral can be dramatically smaller and measurably lower-energy than a general-purpose stack for this bounded transaction.
 
-## 10. Closing Note
+## 11. Closing Note
 
 This report records the current EM•Script candidate baseline.
 

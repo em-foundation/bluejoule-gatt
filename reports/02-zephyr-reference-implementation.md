@@ -11,9 +11,9 @@
 - The central runs on a Nordic nRF52 DK.
 - The peripheral runs on a Nordic nRF54L15 DK.
 - The peripheral build uses about **130 KB flash** and **25.6 KB RAM**.
-- The packet trace shows a **122 ms** connection transaction over **17 connection events**.
-- The measured connection charge is about **55 µC**.
-- At 3.0 V, this corresponds to about **165 µJ**.
+- The packet trace shows a **124.364 ms** connection transaction over **17 connection events**.
+- The measured connection charge is about **56.99 µC**.
+- At 3.0 V, this corresponds to about **171.0 µJ**.
 
 ## 1. Purpose
 
@@ -86,18 +86,18 @@ The packet trace demonstrates that this Zephyr implementation completes the Blue
 Trace summary:
 
 ```text
-connection duration: 122 ms
+connection duration: 124.364 ms
 connection events:   17
 ```
 
 ## 7. Energy Measurement
 
-The measured connection charge is about **55 µC**.
+The measured connection charge is about **56.99 µC**.
 
 At 3.0 V:
 
 ```text
-55 µC × 3.0 V = 165 µJ
+56.9883 µC × 3.0 V = 170.965 µJ
 ```
 
 ![Zephyr reference energy trace](../assets/02-current.png)
