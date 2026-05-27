@@ -7,6 +7,8 @@
 
 #include <zephyr/kernel.h>
 #include <zephyr/sys/printk.h>
+#include <zephyr/devicetree.h>
+#include <zephyr/drivers/gpio.h>
 
 #include <zephyr/bluetooth/bluetooth.h>
 #include <zephyr/bluetooth/hci.h>
@@ -31,6 +33,8 @@
 #define BJ_COMMAND_TEST_VALUE 0x04
 #define BJ_STATUS_EXPECTED_VALUE 0x84
 
+#define LED0_NODE DT_ALIAS(led0)
+
 enum bench_phase {
     BENCH_DISC_PRIMARY,
     BENCH_DISC_CHARACTERISTIC,
@@ -40,6 +44,7 @@ enum bench_phase {
 };
 
 static void start_scan(void);
+static void restart_scan_later(void);
 static void start_discovery(void);
 static void start_write_command(void);
 static void start_read_status(void);
@@ -58,7 +63,6 @@ static struct bt_gatt_discover_params discover_params;
 static struct bt_gatt_read_params read_params;
 static struct bt_gatt_write_params write_params;
 
-static bool done;
 static bool passed;
 static bool status_seen;
 static enum bench_phase phase = BENCH_DISC_PRIMARY;
@@ -84,6 +88,23 @@ static uint16_t bj_command_handle;
 static uint8_t bj_command_value[] = { BJ_COMMAND_TEST_VALUE };
 static uint8_t bj_status_value;
 
+static uint32_t run_count;
+static uint32_t pass_count;
+static uint32_t fail_count;
+
+static const struct gpio_dt_spec led = GPIO_DT_SPEC_GET(LED0_NODE, gpios);
+static bool led_ready;
+
+static void scan_work_handler(struct k_work *work);
+K_WORK_DELAYABLE_DEFINE(scan_work, scan_work_handler);
+
+static void led_set(bool on)
+{
+    if (led_ready) {
+        gpio_pin_set_dt(&led, on ? 1 : 0);
+    }
+}
+
 static void reset_benchmark_state(void)
 {
     phase = BENCH_DISC_PRIMARY;
@@ -101,14 +122,17 @@ static void disconnect_now(void)
     int err;
 
     if (!default_conn) {
-        done = true;
+        restart_scan_later();
         return;
     }
 
     err = bt_conn_disconnect(default_conn, BT_HCI_ERR_REMOTE_USER_TERM_CONN);
     if (err) {
         printk("Disconnect failed (err %d)\n", err);
-        done = true;
+        led_set(false);
+        bt_conn_unref(default_conn);
+        default_conn = NULL;
+        restart_scan_later();
     }
 }
 
@@ -143,6 +167,11 @@ static bool adv_has_bj_service(struct net_buf_simple *ad)
 static void start_discovery(void)
 {
     int err;
+
+    if (!default_conn) {
+        restart_scan_later();
+        return;
+    }
 
     (void)memset(&discover_params, 0, sizeof(discover_params));
     discover_params.func = discover_func;
@@ -307,7 +336,7 @@ static void device_found(const bt_addr_le_t *addr, int8_t rssi, uint8_t type,
     char addr_str[BT_ADDR_LE_STR_LEN];
     int err;
 
-    if (default_conn || done) {
+    if (default_conn) {
         return;
     }
 
@@ -325,14 +354,14 @@ static void device_found(const bt_addr_le_t *addr, int8_t rssi, uint8_t type,
     err = bt_le_scan_stop();
     if (err) {
         printk("Stop scan failed (err %d)\n", err);
-        done = true;
+        restart_scan_later();
         return;
     }
 
     err = bt_conn_le_create(addr, BT_CONN_LE_CREATE_CONN, &bj_conn_param, &default_conn);
     if (err) {
         printk("Create conn to %s failed (err %d)\n", addr_str, err);
-        done = true;
+        restart_scan_later();
     }
 }
 
@@ -340,14 +369,27 @@ static void start_scan(void)
 {
     int err;
 
-    err = bt_le_scan_start(BT_LE_SCAN_PASSIVE, device_found);
-    if (err) {
-        printk("Scanning failed to start (err %d)\n", err);
-        done = true;
+    if (default_conn) {
         return;
     }
 
-    printk("Scanning started\n");
+    err = bt_le_scan_start(BT_LE_SCAN_PASSIVE, device_found);
+    if (err) {
+        printk("Scanning failed to start (err %d)\n", err);
+        restart_scan_later();
+        return;
+    }
+}
+
+static void restart_scan_later(void)
+{
+    k_work_schedule(&scan_work, K_MSEC(100));
+}
+
+static void scan_work_handler(struct k_work *work)
+{
+    ARG_UNUSED(work);
+    start_scan();
 }
 
 static void connected(struct bt_conn *conn, uint8_t err)
@@ -365,7 +407,8 @@ static void connected(struct bt_conn *conn, uint8_t err)
             default_conn = NULL;
         }
 
-        done = true;
+        led_set(false);
+        restart_scan_later();
         return;
     }
 
@@ -373,6 +416,7 @@ static void connected(struct bt_conn *conn, uint8_t err)
         return;
     }
 
+    led_set(true);
     reset_benchmark_state();
     start_discovery();
 }
@@ -387,19 +431,32 @@ static void disconnected(struct bt_conn *conn, uint8_t reason)
 
     bt_addr_le_to_str(bt_conn_get_dst(conn), addr, sizeof(addr));
 
-    printk("Disconnected: %s, reason 0x%02x %s\n",
-           addr, reason, bt_hci_err_to_str(reason));
-    printk("BJ result: %s, service 0x%04x-0x%04x, status 0x%04x, command 0x%04x, value 0x%02x\n",
+    led_set(false);
+
+    run_count++;
+    if (passed) {
+        pass_count++;
+    } else {
+        fail_count++;
+    }
+
+    printk("BJ run %u: %s, reason 0x%02x %s, peer %s, svc 0x%04x-0x%04x, status 0x%04x, command 0x%04x, value 0x%02x, pass %u, fail %u\n",
+           run_count,
            passed ? "PASS" : "FAIL",
+           reason,
+           bt_hci_err_to_str(reason),
+           addr,
            bj_service_start,
            bj_service_end,
            bj_status_handle,
            bj_command_handle,
-           bj_status_value);
+           bj_status_value,
+           pass_count,
+           fail_count);
 
     bt_conn_unref(default_conn);
     default_conn = NULL;
-    done = true;
+    restart_scan_later();
 }
 
 BT_CONN_CB_DEFINE(conn_callbacks) = {
@@ -411,21 +468,30 @@ int main(void)
 {
     int err;
 
+    if (!gpio_is_ready_dt(&led)) {
+        printk("LED0 not ready\n");
+    } else {
+        err = gpio_pin_configure_dt(&led, GPIO_OUTPUT_INACTIVE);
+        if (err) {
+            printk("LED0 configure failed (err %d)\n", err);
+        } else {
+            led_ready = true;
+        }
+    }
+
     err = bt_enable(NULL);
     if (err) {
         printk("Bluetooth init failed (err %d)\n", err);
         return 0;
     }
 
-    printk("Bluetooth initialized\n");
+    printk("BlueJoule-GATT central ready\n");
 
     start_scan();
 
-    while (!done) {
-        k_sleep(K_MSEC(100));
+    while (1) {
+        k_sleep(K_SECONDS(1));
     }
-
-    printk("Done\n");
 
     return 0;
 }
