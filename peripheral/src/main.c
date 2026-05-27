@@ -2,6 +2,8 @@
 
 #include <stdint.h>
 #include <stddef.h>
+#include <stdbool.h>
+#include <errno.h>
 
 #include <zephyr/kernel.h>
 #include <zephyr/sys/printk.h>
@@ -18,6 +20,8 @@
 #if !defined(CONFIG_PRINTK)
 #define printk(...)
 #endif
+
+#define BJ_PERIOD_MS 1000
 
 static const struct gpio_dt_spec bj_mark = {
     .port = DEVICE_DT_GET(DT_NODELABEL(gpio0)),
@@ -44,6 +48,11 @@ static struct bt_uuid_128 bj_command_chr_uuid = BT_UUID_INIT_128(BT_UUID_BJ_COMM
 static uint8_t bj_status_value = 0x80;
 static uint8_t bj_command_value;
 
+static bool bj_advertising;
+static bool bj_connected;
+static uint32_t bj_cycle_count;
+static uint32_t bj_conn_count;
+
 static const struct bt_data ad[] = {
     BT_DATA_BYTES(BT_DATA_FLAGS, BT_LE_AD_GENERAL | BT_LE_AD_NO_BREDR),
     BT_DATA_BYTES(BT_DATA_UUID128_ALL, BT_UUID_BJ_SVC_VAL),
@@ -62,11 +71,44 @@ static const struct bt_le_adv_param adv_param =
                          BT_GAP_ADV_FAST_INT_MAX_1,
                          NULL);
 
+static void bj_cycle_work_handler(struct k_work *work);
+K_WORK_DELAYABLE_DEFINE(bj_cycle_work, bj_cycle_work_handler);
+
 static void bj_mark_pulse(void)
 {
     gpio_pin_set_dt(&bj_mark, 1);
     k_busy_wait(10);
     gpio_pin_set_dt(&bj_mark, 0);
+}
+
+static void start_advertising(void)
+{
+    int err;
+
+    if (bj_connected || bj_advertising) {
+        return;
+    }
+
+    err = bt_le_adv_start(&adv_param, ad, ARRAY_SIZE(ad), sd, ARRAY_SIZE(sd));
+    if (err) {
+        if (err != -EALREADY) {
+            printk("Advertising failed to start (err %d)\n", err);
+        }
+
+        bj_advertising = err == -EALREADY;
+        return;
+    }
+
+    bj_advertising = true;
+    bj_cycle_count++;
+}
+
+static void bj_cycle_work_handler(struct k_work *work)
+{
+    ARG_UNUSED(work);
+
+    start_advertising();
+    k_work_schedule(&bj_cycle_work, K_MSEC(BJ_PERIOD_MS));
 }
 
 static ssize_t read_status_chr(struct bt_conn *conn,
@@ -117,18 +159,27 @@ static void connected(struct bt_conn *conn, uint8_t err)
 {
     if (err) {
         printk("Connection failed, err 0x%02x %s\n", err, bt_hci_err_to_str(err));
+        bj_connected = false;
+        bj_advertising = false;
         return;
     }
 
+    bj_connected = true;
+    bj_advertising = false;
+    bj_conn_count++;
     bj_mark_pulse();
 }
 
 static void disconnected(struct bt_conn *conn, uint8_t reason)
 {
+    bj_connected = false;
+    bj_advertising = false;
+
     bj_mark_pulse();
 
-    printk("Disconnected, reason 0x%02x %s, command 0x%02x, status 0x%02x\n",
-           reason, bt_hci_err_to_str(reason), bj_command_value, bj_status_value);
+    printk("Disconnected, reason 0x%02x %s, cycle %u, conn %u, command 0x%02x, status 0x%02x\n",
+           reason, bt_hci_err_to_str(reason), bj_cycle_count, bj_conn_count,
+           bj_command_value, bj_status_value);
 }
 
 BT_CONN_CB_DEFINE(conn_callbacks) = {
@@ -159,13 +210,9 @@ int main(void)
         return 0;
     }
 
-    err = bt_le_adv_start(&adv_param, ad, ARRAY_SIZE(ad), sd, ARRAY_SIZE(sd));
-    if (err) {
-        printk("Advertising failed to start (err %d)\n", err);
-        return 0;
-    }
+    printk("BlueJoule-GATT peripheral ready as %s\n", DEVICE_NAME);
 
-    printk("Advertising successfully started as %s\n", DEVICE_NAME);
+    k_work_schedule(&bj_cycle_work, K_NO_WAIT);
 
     while (1) {
         k_sleep(K_FOREVER);
