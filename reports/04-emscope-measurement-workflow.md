@@ -132,8 +132,8 @@ Each capture was processed with the same EM•Scope scan/scoring flow. The raw c
 
 The generated `ABOUT.md` files are the primary human-readable score reports for this milestone:
 
-- [Zephyr EM•Scope report](../captures/nrf-54-dk/zephyr-3V0-P/ABOUT.md)
-- [EM•Script EM•Scope report](../captures/nrf-54-dk/emscript-3V0-P/ABOUT.md)
+- [Zephyr EM•Scope report](../assets/04-captures/nrf-54-dk/zephyr-3V0-P/ABOUT.md)
+- [EM•Script EM•Scope report](../assets-04/captures/nrf-54-dk/emscript-3V0-P/ABOUT.md)
 
 Each generated report includes the hardware/software configuration, sleep estimate, event energy, EM•erald score, and a representative event image.
 
