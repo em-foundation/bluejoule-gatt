@@ -133,24 +133,24 @@ Each capture was processed with the same EM•Scope scan/scoring flow. The raw c
 The generated `ABOUT.md` files are the primary human-readable score reports for this milestone:
 
 - [Zephyr EM•Scope report](../assets/04-captures/nrf-54-dk/zephyr-3V0-P/ABOUT.md)
-- [EM•Script EM•Scope report](../assets-04/captures/nrf-54-dk/emscript-3V0-P/ABOUT.md)
+- [EM•Script EM•Scope report](../assets/04-captures/nrf-54-dk/emscript-3V0-P/ABOUT.md)
 
 Each generated report includes the hardware/software configuration, sleep estimate, event energy, EM•erald score, and a representative event image.
 
 Current score summary:
 
     Zephyr reference peripheral:
-        representative event: 168.6 µJ
-        score: 5.39 EM•eralds
+        representative event: 168.8 µJ
+        score: 5.38 EM•eralds
 
     EM•Script candidate peripheral:
-        representative event: 130.6 µJ
-        score: 6.94 EM•eralds
+        representative event: 131.4 µJ
+        score: 6.90 EM•eralds
 
 Comparison:
 
-    EM•Script event energy: 22–23% lower
-    EM•Script score:        29% higher
+    EM•Script uses 22% less event energy.
+    EM•Script scores 28% higher in EM•eralds.
 
 These automated repeated-capture scores are consistent with the earlier manually inspected captures in reports 02 and 03.
 
