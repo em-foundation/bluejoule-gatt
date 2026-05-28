@@ -1,3 +1,5 @@
 .history/
 .vscode/settings.json
 *.jls
+.emscope/
+
