@@ -4,6 +4,31 @@ BlueJoule-GATT is an experimental BLE connection benchmark focused on a short, r
 
 It complements the original BlueJoule advertising benchmark. Instead of measuring only advertising energy, BlueJoule-GATT measures the energy required for a BLE peripheral to connect, complete a small application-level GATT exchange, and disconnect.
 
+## Latest Result
+
+BlueJoule-GATT now has its first automated EM•Scope scores.
+
+Using repeated captures on Nordic nRF54L15 DK hardware:
+
+```text
+Zephyr reference peripheral:
+    representative event: 168.8 µJ
+    score: 5.38 EM•eralds
+
+EM•Script candidate peripheral:
+    representative event: 131.4 µJ
+    score: 6.90 EM•eralds
+```
+
+Comparison:
+
+```text
+EM•Script event energy: 22% lower
+EM•Script score:        28% higher
+```
+
+These results are documented in the EM•Scope measurement workflow report.
+
 This repository tracks work toward a stable BlueJoule-GATT 1.0 benchmark definition.
 
 ## Current Scope
@@ -57,17 +82,20 @@ assets/
 3. [EM•Script Candidate Implementation](reports/03-emscript-candidate-implementation.md)  
    Documents the EM•Script candidate implementation and same-hardware comparison against the Zephyr reference.
 
+4. [EM•Scope Measurement Workflow](reports/04-emscope-measurement-workflow.md)  
+   Documents the automated repeated-measurement workflow and first EM•Scope scores.
+
 ## Status
 
 BlueJoule-GATT is not yet a finalized benchmark.
 
 Current work is focused on:
 
-- stabilizing the benchmark transaction
-- automating repeated EM•Scope measurement runs
-- documenting the Zephyr reference behavior
-- documenting early EM•Script candidate results
 - refining the benchmark toward a stable 1.0 definition
+- validating repeated EM•Scope measurement runs
+- preserving scored capture artifacts
+- comparing Zephyr reference behavior with the EM•Script candidate
+- testing additional measurement conditions and hardware configurations
 
 Discussion and feedback are welcome as the benchmark definition evolves.
 
