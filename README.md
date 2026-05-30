@@ -6,28 +6,19 @@ It complements the original BlueJoule advertising benchmark. Instead of measurin
 
 ## Latest Result
 
-BlueJoule-GATT now has its first automated EM•Scope scores.
+BlueJoule-GATT now has automated EM•Scope scores across two Nordic hardware generations.
 
-Using repeated captures on Nordic nRF54L15 DK hardware:
-
-```text
-Zephyr reference peripheral:
-    representative event: 168.8 µJ
-    score: 5.38 EM•eralds
-
-EM•Script candidate peripheral:
-    representative event: 131.4 µJ
-    score: 6.90 EM•eralds
-```
-
-Comparison:
+Using repeated 3.0 V captures:
 
 ```text
-EM•Script event energy: 22% lower
-EM•Script score:        28% higher
+Platform        Nordic/Zephyr    EM•Script    EM•Script gain
+nRF52 @ 3.0 V      28.16          30.44          8%
+nRF54 @ 3.0 V      46.00          58.28         27%
 ```
 
-These results are documented in the EM•Scope measurement workflow report.
+The EM•Script candidate scores higher than the Nordic/Zephyr reference on both nRF52 and nRF54, while using dramatically less program memory.
+
+These results are documented in the nRF52 cross-generation report.
 
 This repository tracks work toward a stable BlueJoule-GATT 1.0 benchmark definition.
 
@@ -62,7 +53,7 @@ reports/
     benchmark definition notes and milestone reports
 
 assets/
-    screenshots, packet traces, and measurement images
+    screenshots, packet traces, measurement images, and EM•Scope report artifacts
 ```
 
 ## Related Projects
@@ -85,6 +76,9 @@ assets/
 4. [EM•Scope Measurement Workflow](reports/04-emscope-measurement-workflow.md)  
    Documents the automated repeated-measurement workflow and first EM•Scope scores.
 
+5. [nRF52 Results and Cross-Generation Comparison](reports/05-nrf52-results-and-cross-generation-comparison.md)  
+   Documents the nRF52 EM•Script port, the four-way nRF52/nRF54 score matrix, and the cross-generation comparison.
+
 ## Status
 
 BlueJoule-GATT is not yet a finalized benchmark.
@@ -95,7 +89,7 @@ Current work is focused on:
 - validating repeated EM•Scope measurement runs
 - preserving scored capture artifacts
 - comparing Zephyr reference behavior with the EM•Script candidate
-- testing additional measurement conditions and hardware configurations
+- extending the benchmark across additional platforms and measurement conditions
 
 Discussion and feedback are welcome as the benchmark definition evolves.
 
