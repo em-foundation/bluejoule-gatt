@@ -15,6 +15,8 @@
 #include <zephyr/bluetooth/hci.h>
 #include <zephyr/bluetooth/uuid.h>
 
+#include "bj_cache_stats.h"
+
 #if !defined(CONFIG_PRINTK)
 #define printk(...)
 #endif
@@ -142,6 +144,8 @@ BT_GATT_SERVICE_DEFINE(bj_svc,
 
 static void connected(struct bt_conn *conn, uint8_t err)
 {
+    bj_cache_stats_start();    
+
     if (err) {
         printk("Connection failed, err 0x%02x %s\n", err, bt_hci_err_to_str(err));
         bj_connected = false;
@@ -156,6 +160,9 @@ static void connected(struct bt_conn *conn, uint8_t err)
 
 static void disconnected(struct bt_conn *conn, uint8_t reason)
 {
+    bj_cache_stats_stop();
+    bj_cache_stats_print();
+
     bj_connected = false;
     bj_advertising = false;
     printk("Disconnected, reason 0x%02x %s, cycle %u, conn %u, command 0x%02x, status 0x%02x\n",

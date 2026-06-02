@@ -1,0 +1,11 @@
+source "Kconfig.zephyr"
+
+menu "BlueJoule-GATT options"
+
+config BLUEJOULE_CACHE_STATS
+    bool "Enable BlueJoule cache statistics"
+    default n
+    help
+        Enable per-benchmark-cycle cache profiling output.
+
+endmenu
