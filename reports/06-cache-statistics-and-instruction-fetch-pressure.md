@@ -1,5 +1,11 @@
 # Cache Statistics and Instruction-Fetch Pressure
 
+**Status:** Cache-statistics milestone  
+**Repository:** `bluejoule-gatt`  
+**Benchmark definition:** [`01-bluejoule-gatt-definition.md`](01-bluejoule-gatt-definition.md)  
+**Cross-generation scores:** [`05-nrf52-results-and-cross-generation-comparison.md`](05-nrf52-results-and-cross-generation-comparison.md)  
+**Tooling:** EM•Scope v25.6.x
+
 ## TLDR
 
 - BlueJoule-GATT now includes Nordic cache-statistics measurements.

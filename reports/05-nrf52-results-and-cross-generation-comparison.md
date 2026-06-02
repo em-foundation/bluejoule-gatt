@@ -1,5 +1,11 @@
 # nRF52 Results and Cross-Generation Comparison
 
+**Status:** Cross-generation results milestone  
+**Repository:** `bluejoule-gatt`  
+**Benchmark definition:** [`01-bluejoule-gatt-definition.md`](01-bluejoule-gatt-definition.md)  
+**Measurement workflow:** [`04-emscope-measurement-workflow.md`](04-emscope-measurement-workflow.md)  
+**Tooling:** EM•Scope v25.6.x
+
 ## TLDR
 
 - BlueJoule-GATT now has results across two Nordic hardware generations.
