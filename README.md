@@ -79,6 +79,9 @@ assets/
 5. [nRF52 Results and Cross-Generation Comparison](reports/05-nrf52-results-and-cross-generation-comparison.md)  
    Documents the nRF52 EM•Script port, the four-way nRF52/nRF54 score matrix, and the cross-generation comparison.
 
+6. [Cache Statistics and Instruction-Fetch Pressure](reports/06-cache-statistics-and-instruction-fetch-pressure.md)  
+   Documents nRF52/nRF54 cache-statistics measurements comparing EM•Script and Zephyr during the same connection transaction.
+
 ## Status
 
 BlueJoule-GATT is not yet a finalized benchmark.
