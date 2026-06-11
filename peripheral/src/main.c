@@ -7,6 +7,7 @@
 
 #include <zephyr/kernel.h>
 #include <zephyr/sys/printk.h>
+#include <zephyr/version.h>
 
 #include <zephyr/bluetooth/bluetooth.h>
 #include <zephyr/bluetooth/conn.h>
@@ -56,9 +57,22 @@ static const struct bt_data sd[] = {
     BT_DATA(BT_DATA_NAME_COMPLETE, DEVICE_NAME, DEVICE_NAME_LEN),
 };
 
+
+/* Zephyr advertising compatibility:
+ * Newer Zephyr/NCS: BT_LE_ADV_OPT_CONN means CONNECTABLE | ONE_TIME.
+ * Older Zephyr/TI 3.7: spell that explicitly.
+ */
+#if defined(ZEPHYR_VERSION_CODE) && (ZEPHYR_VERSION_CODE >= ZEPHYR_VERSION(4, 0, 0))
+#define BJ_LE_ADV_OPT_CONN BT_LE_ADV_OPT_CONN
+#else
+#define BJ_LE_ADV_OPT_CONN (BT_LE_ADV_OPT_CONNECTABLE | BT_LE_ADV_OPT_ONE_TIME)
+#endif
+
+
 /* Advertise on channel 37 only, which makes Nordic Sniffer captures easier. */
 static const struct bt_le_adv_param adv_param =
-    BT_LE_ADV_PARAM_INIT(BT_LE_ADV_OPT_CONN |
+
+    BT_LE_ADV_PARAM_INIT(BJ_LE_ADV_OPT_CONN |
                          BT_LE_ADV_OPT_DISABLE_CHAN_38 |
                          BT_LE_ADV_OPT_DISABLE_CHAN_39,
                          BT_GAP_ADV_FAST_INT_MIN_1,
