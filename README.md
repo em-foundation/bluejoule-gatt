@@ -11,7 +11,7 @@ BlueJoule-GATT now has automated EM•Scope scores across multiple hardware and 
 The table below reports the 10 s EM•erald score for each measured configuration, using the event-based BlueJoule-GATT scoring path.
 
 | Platform | Implementation | 10 s Score | Notes |
-|---|---|---:|---|
+|---|---|---|---|
 | Nordic nRF54 | EM•Script | 58.28 EM•eralds | Highest score measured so far |
 | Nordic nRF54 | Zephyr | 46.00 EM•eralds | Nordic nRF54 Zephyr reference |
 | TI CC2340R5 | EM•Script | 33.19 EM•eralds | Highest TI score measured so far |
