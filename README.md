@@ -1,39 +1,23 @@
 # BlueJoule-GATT
 
-BlueJoule-GATT is an experimental BLE connection benchmark focused on a short, repeatable GATT transaction.
+## TLDR
 
-It complements the original BlueJoule advertising benchmark. Instead of measuring only advertising energy, BlueJoule-GATT measures the energy required for a BLE peripheral to connect, complete a small application-level GATT exchange, and disconnect.
+* BlueJoule-GATT is an experimental BLE connection benchmark.
+* It complements the original BlueJoule advertising benchmark.
+* BlueJoule measured advertising energy; BlueJoule-GATT scores the connection transaction after advertising.
+* Advertising is used to establish the connection, but advertising energy is excluded from the score.
+* The scored transaction is: connect, discover, write `Command`, read `Status`, disconnect.
+* EM•Scope provides repeatable event-based scoring and preserved measurement artifacts.
+* The benchmark now runs across Nordic nRF52, Nordic nRF54, and TI CC2340R5.
+* EM•Script scores higher than Zephyr on the same Nordic nRF52 and nRF54 hardware.
+* On TI CC2340R5, EM•Script scores higher than both Zephyr and SimpleLink.
+* Event drilldowns show that EM•Script reduces the software-controlled active window inside a matched connection event.
 
-## Latest Results
+## Benchmark Scope
 
-BlueJoule-GATT now has automated EM•Scope scores across multiple hardware and software implementations.
+BlueJoule-GATT measures the energy required for a BLE peripheral to connect, complete a small application-level GATT exchange, and disconnect.
 
-The table below reports the 10 s EM•erald score for each measured configuration, using the event-based BlueJoule-GATT scoring path.
-
-| Platform | Implementation | 10 s Score | Notes |
-|---|---|---|---|
-| Nordic nRF54 | EM•Script | 58.28 EM•eralds | Highest score measured so far |
-| Nordic nRF54 | Zephyr | 46.00 EM•eralds | Nordic nRF54 Zephyr reference |
-| TI CC2340R5 | EM•Script | 33.19 EM•eralds | Highest TI score measured so far |
-| Nordic nRF52 | EM•Script | 30.44 EM•eralds | Slightly below TI CC2340R5 EM•Script |
-| Nordic nRF52 | Zephyr | 28.16 EM•eralds | Nordic nRF52 Zephyr reference |
-| TI CC2340R5 | Zephyr | 19.49 EM•eralds | Higher than TI SimpleLink on the same device |
-| TI CC2340R5 | SimpleLink | 10.95 EM•eralds | TI mature BLE stack baseline |
-
-The same-device comparisons remain the most important comparisons:
-
-* Nordic nRF52: EM•Script scores 8% higher than Zephyr.
-* Nordic nRF54: EM•Script scores 27% higher than Zephyr.
-* TI CC2340R5: EM•Script scores 70% higher than Zephyr and about 3.0× higher than SimpleLink.
-
-The cross-device comparison is also interesting but should be interpreted more carefully. The TI CC2340R5 EM•Script result is slightly higher than the Nordic nRF52 EM•Script result and substantially higher than the Nordic nRF52 Zephyr result. The Nordic nRF54 remains the highest-scoring platform in this measurement set.
-
-These results are documented in the Nordic cross-generation report and the TI CC2340R5 results report.
-
-This repository tracks work toward a stable BlueJoule-GATT 1.0 benchmark definition.
-
-
-## Current Scope
+The benchmark is intentionally the complement of the original BlueJoule advertising benchmark. Advertising is still required to establish the connection, but the scored BlueJoule-GATT window begins after advertising and excludes the preceding advertising period.
 
 The benchmark candidate uses a deterministic BLE central and a simple custom GATT profile.
 
@@ -49,7 +33,33 @@ The central:
 
 The central uses targeted discovery. It knows the benchmark UUIDs but discovers handles at runtime.
 
-The scored connection window excludes the preceding advertising period.
+This repository tracks work toward a stable BlueJoule-GATT 1.0 benchmark definition.
+
+## Latest Results
+
+BlueJoule-GATT now has automated EM•Scope scores across multiple hardware and software implementations.
+
+The table below reports the 10 s EM•erald score for each measured configuration, using the event-based BlueJoule-GATT scoring path.
+
+| Platform     | Implementation        |      10 s Score | Notes                                       |
+| ------------ | --------------------- | -------------- | ------------------------------------------- |
+| Nordic nRF54 | EM•Script               | 58.28 EM•eralds | Highest score measured so far               |
+| Nordic nRF54 | Zephyr                  | 46.00 EM•eralds | Nordic nRF54 Zephyr reference               |
+| TI CC2340R5  | EM•Script (SRAM)        | 34.37 EM•eralds | Best TI CC2340R5 score measured so far      |
+| TI CC2340R5  | EM•Script (FLASH/CACHE) | 33.19 EM•eralds | Primary TI EM•Script score used in Report 7 |
+| Nordic nRF52 | EM•Script               | 30.44 EM•eralds | Higher than Nordic nRF52 Zephyr             |
+| Nordic nRF52 | Zephyr                  | 28.16 EM•eralds | Nordic nRF52 Zephyr reference               |
+| TI CC2340R5  | Zephyr                  | 19.49 EM•eralds | TI Zephyr baseline                          |
+| TI CC2340R5  | SimpleLink              | 10.95 EM•eralds | TI mature BLE stack baseline                |
+
+The same-device comparisons remain the most important comparisons:
+
+* Nordic nRF52: EM•Script scores 8% higher than Zephyr.
+* Nordic nRF54: EM•Script scores 27% higher than Zephyr.
+* TI CC2340R5: EM•Script flash/cache scores 70% higher than Zephyr and about 3.0× higher than SimpleLink.
+* TI CC2340R5: EM•Script SRAM improves the TI EM•Script result further, but is treated as a secondary execution-locality result rather than the primary stack-comparison baseline.
+
+The cross-device comparison is interesting but should be interpreted more carefully. The Nordic nRF54 remains the highest-scoring platform in this measurement set. The TI CC2340R5 EM•Script results are notable because they exceed the Nordic nRF52 scores, primarily due to the TI device’s very low long-idle sleep current.
 
 ## Repository Contents
 
@@ -67,12 +77,6 @@ assets/
     screenshots, packet traces, measurement images, and EM•Scope report artifacts
 ```
 
-## Related Projects
-
-* [BlueJoule](https://github.com/em-foundation/BlueJoule/blob/main/docs/ReadMore.md)
-* [EM•Scope](https://github.com/em-foundation/emscope/blob/docs-stable/docs/ReadMore.md)
-* [EM•Script](https://www.openem.org/emscript/)
-
 ## Reports
 
 1. [BlueJoule-GATT Definition](reports/01-bluejoule-gatt-definition.md)
@@ -82,7 +86,7 @@ assets/
    Documents the current Zephyr central/peripheral reference implementation, tested hardware, build flow, packet trace, and baseline measurement.
 
 3. [EM•Script Candidate Implementation](reports/03-emscript-candidate-implementation.md)
-   Documents the EM•Script candidate implementation and same-hardware comparison against the Zephyr reference.
+   Documents the EM•Script candidate implementation and same-hardware comparison against the Zephyr reference, including an early matched event-level comparison.
 
 4. [EM•Scope Measurement Workflow](reports/04-emscope-measurement-workflow.md)
    Documents the automated repeated-measurement workflow and first EM•Scope scores.
@@ -95,6 +99,15 @@ assets/
 
 7. [TI CC2340R5 SimpleLink, Zephyr, and EM•Script Results](reports/07-ti-cc2340r5-results.md)
    Documents the TI CC2340R5 same-device comparison across SimpleLink, Zephyr, and EM•Script.
+
+8. [TI CC2340R5 Connection-Event Drilldown](reports/08-ti-cc2340r5-connection-event-drilldown.md)
+   Drills into a matched ATT Read Request event to show the software-controlled active window inside the TI CC2340R5 connection transaction.
+
+## Related Projects
+
+* [BlueJoule](https://github.com/em-foundation/BlueJoule/blob/main/docs/ReadMore.md)
+* [EM•Scope](https://github.com/em-foundation/emscope/blob/docs-stable/docs/ReadMore.md)
+* [EM•Script](https://www.openem.org/emscript/)
 
 ## Status
 
