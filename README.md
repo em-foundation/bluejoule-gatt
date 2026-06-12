@@ -4,32 +4,34 @@ BlueJoule-GATT is an experimental BLE connection benchmark focused on a short, r
 
 It complements the original BlueJoule advertising benchmark. Instead of measuring only advertising energy, BlueJoule-GATT measures the energy required for a BLE peripheral to connect, complete a small application-level GATT exchange, and disconnect.
 
-## Latest Result
+## Latest Results
 
 BlueJoule-GATT now has automated EM•Scope scores across multiple hardware and software implementations.
 
-On Nordic hardware, EM•Script scores higher than the Zephyr reference on both nRF52 and nRF54:
+The table below reports the 10 s EM•erald score for each measured configuration, using the event-based BlueJoule-GATT scoring path.
 
-```text
-Platform        Nordic/Zephyr    EM•Script    EM•Script gain
-nRF52 @ 3.0 V      28.16          30.44          8%
-nRF54 @ 3.0 V      46.00          58.28         27%
-```
+| Platform | Implementation | 10 s Score | Notes |
+|---|---|---:|---|
+| Nordic nRF54 | EM•Script | 58.28 EM•eralds | Highest score measured so far |
+| Nordic nRF54 | Zephyr | 46.00 EM•eralds | Nordic nRF54 Zephyr reference |
+| TI CC2340R5 | EM•Script | 33.19 EM•eralds | Highest TI score measured so far |
+| Nordic nRF52 | EM•Script | 30.44 EM•eralds | Slightly below TI CC2340R5 EM•Script |
+| Nordic nRF52 | Zephyr | 28.16 EM•eralds | Nordic nRF52 Zephyr reference |
+| TI CC2340R5 | Zephyr | 19.49 EM•eralds | Higher than TI SimpleLink on the same device |
+| TI CC2340R5 | SimpleLink BLE5 | 10.95 EM•eralds | TI mature BLE stack baseline |
 
-On TI CC2340R5 hardware, BlueJoule-GATT now compares three implementations on the same device:
+The same-device comparisons remain the most important comparisons:
 
-```text
-Implementation      Score
-SimpleLink BLE5      9.52 EM•eralds
-Zephyr              14.46 EM•eralds
-EM•Script           16.67 EM•eralds
-```
+* Nordic nRF52: EM•Script scores 8% higher than Zephyr.
+* Nordic nRF54: EM•Script scores 27% higher than Zephyr.
+* TI CC2340R5: EM•Script scores 70% higher than Zephyr and about 3.0× higher than SimpleLink BLE5.
 
-The EM•Script candidate currently scores highest in both the Nordic and TI same-device comparisons, while using dramatically less program memory than the general-purpose stack implementations.
+The cross-device comparison is also interesting but should be interpreted more carefully. The TI CC2340R5 EM•Script result is slightly higher than the Nordic nRF52 EM•Script result and substantially higher than the Nordic nRF52 Zephyr result. The Nordic nRF54 remains the highest-scoring platform in this measurement set.
 
 These results are documented in the Nordic cross-generation report and the TI CC2340R5 results report.
 
 This repository tracks work toward a stable BlueJoule-GATT 1.0 benchmark definition.
+
 
 ## Current Scope
 
