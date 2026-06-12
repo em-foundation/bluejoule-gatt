@@ -18,13 +18,13 @@ The table below reports the 10 s EM•erald score for each measured configuratio
 | Nordic nRF52 | EM•Script | 30.44 EM•eralds | Slightly below TI CC2340R5 EM•Script |
 | Nordic nRF52 | Zephyr | 28.16 EM•eralds | Nordic nRF52 Zephyr reference |
 | TI CC2340R5 | Zephyr | 19.49 EM•eralds | Higher than TI SimpleLink on the same device |
-| TI CC2340R5 | SimpleLink BLE5 | 10.95 EM•eralds | TI mature BLE stack baseline |
+| TI CC2340R5 | SimpleLink | 10.95 EM•eralds | TI mature BLE stack baseline |
 
 The same-device comparisons remain the most important comparisons:
 
 * Nordic nRF52: EM•Script scores 8% higher than Zephyr.
 * Nordic nRF54: EM•Script scores 27% higher than Zephyr.
-* TI CC2340R5: EM•Script scores 70% higher than Zephyr and about 3.0× higher than SimpleLink BLE5.
+* TI CC2340R5: EM•Script scores 70% higher than Zephyr and about 3.0× higher than SimpleLink.
 
 The cross-device comparison is also interesting but should be interpreted more carefully. The TI CC2340R5 EM•Script result is slightly higher than the Nordic nRF52 EM•Script result and substantially higher than the Nordic nRF52 Zephyr result. The Nordic nRF54 remains the highest-scoring platform in this measurement set.
 
@@ -94,7 +94,7 @@ assets/
    Documents nRF52/nRF54 cache-statistics measurements comparing EM•Script and Zephyr during the same connection transaction.
 
 7. [TI CC2340R5 SimpleLink, Zephyr, and EM•Script Results](reports/07-ti-cc2340r5-results.md)
-   Documents the TI CC2340R5 same-device comparison across SimpleLink BLE5, Zephyr, and EM•Script.
+   Documents the TI CC2340R5 same-device comparison across SimpleLink, Zephyr, and EM•Script.
 
 ## Status
 

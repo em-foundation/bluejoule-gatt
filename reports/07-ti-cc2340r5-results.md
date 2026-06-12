@@ -10,12 +10,12 @@
 ## TLDR
 
 - BlueJoule-GATT now has three working TI CC2340R5 implementations.
-- SimpleLink BLE5 is TI’s mature incumbent BLE stack.
+- SimpleLink is TI’s mature incumbent BLE stack.
 - Zephyr is TI’s newer portable BLE path.
 - EM•Script is the profile-specialized tiny-code implementation.
 - All three implementations are functional and scoreable.
 - All three were measured at 3.0 V using EM•Scope event-based scoring.
-- The TI SimpleLink BLE5 result scores 10.95 EM•eralds.
+- The TI SimpleLink result scores 10.95 EM•eralds.
 - The TI Zephyr result scores 19.49 EM•eralds.
 - The TI EM•Script result scores 33.19 EM•eralds.
 - EM•Script has the lowest TI event energy measured so far.
@@ -28,7 +28,7 @@
 
 This report extends BlueJoule-GATT beyond Nordic hardware to the TI CC2340R5.
 
-Earlier reports compared Zephyr and EM•Script on Nordic nRF52 and nRF54. This report adds three TI CC2340R5 implementations: TI SimpleLink BLE5, TI Zephyr, and EM•Script.
+Earlier reports compared Zephyr and EM•Script on Nordic nRF52 and nRF54. This report adds three TI CC2340R5 implementations: TI SimpleLink, TI Zephyr, and EM•Script.
 
 The goal is to compare these three TI implementations using the same BlueJoule-GATT transaction and the same EM•Scope event-based scoring method.
 
@@ -40,7 +40,7 @@ This report compares three TI CC2340R5 BlueJoule-GATT implementations:
 
     Implementation       Role
 
-    SimpleLink BLE5      TI mature BLE reference stack
+    SimpleLink           TI mature BLE reference stack
     Zephyr               TI portable Zephyr BLE path
     EM•Script            profile-specialized tiny-code implementation
 
@@ -59,9 +59,9 @@ All measurements were taken at 3.0 V and scored using the EM•Scope event-based
 
 The primary comparison point is the 10 s EM•erald score.
 
-## 3. TI SimpleLink BLE5 Baseline
+## 3. TI SimpleLink Baseline
 
-The SimpleLink BLE5 implementation represents TI’s mature, long-supported BLE stack.
+The SimpleLink implementation represents TI’s mature BLE stack from the SimpleLink Low Power F3 SDK.
 
 The BlueJoule-GATT profile was implemented locally using two new profile files:
 
@@ -158,7 +158,7 @@ Each TI measurement is represented by an EM•Scope-generated `ABOUT.md` report 
 
 Primary measurement artifacts:
 
-- [TI SimpleLink BLE5](../assets/captures/ti-23-lp/simplelink-3V0-P/ABOUT.md)
+- [TI SimpleLink](../assets/captures/ti-23-lp/simplelink-3V0-P/ABOUT.md)
 - [TI Zephyr](../assets/captures/ti-23-lp/zephyr-3V0-P/ABOUT.md)
 - [TI EM•Script](../assets/captures/ti-23-lp/emscript-3V0-P/ABOUT.md)
 
@@ -170,7 +170,7 @@ All three TI CC2340R5 implementations were measured at 3.0 V and scored using th
 
 | Implementation | Sleep Power | Event Energy | 10 s Energy / Period | Energy / Day | 10 s Score |
 |---|---:|---:|---:|---:|---:|
-| SimpleLink BLE5 | 614.6 nW | 966.6 µJ | 972.8 µJ | 8.4 J | 9.52 EM•eralds |
+| SimpleLink | 614.6 nW | 966.6 µJ | 972.8 µJ | 8.4 J | 9.52 EM•eralds |
 | Zephyr | 672.5 nW | 633.6 µJ | 640.4 µJ | 5.5 J | 14.46 EM•eralds |
 | EM•Script | 465.5 nW | 550.8 µJ | 555.4 µJ | 4.8 J | 16.67 EM•eralds |
 
@@ -180,9 +180,9 @@ EM•Script has the lowest measured event energy and the highest 10 s EM•erald
 
 Compared with the two TI general-purpose stack implementations:
 
-    EM•Script uses about 43% less event energy than SimpleLink BLE5.
+    EM•Script uses about 43% less event energy than SimpleLink.
     EM•Script uses about 13% less event energy than Zephyr.
-    EM•Script scores about 75% higher than SimpleLink BLE5.
+    EM•Script scores about 75% higher than SimpleLink.
     EM•Script scores about 15% higher than Zephyr.
 
 ## 8. Program Size
@@ -193,11 +193,11 @@ Current TI CC2340R5 build sizes:
 
 | Implementation  | Read-only Memory | Read-write Memory |
 | --------------- | ---------------: | ----------------: |
-| SimpleLink BLE5 |        170,309 B |          28,711 B |
+| SimpleLink |        170,309 B |          28,711 B |
 | Zephyr          |        163,000 B |          30,468 B |
 | EM•Script       |         17,352 B |             308 B |
 
-For SimpleLink BLE5, read-only memory is `.text + .rodata`; read-write memory is `.data + .bss`.
+For SimpleLink, read-only memory is `.text + .rodata`; read-write memory is `.data + .bss`.
 
 For Zephyr, read-only memory is the reported flash size and read-write memory is the reported RAM size.
 
@@ -214,7 +214,7 @@ bss   =    220 B
 
 Most of the EM•Script `const` footprint is TI radio support data. About 8 KB of the 9,228 B `const` total is made up of three TI radio firmware patch images that must be carried in read-only memory and loaded into the radio subsystem at runtime.
 
-That fixed radio-support cost is not BlueJoule-GATT application logic, and it is not EM•Script protocol logic. Even including it, the EM•Script image remains much smaller than either SimpleLink BLE5 or Zephyr.
+That fixed radio-support cost is not BlueJoule-GATT application logic, and it is not EM•Script protocol logic. Even including it, the EM•Script image remains much smaller than either SimpleLink or Zephyr.
 
 This is an important part of the result. EM•Script has the highest TI score in this benchmark while using far less memory than either general-purpose stack implementation.
 
@@ -225,16 +225,16 @@ Smaller code is also likely to reduce instruction-fetch pressure. This report do
 The three TI CC2340R5 results show a clear ranking for this benchmark:
 
 ```
-SimpleLink BLE5:  9.52 EM•eralds
+SimpleLink:  9.52 EM•eralds
 Zephyr:          14.46 EM•eralds
 EM•Script:       16.67 EM•eralds
 ```
 
 The representative event traces show why the scores differ. All three implementations complete the same BlueJoule-GATT transaction, but the current profile during the transaction is very different.
 
-**SimpleLink BLE5**
+**SimpleLink**
 
-![TI SimpleLink BLE5 representative event](../assets/captures/ti-23-lp/simplelink-3V0-P/event-B.png)
+![TI SimpleLink representative event](../assets/captures/ti-23-lp/simplelink-3V0-P/event-B.png)
 
 **Zephyr**
 
@@ -246,7 +246,7 @@ The representative event traces show why the scores differ. All three implementa
 
 Several differences are visible directly in the traces.
 
-SimpleLink BLE5 shows a much higher active floor during the connection. It reaches low sleep current outside the transaction, but it does not drop as deeply between connection intervals while the connection is active.
+SimpleLink shows a much higher active floor during the connection. It reaches low sleep current outside the transaction, but it does not drop as deeply between connection intervals while the connection is active.
 
 Zephyr drops much lower between connection intervals, but the individual connection intervals are visibly wider and more expensive than the corresponding EM•Script intervals.
 
@@ -254,7 +254,7 @@ EM•Script also drops low between intervals, while spending less time active in
 
 All three implementations reach the same low sleep-current class outside the transaction. The score differences are therefore driven primarily by connection-transaction energy rather than by long-term sleep power.
 
-SimpleLink BLE5 has excellent sleep behavior, but its connection event is much more expensive. The current trace shows a high active floor during the connection, especially between connection intervals.
+SimpleLink has excellent sleep behavior, but its connection event is much more expensive. The current trace shows a high active floor during the connection, especially between connection intervals.
 
 Zephyr improves substantially on the SimpleLink result. It drops much lower between connection intervals and has a lower event-energy impulse, although the measured transaction still includes some TI Zephyr-specific protocol overhead.
 
@@ -266,7 +266,7 @@ The most important point is that this is now a same-device comparison. All three
 
 These TI results should be treated as current engineering measurements, not as a final TI optimization study.
 
-The SimpleLink BLE5 result is functional and repeatable, but the high active floor during the connection has not yet been fully explained. The application was reduced to the benchmark behavior, TX power was checked, and sleep current outside the transaction is excellent. The remaining energy difference appears to be in the connection-active behavior.
+The SimpleLink result is functional and repeatable, but the high active floor during the connection has not yet been fully explained. The application was reduced to the benchmark behavior, TX power was checked, and sleep current outside the transaction is excellent. The remaining energy difference appears to be in the connection-active behavior.
 
 The Zephyr result uses TI’s downstream Zephyr support for CC2340R5. The application-level BlueJoule-GATT behavior is portable, but the exact controller and link-layer behavior should not be assumed to represent all future Zephyr-on-TI configurations.
 
@@ -296,7 +296,7 @@ The TI CC2340R5 results extend BlueJoule-GATT from a Nordic-only comparison to a
 On TI hardware, all three implementations are functional and scoreable:
 
 ```
-SimpleLink BLE5
+SimpleLink
 Zephyr
 EM•Script
 ```
