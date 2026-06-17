@@ -1,0 +1,18 @@
+<Report>
+  <Summary>
+    <DN>390459</DN>
+    <UserName>Bob Frankel</UserName>
+    <UserCompany>BiosBob.Biz</UserCompany>
+    <Address>123 Main St, Anywhere USA</Address>
+    <Email>bob@biosbob.biz</Email>
+  </Summary>
+  <TestCases>
+    <TestCase>
+      <Layer>GATT</Layer>
+      <Name>GATT/SR/GAD/BV-01-C</Name>
+      <Verdict>PASS</Verdict>
+      <Date>Tuesday, June 16, 2026, 17:59:43</Date>
+      <TestEquipment>Profile Tuning Suite 8.13.0, ETS Version 8.13.0.4</TestEquipment>
+    </TestCase>
+  </TestCases>
+</Report>
