@@ -1,12 +1,12 @@
 # TI CC2340R5 Connection-Event Drilldown
 
-**Status:** Event-drilldown milestone
-**Repository:** `bluejoule-gatt`
-**Benchmark definition:** [`01-bluejoule-gatt-definition.md`](01-bluejoule-gatt-definition.md)
-**EM•Script candidate precedent:** [`03-emscript-candidate-implementation.md`](03-emscript-candidate-implementation.md)
-**Measurement workflow:** [`04-emscope-measurement-workflow.md`](04-emscope-measurement-workflow.md)
-**TI same-device results:** [`07-ti-cc2340r5-results.md`](07-ti-cc2340r5-results.md)
-**Tooling:** EM•Scope v25.6.x, Joulescope
+**Status:** Event-drilldown milestone<br>
+**Repository:** `bluejoule-gatt`<br>
+**Benchmark definition:** [`01-bluejoule-gatt-definition.md`](01-bluejoule-gatt-definition.md)<br>
+**EM•Script candidate precedent:** [`03-emscript-candidate-implementation.md`](03-emscript-candidate-implementation.md)<br>
+**Measurement workflow:** [`04-emscope-measurement-workflow.md`](04-emscope-measurement-workflow.md)<br>
+**TI same-device results:** [`07-ti-cc2340r5-results.md`](07-ti-cc2340r5-results.md)<br>
+**Tooling:** EM•Scope v25.6.x, Joulescope<br>
 
 ## TLDR
 
