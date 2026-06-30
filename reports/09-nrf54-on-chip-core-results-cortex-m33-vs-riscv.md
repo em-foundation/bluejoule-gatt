@@ -158,6 +158,11 @@ Cortex-M33 EM•Script       2.3 µW       129.6 µJ          152.2 µJ         
 RISC-V FLPR EM•Script      2.3 µW       129.7 µJ          152.2 µJ           60.83 EM•eralds
 ```
 
+The full EM•Scope scoring summaries for the back-to-back runs are preserved with the capture artifacts:
+
+- Cortex-M33 application core: [`ABOUT.md`](../assets/captures/nrf-54-dk/emscript-m33-3V0-P/ABOUT.md)
+- RISC-V FLPR core: [`ABOUT.md`](../assets/captures/nrf-54-dk/emscript-flpr-3V0-P/ABOUT.md)
+
 The prior 58.28 EM•erald Cortex-M33 result remains useful historical context, but it should not be mixed with the current FLPR result to infer a core-to-core difference. During FLPR bring-up, the shared nRF54 EM•Script codebase continued to evolve, and the current Cortex-M33 build was rerun back-to-back with the FLPR build.
 
 The Zephyr row is included as the existing nRF54 general-purpose stack reference. There is no Zephyr FLPR BlueJoule-GATT result in this report.
