@@ -127,18 +127,18 @@ Both nRF54 EM•Script targets use the same 10 s event-period EM•Scope score u
 
 The Cortex-M33 and FLPR results were taken back-to-back using the current EM•Script nRF54 codebase. That matters because the nRF54 EM•Script implementation evolved during FLPR bring-up, and most of that code is shared between the two targets.
 
+
 ## 6. Score and Energy Results
 
 The headline result is that the current Cortex-M33 and FLPR EM•Script builds are effectively identical within measurement resolution.
 
-```text
-Platform  Implementation              10 s Score        Notes
---------  --------------------------  ---------------   -----------------------------------------
-nRF54     EM•Script / Cortex-M33      60.82 EM•eralds   Current codebase; back-to-back with FLPR
-nRF54     EM•Script / RISC-V FLPR     60.83 EM•eralds   Current codebase; back-to-back with Cortex-M33
-nRF54     EM•Script / Cortex-M33      58.28 EM•eralds   Prior published run on earlier codebase
-nRF54     Zephyr / Cortex-M33         46.00 EM•eralds   Existing nRF54 Zephyr reference
-```
+| Platform | Implementation | 10 s Score | EM•Scope | Notes |
+|---|---|---:|---|---|
+| nRF54 | EM•Script / Cortex-M33 | 60.82 EM•eralds | [report](../assets/captures/nrf-54-dk/emscript-m33-3V0-p/ABOUT.md) | Current codebase; back-to-back with FLPR |
+| nRF54 | EM•Script / RISC-V FLPR | 60.83 EM•eralds | [report](../assets/captures/nrf-54-dk/emscript-flpr-3V0-P/ABOUT.md) | Current codebase; back-to-back with Cortex-M33 |
+| nRF54 | EM•Script / Cortex-M33 | 58.28 EM•eralds | [report](../assets/captures/nrf-54-dk/emscript-3V0-P/ABOUT.md) | Prior published run on earlier codebase |
+| nRF54 | Zephyr / Cortex-M33 | 46.00 EM•eralds | [report](../assets/captures/nrf-54-dk/zephyr-3V0-P/ABOUT.md) | Existing nRF54 Zephyr reference |
+
 
 The most important comparison is the current-codebase EM•Script pair:
 
@@ -157,11 +157,6 @@ Target                  Sleep Power   Event Energy   Energy / 10 s Period   10 s
 Cortex-M33 EM•Script       2.3 µW       129.6 µJ          152.2 µJ           60.82 EM•eralds
 RISC-V FLPR EM•Script      2.3 µW       129.7 µJ          152.2 µJ           60.83 EM•eralds
 ```
-
-The full EM•Scope scoring summaries for the back-to-back runs are preserved with the capture artifacts:
-
-- Cortex-M33 application core: [`ABOUT.md`](../assets/captures/nrf-54-dk/emscript-m33-3V0-P/ABOUT.md)
-- RISC-V FLPR core: [`ABOUT.md`](../assets/captures/nrf-54-dk/emscript-flpr-3V0-P/ABOUT.md)
 
 The prior 58.28 EM•erald Cortex-M33 result remains useful historical context, but it should not be mixed with the current FLPR result to infer a core-to-core difference. During FLPR bring-up, the shared nRF54 EM•Script codebase continued to evolve, and the current Cortex-M33 build was rerun back-to-back with the FLPR build.
 
