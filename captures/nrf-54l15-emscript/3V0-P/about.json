@@ -1,0 +1,61 @@
+{
+    "platform": {
+        "url": "https://github.com/em-foundation/PEDS/blob/main/platforms/nrf54l15-emscript.md",
+        "title": "Nordic nRF54L15 DK · EM•Script",
+        "factoids": [
+            "MCU: Nordic nRF54L15",
+            "CPU: Arm Cortex-M33, 128 MHz",
+            "Flash: 1.5 MB",
+            "SRAM: 256 KB",
+            "Board: Nordic nRF54L15 DK",
+            "Software environment: EM•Script",
+            "EM•Script SDK: 26.2.0"
+        ],
+        "references": [
+            {
+                "title": "nRF54L15 product page",
+                "url": "https://www.nordicsemi.com/Products/nRF54L15"
+            },
+            {
+                "title": "nRF54L15 DK",
+                "url": "https://www.nordicsemi.com/Products/Development-hardware/nRF54L15-DK"
+            },
+            {
+                "title": "EM•Script project",
+                "url": "https://github.com/em-foundation/emporium"
+            }
+        ]
+    },
+    "capture": {
+        "name": "3V0-P",
+        "subtitle": "Bench supply · 3V0",
+        "device": "PPK2",
+        "created": "2026-06-30T17:31:16.522Z",
+        "generated": "2026-07-30T22:10:29.876Z",
+        "avg_voltage": 3,
+        "voltage": {
+            "source": "declared",
+            "value": 3
+        },
+        "event_image": "event-B.png"
+    },
+    "sleep": {
+        "current_avg": 7.544110587787145e-7,
+        "current_std": 1.2263030649308343e-7,
+        "power_avg": 0.000002263233176336143
+    },
+    "periods": {
+        "one_second": {
+            "event_energy": 0.00012960927070668204,
+            "energy_per_period": 0.00013187250388301818,
+            "energy_per_day": 11.393784335492771,
+            "emeralds": 7.021372148566305
+        },
+        "ten_seconds": {
+            "event_energy": 0.00012960927070668204,
+            "energy_per_period": 0.00015224160247004348,
+            "energy_per_day": 1.3153674453411757,
+            "emeralds": 60.81950734249004
+        }
+    }
+}
