@@ -1,10 +1,10 @@
 <!-- GENERATED FILE — DO NOT EDIT -->
 
-<h1 align="center">Nordic nRF54L15 DK · EM•Script</h1>
+<h1 align="center">Nordic nRF54L15 DK · FLPR · EM•Script</h1>
 <h3 align="center">Bench supply · 3V0</h3>
 
 
-<p align="right"><sub>captured on 2026-06-30 @ 17:31:16<br>generated on 2026-07-30 @ 22:17:22</sub></p>
+<p align="right"><sub>captured on 2026-06-30 @ 17:09:08<br>generated on 2026-07-30 @ 23:14:35</sub></p>
 
 ## Platform
 
@@ -13,14 +13,16 @@
 - Flash: 1.5 MB
 - SRAM: 256 KB
 - Board: Nordic nRF54L15 DK
-- Software environment: EM•Script
-- EM•Script SDK: 26.2.0
+- EM•Script SDK: 26.3
+- Board: `nordic.nrf54.flpr://NRF54L15_DK`
+- Setup: `nordic.nrf54.flpr://default`
+- Executing core: nRF54L15 FLPR
+- Architecture: RISC-V
 
 ### References
 
 - [nRF54L15 product page](https://www.nordicsemi.com/Products/nRF54L15)
 - [nRF54L15 DK](https://www.nordicsemi.com/Products/Development-hardware/nRF54L15-DK)
-- [EM•Script project](https://github.com/em-foundation/emporium)
 
 
 ## EM&bull;Scope results · PPK2
@@ -36,13 +38,13 @@
 
 | &emsp;&emsp;event energy (avg)&emsp;&emsp; | &emsp;&emsp;energy per period&emsp;&emsp; | &emsp;&emsp;energy per day&emsp;&emsp; | &emsp;&emsp;&emsp;**EM&bull;eralds**&emsp;&emsp;&emsp;
 |:---:|:---:|:---:|:---:|
-| 129.6 µJ | 131.9 µJ | 11.4 J | 7.02 |
+| 129.7 µJ | 132.0 µJ | 11.4 J | 7.02 |
 
 ### 🟠&ensp;10&thinsp;s event period
 
 | &emsp;&emsp;event energy (avg)&emsp;&emsp; | &emsp;&emsp;energy per period&emsp;&emsp; | &emsp;&emsp;energy per day&emsp;&emsp; | &emsp;&emsp;&emsp;**EM&bull;eralds**&emsp;&emsp;&emsp;
 |:---:|:---:|:---:|:---:|
-| 129.6 µJ | 152.2 µJ |  1.3 J | 60.82 |
+| 129.7 µJ | 152.2 µJ |  1.3 J | 60.83 |
 
 ## Typical Event
 

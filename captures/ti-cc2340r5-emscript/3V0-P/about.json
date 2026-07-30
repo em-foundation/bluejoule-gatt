@@ -1,0 +1,61 @@
+{
+    "platform": {
+        "url": "https://github.com/em-foundation/PEDS/blob/main/platforms/cc2340r5-emscript.md",
+        "title": "Texas Instruments CC2340R5 LaunchPad · EM•Script",
+        "factoids": [
+            "Board: Texas Instruments CC2340R5 LaunchPad",
+            "MCU: Texas Instruments CC2340R5",
+            "CPU: 48 MHz Arm Cortex-M0+",
+            "Flash: 512 KB",
+            "SRAM: 64 KB",
+            "Software environment: EM•Script",
+            "EM•Script SDK: 26.2.0"
+        ],
+        "references": [
+            {
+                "title": "LP-EM-CC2340R5 Development Kit",
+                "url": "https://www.ti.com/tool/LP-EM-CC2340R5"
+            },
+            {
+                "title": "CC2340R5 SoC",
+                "url": "https://www.ti.com/product/CC2340R5"
+            },
+            {
+                "title": "EM•Script project",
+                "url": "https://github.com/em-foundation/emporium"
+            }
+        ]
+    },
+    "capture": {
+        "name": "3V0-P",
+        "subtitle": "Bench supply · 3V0",
+        "device": "PPK2",
+        "created": "2026-06-10T15:04:38.260Z",
+        "generated": "2026-07-30T22:17:24.467Z",
+        "avg_voltage": 3,
+        "voltage": {
+            "source": "declared",
+            "value": 3
+        },
+        "event_image": "event-B.png"
+    },
+    "sleep": {
+        "current_avg": 1.551660793257248e-7,
+        "current_std": 9.932599813390874e-8,
+        "power_avg": 4.6549823797717436e-7
+    },
+    "periods": {
+        "one_second": {
+            "event_energy": 0.0002743294281751897,
+            "energy_per_period": 0.0002747949264131669,
+            "energy_per_day": 23.74228164209762,
+            "emeralds": 3.3695160897321426
+        },
+        "ten_seconds": {
+            "event_energy": 0.0002743294281751897,
+            "energy_per_period": 0.00027898441055496147,
+            "energy_per_day": 2.4104253071948674,
+            "emeralds": 33.18916365556252
+        }
+    }
+}

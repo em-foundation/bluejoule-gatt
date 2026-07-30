@@ -1,25 +1,25 @@
 <!-- GENERATED FILE — DO NOT EDIT -->
 
-<h1 align="center">Nordic nRF54L15 DK · EM•Script</h1>
+<h1 align="center">Texas Instruments CC2340R5 LaunchPad · EM•Script</h1>
 <h3 align="center">Bench supply · 3V0</h3>
 
 
-<p align="right"><sub>captured on 2026-06-30 @ 17:31:16<br>generated on 2026-07-30 @ 22:17:22</sub></p>
+<p align="right"><sub>captured on 2026-06-10 @ 15:04:38<br>generated on 2026-07-30 @ 22:17:24</sub></p>
 
 ## Platform
 
-- MCU: Nordic nRF54L15
-- CPU: Arm Cortex-M33, 128 MHz
-- Flash: 1.5 MB
-- SRAM: 256 KB
-- Board: Nordic nRF54L15 DK
+- Board: Texas Instruments CC2340R5 LaunchPad
+- MCU: Texas Instruments CC2340R5
+- CPU: 48 MHz Arm Cortex-M0+
+- Flash: 512 KB
+- SRAM: 64 KB
 - Software environment: EM•Script
 - EM•Script SDK: 26.2.0
 
 ### References
 
-- [nRF54L15 product page](https://www.nordicsemi.com/Products/nRF54L15)
-- [nRF54L15 DK](https://www.nordicsemi.com/Products/Development-hardware/nRF54L15-DK)
+- [LP-EM-CC2340R5 Development Kit](https://www.ti.com/tool/LP-EM-CC2340R5)
+- [CC2340R5 SoC](https://www.ti.com/product/CC2340R5)
 - [EM•Script project](https://github.com/em-foundation/emporium)
 
 
@@ -30,19 +30,19 @@
 
 | supply voltage | &emsp;current (avg)&emsp; | &emsp;current (std)&emsp; | &emsp;average power&emsp;
 |:---:|:---:|:---:|:---:|
-| 3.0 V |  0.8 µA |  0.1 µA |  2.3 µW |
+| 3.0 V |  0.2 µA |  0.1 µA | 465.5 nW |
 
 ### 🟠&ensp;1&thinsp;s event period
 
 | &emsp;&emsp;event energy (avg)&emsp;&emsp; | &emsp;&emsp;energy per period&emsp;&emsp; | &emsp;&emsp;energy per day&emsp;&emsp; | &emsp;&emsp;&emsp;**EM&bull;eralds**&emsp;&emsp;&emsp;
 |:---:|:---:|:---:|:---:|
-| 129.6 µJ | 131.9 µJ | 11.4 J | 7.02 |
+| 274.3 µJ | 274.8 µJ | 23.7 J | 3.37 |
 
 ### 🟠&ensp;10&thinsp;s event period
 
 | &emsp;&emsp;event energy (avg)&emsp;&emsp; | &emsp;&emsp;energy per period&emsp;&emsp; | &emsp;&emsp;energy per day&emsp;&emsp; | &emsp;&emsp;&emsp;**EM&bull;eralds**&emsp;&emsp;&emsp;
 |:---:|:---:|:---:|:---:|
-| 129.6 µJ | 152.2 µJ |  1.3 J | 60.82 |
+| 274.3 µJ | 279.0 µJ |  2.4 J | 33.19 |
 
 ## Typical Event
 

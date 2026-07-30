@@ -1,0 +1,59 @@
+{
+    "platform": {
+        "url": "https://github.com/em-foundation/PEDS/blob/main/platforms/cc2340r5-emscript-sram.md",
+        "title": "Texas Instruments CC2340R5 LaunchPad · EM•Script · SRAM",
+        "factoids": [
+            "Board: Texas Instruments CC2340R5 LaunchPad",
+            "MCU: Texas Instruments CC2340R5",
+            "CPU: 48 MHz Arm Cortex-M0+",
+            "Flash: 512 KB",
+            "SRAM: 64 KB",
+            "EM•Script SDK: 26.3",
+            "Board: `ti-cc23xx://LP_EM_CC2340R5`",
+            "Setup: `ti-cc23xx://sram`",
+            "Execution model: SRAM"
+        ],
+        "references": [
+            {
+                "title": "LP-EM-CC2340R5 Development Kit",
+                "url": "https://www.ti.com/tool/LP-EM-CC2340R5"
+            },
+            {
+                "title": "CC2340R5 SoC",
+                "url": "https://www.ti.com/product/CC2340R5"
+            }
+        ]
+    },
+    "capture": {
+        "name": "3V0-P",
+        "subtitle": "Bench supply · 3V0",
+        "device": "PPK2",
+        "created": "2026-06-12T14:38:28.118Z",
+        "generated": "2026-07-30T22:52:07.528Z",
+        "avg_voltage": 3,
+        "voltage": {
+            "source": "declared",
+            "value": 3
+        },
+        "event_image": "event-B.png"
+    },
+    "sleep": {
+        "current_avg": 1.9249111346431036e-7,
+        "current_std": 1.0110040460337043e-7,
+        "power_avg": 5.774733403929311e-7
+    },
+    "periods": {
+        "one_second": {
+            "event_energy": 0.00026358710822282065,
+            "energy_per_period": 0.0002641645815632136,
+            "energy_per_day": 22.823819847061657,
+            "emeralds": 3.505110035746239
+        },
+        "ten_seconds": {
+            "event_energy": 0.00026358710822282065,
+            "energy_per_period": 0.00026936184162675,
+            "energy_per_day": 2.32728631165512,
+            "emeralds": 34.374799352944926
+        }
+    }
+}

@@ -1,0 +1,66 @@
+{
+    "platform": {
+        "url": "https://github.com/em-foundation/PEDS/blob/main/platforms/nrf52832-zephyr.md",
+        "title": "Nordic nRF52 DK · Zephyr",
+        "factoids": [
+            "MCU: Nordic nRF52832",
+            "CPU: 64 MHz Arm Cortex-M4",
+            "Flash: 512 KB",
+            "SRAM: 64 KB",
+            "Board: Nordic nRF52 Development Kit",
+            "Software stack: Zephyr",
+            "nRF Connect SDK: 3.0.2",
+            "Toolchain: nRF Connect SDK Toolchain 3.0.2"
+        ],
+        "references": [
+            {
+                "title": "Nordic nRF52832",
+                "url": "https://www.nordicsemi.com/Products/nRF52832"
+            },
+            {
+                "title": "Nordic nRF52 DK",
+                "url": "https://www.nordicsemi.com/Products/Development-hardware/nRF52-DK"
+            },
+            {
+                "title": "Board pinout",
+                "url": "https://github.com/em-foundation/emscope/blob/docs-stable/docs/boards/nrf-52-dk.png"
+            },
+            {
+                "title": "nRF Connect SDK",
+                "url": "https://www.nordicsemi.com/Products/Development-software/nRF-Connect-SDK"
+            }
+        ]
+    },
+    "capture": {
+        "name": "3V0-P",
+        "subtitle": "Bench supply · 3V0",
+        "device": "PPK2",
+        "created": "2026-05-29T03:24:08.721Z",
+        "generated": "2026-07-30T22:17:21.827Z",
+        "avg_voltage": 3,
+        "voltage": {
+            "source": "declared",
+            "value": 3
+        },
+        "event_image": "event-B.png"
+    },
+    "sleep": {
+        "current_avg": 0.0000011946366190063173,
+        "current_std": 0.0000025639726656578462,
+        "power_avg": 0.0000035839098570189517
+    },
+    "periods": {
+        "one_second": {
+            "event_energy": 0.00029298049183682293,
+            "energy_per_period": 0.0002965644016938419,
+            "energy_per_day": 25.62316430634794,
+            "emeralds": 3.1221748822092446
+        },
+        "ten_seconds": {
+            "event_energy": 0.00029298049183682293,
+            "energy_per_period": 0.00032881959040701245,
+            "energy_per_day": 2.8410012611165874,
+            "emeralds": 28.159086409049294
+        }
+    }
+}

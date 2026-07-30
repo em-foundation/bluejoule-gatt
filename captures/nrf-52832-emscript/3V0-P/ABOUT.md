@@ -1,25 +1,26 @@
 <!-- GENERATED FILE — DO NOT EDIT -->
 
-<h1 align="center">Nordic nRF54L15 DK · EM•Script</h1>
+<h1 align="center">Nordic nRF52 DK · EM•Script</h1>
 <h3 align="center">Bench supply · 3V0</h3>
 
 
-<p align="right"><sub>captured on 2026-06-30 @ 17:31:16<br>generated on 2026-07-30 @ 22:17:22</sub></p>
+<p align="right"><sub>captured on 2026-05-30 @ 01:44:52<br>generated on 2026-07-30 @ 22:17:21</sub></p>
 
 ## Platform
 
-- MCU: Nordic nRF54L15
-- CPU: Arm Cortex-M33, 128 MHz
-- Flash: 1.5 MB
-- SRAM: 256 KB
-- Board: Nordic nRF54L15 DK
+- MCU: Nordic nRF52832
+- CPU: 64 MHz Arm Cortex-M4
+- Flash: 512 KB
+- SRAM: 64 KB
+- Board: Nordic nRF52 Development Kit
 - Software environment: EM•Script
 - EM•Script SDK: 26.2.0
 
 ### References
 
-- [nRF54L15 product page](https://www.nordicsemi.com/Products/nRF54L15)
-- [nRF54L15 DK](https://www.nordicsemi.com/Products/Development-hardware/nRF54L15-DK)
+- [Nordic nRF52832](https://www.nordicsemi.com/Products/nRF52832)
+- [Nordic nRF52 DK](https://www.nordicsemi.com/Products/Development-hardware/nRF52-DK)
+- [Board pinout](https://github.com/em-foundation/emscope/blob/docs-stable/docs/boards/nrf-52-dk.png)
 - [EM•Script project](https://github.com/em-foundation/emporium)
 
 
@@ -30,19 +31,19 @@
 
 | supply voltage | &emsp;current (avg)&emsp; | &emsp;current (std)&emsp; | &emsp;average power&emsp;
 |:---:|:---:|:---:|:---:|
-| 3.0 V |  0.8 µA |  0.1 µA |  2.3 µW |
+| 3.0 V |  1.1 µA |  2.2 µA |  3.4 µW |
 
 ### 🟠&ensp;1&thinsp;s event period
 
 | &emsp;&emsp;event energy (avg)&emsp;&emsp; | &emsp;&emsp;energy per period&emsp;&emsp; | &emsp;&emsp;energy per day&emsp;&emsp; | &emsp;&emsp;&emsp;**EM&bull;eralds**&emsp;&emsp;&emsp;
 |:---:|:---:|:---:|:---:|
-| 129.6 µJ | 131.9 µJ | 11.4 J | 7.02 |
+| 270.6 µJ | 274.0 µJ | 23.7 J | 3.38 |
 
 ### 🟠&ensp;10&thinsp;s event period
 
 | &emsp;&emsp;event energy (avg)&emsp;&emsp; | &emsp;&emsp;energy per period&emsp;&emsp; | &emsp;&emsp;energy per day&emsp;&emsp; | &emsp;&emsp;&emsp;**EM&bull;eralds**&emsp;&emsp;&emsp;
 |:---:|:---:|:---:|:---:|
-| 129.6 µJ | 152.2 µJ |  1.3 J | 60.82 |
+| 270.6 µJ | 304.2 µJ |  2.6 J | 30.44 |
 
 ## Typical Event
 
