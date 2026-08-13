@@ -1,6 +1,45 @@
 {
+    "id": "bluejoule-gatt:ti-cc2340r5-emscript-B:3V0-P",
+    "schema_version": "1",
+    "generator": {
+        "name": "EM•Scope",
+        "version": "26.0.0"
+    },
+    "units": {
+        "time": "s",
+        "current": "A",
+        "voltage": "V",
+        "power": "W",
+        "energy": "J"
+    },
+    "activity": {
+        "moniker": "bluejoule-gatt",
+        "url": "https://github.com/em-foundation/PEDS/blob/main/activities/bluejoule-gatt.md",
+        "title": "BlueJoule-GATT",
+        "factoids": [
+            "Activity: Bluetooth Low Energy peripheral connection and GATT transaction",
+            "Role: BLE peripheral",
+            "PHY: LE 1M",
+            "TX power: 0 dBm",
+            "Advertising: connectable advertising used only to establish the connection",
+            "Advertising payload: includes the BlueJoule-GATT service UUID in the primary advertising packet",
+            "Scored window: begins with the connection transaction and excludes preceding advertising energy",
+            "Transaction: connect, link-layer setup, targeted service discovery, targeted characteristic discovery, write `Command`, read `Status`, disconnect, return toward idle or sleep",
+            "Discovery: targeted to the benchmark service and characteristics; full generic GATT enumeration is not required",
+            "Service UUID: `0000b100-0000-1000-8000-00805f9b34fb`",
+            "Status characteristic UUID: `0000b101-0000-1000-8000-00805f9b34fb`",
+            "Status characteristic operation: read",
+            "Command characteristic UUID: `0000b102-0000-1000-8000-00805f9b34fb`",
+            "Command characteristic operation: write",
+            "Handle discovery: benchmark central knows the UUIDs but discovers handles at runtime",
+            "Primary measured quantity: energy per completed BlueJoule-GATT transaction",
+            "Conformance basis: observable behavior, not a canonical source implementation"
+        ],
+        "references": []
+    },
     "platform": {
-        "url": "https://github.com/em-foundation/PEDS/blob/main/platforms/cc2340r5-emscript-sram.md",
+        "moniker": "ti-cc2340r5-emscript-B",
+        "url": "https://github.com/em-foundation/PEDS/blob/main/platforms/ti-cc2340r5-emscript-B.md",
         "title": "Texas Instruments CC2340R5 LaunchPad · EM•Script · SRAM",
         "factoids": [
             "Board: Texas Instruments CC2340R5 LaunchPad",
@@ -24,18 +63,40 @@
             }
         ]
     },
+    "power": {
+        "moniker": "bench",
+        "url": "https://github.com/em-foundation/PEDS/blob/main/power/bench.md",
+        "title": "Bench Supply",
+        "factoids": [
+            "Power source: regulated bench supply",
+            "State of charge: not applicable",
+            "Battery model: none"
+        ],
+        "references": []
+    },
     "capture": {
         "name": "3V0-P",
         "subtitle": "Bench supply · 3V0",
         "device": "PPK2",
         "created": "2026-06-12T14:38:28.118Z",
-        "generated": "2026-07-30T22:52:07.528Z",
-        "avg_voltage": 3,
+        "generated": "2026-08-13T14:58:54.263Z",
+        "duration": 12,
+        "sampling_rate": 100000,
+        "sample_count": 1200000,
         "voltage": {
             "source": "declared",
             "value": 3
         },
-        "event_image": "event-B.png"
+        "images": [
+            "event-B.png"
+        ]
+    },
+    "events": {
+        "count": 10,
+        "duration_avg": 0.129025,
+        "duration_std": 0.002303394234602494,
+        "energy_avg": 0.00026358710822282065,
+        "energy_std": 0.000001377687367896267
     },
     "sleep": {
         "current_avg": 1.9249111346431036e-7,
@@ -45,15 +106,15 @@
     "periods": {
         "one_second": {
             "event_energy": 0.00026358710822282065,
-            "energy_per_period": 0.0002641645815632136,
-            "energy_per_day": 22.823819847061657,
-            "emeralds": 3.505110035746239
+            "energy_per_period": 0.0002640900730654694,
+            "energy_per_day": 22.817382312856555,
+            "emeralds": 3.5060989425997233
         },
         "ten_seconds": {
             "event_energy": 0.00026358710822282065,
-            "energy_per_period": 0.00026936184162675,
-            "energy_per_day": 2.32728631165512,
-            "emeralds": 34.374799352944926
+            "energy_per_period": 0.00026928733312900577,
+            "energy_per_day": 2.3266425582346097,
+            "emeralds": 34.384310437741554
         }
     }
 }

@@ -1,6 +1,45 @@
 {
+    "id": "bluejoule-gatt:nrf-54l15-emscript:3V0-P",
+    "schema_version": "1",
+    "generator": {
+        "name": "EM•Scope",
+        "version": "26.0.0"
+    },
+    "units": {
+        "time": "s",
+        "current": "A",
+        "voltage": "V",
+        "power": "W",
+        "energy": "J"
+    },
+    "activity": {
+        "moniker": "bluejoule-gatt",
+        "url": "https://github.com/em-foundation/PEDS/blob/main/activities/bluejoule-gatt.md",
+        "title": "BlueJoule-GATT",
+        "factoids": [
+            "Activity: Bluetooth Low Energy peripheral connection and GATT transaction",
+            "Role: BLE peripheral",
+            "PHY: LE 1M",
+            "TX power: 0 dBm",
+            "Advertising: connectable advertising used only to establish the connection",
+            "Advertising payload: includes the BlueJoule-GATT service UUID in the primary advertising packet",
+            "Scored window: begins with the connection transaction and excludes preceding advertising energy",
+            "Transaction: connect, link-layer setup, targeted service discovery, targeted characteristic discovery, write `Command`, read `Status`, disconnect, return toward idle or sleep",
+            "Discovery: targeted to the benchmark service and characteristics; full generic GATT enumeration is not required",
+            "Service UUID: `0000b100-0000-1000-8000-00805f9b34fb`",
+            "Status characteristic UUID: `0000b101-0000-1000-8000-00805f9b34fb`",
+            "Status characteristic operation: read",
+            "Command characteristic UUID: `0000b102-0000-1000-8000-00805f9b34fb`",
+            "Command characteristic operation: write",
+            "Handle discovery: benchmark central knows the UUIDs but discovers handles at runtime",
+            "Primary measured quantity: energy per completed BlueJoule-GATT transaction",
+            "Conformance basis: observable behavior, not a canonical source implementation"
+        ],
+        "references": []
+    },
     "platform": {
-        "url": "https://github.com/em-foundation/PEDS/blob/main/platforms/nrf54l15-emscript.md",
+        "moniker": "nrf-54l15-emscript",
+        "url": "https://github.com/em-foundation/PEDS/blob/main/platforms/nrf-54l15-emscript.md",
         "title": "Nordic nRF54L15 DK · EM•Script",
         "factoids": [
             "MCU: Nordic nRF54L15",
@@ -26,18 +65,40 @@
             }
         ]
     },
+    "power": {
+        "moniker": "bench",
+        "url": "https://github.com/em-foundation/PEDS/blob/main/power/bench.md",
+        "title": "Bench Supply",
+        "factoids": [
+            "Power source: regulated bench supply",
+            "State of charge: not applicable",
+            "Battery model: none"
+        ],
+        "references": []
+    },
     "capture": {
         "name": "3V0-P",
         "subtitle": "Bench supply · 3V0",
         "device": "PPK2",
         "created": "2026-06-30T17:31:16.522Z",
-        "generated": "2026-07-30T22:17:22.653Z",
-        "avg_voltage": 3,
+        "generated": "2026-08-13T14:58:48.602Z",
+        "duration": 12,
+        "sampling_rate": 100000,
+        "sample_count": 1200000,
         "voltage": {
             "source": "declared",
             "value": 3
         },
-        "event_image": "event-B.png"
+        "images": [
+            "event-B.png"
+        ]
+    },
+    "events": {
+        "count": 10,
+        "duration_avg": 0.11795,
+        "duration_std": 0.0003500000000000003,
+        "energy_avg": 0.00012960927070668204,
+        "energy_std": 4.199867188363198e-7
     },
     "sleep": {
         "current_avg": 7.544110587787145e-7,
@@ -47,15 +108,15 @@
     "periods": {
         "one_second": {
             "event_energy": 0.00012960927070668204,
-            "energy_per_period": 0.00013187250388301818,
-            "energy_per_day": 11.393784335492771,
-            "emeralds": 7.021372148566305
+            "energy_per_period": 0.00013160555552986934,
+            "energy_per_day": 11.37071999778071,
+            "emeralds": 7.035614280855923
         },
         "ten_seconds": {
             "event_energy": 0.00012960927070668204,
-            "energy_per_period": 0.00015224160247004348,
-            "energy_per_day": 1.3153674453411757,
-            "emeralds": 60.81950734249004
+            "energy_per_period": 0.00015197465411689463,
+            "energy_per_day": 1.3130610115699697,
+            "emeralds": 60.926338757364746
         }
     }
 }
