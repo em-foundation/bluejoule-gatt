@@ -1,0 +1,173 @@
+{
+    "id": "bluejoule-gatt:nrf-52832-zephyr:3V0-V",
+    "schema_version": "1",
+    "generator": {
+        "name": "EM•Scope",
+        "version": "26.2.3"
+    },
+    "units": {
+        "time": "s",
+        "current": "A",
+        "voltage": "V",
+        "power": "W",
+        "energy": "J"
+    },
+    "activity": {
+        "moniker": "bluejoule-gatt",
+        "url": "https://github.com/em-foundation/PEDS/blob/main/activities/bluejoule-gatt.md",
+        "title": "BlueJoule-GATT",
+        "factoids": [
+            "Activity: Bluetooth Low Energy peripheral connection and GATT transaction",
+            "Role: BLE peripheral",
+            "PHY: LE 1M",
+            "TX power: 0 dBm",
+            "Advertising: connectable advertising used only to establish the connection",
+            "Advertising payload: includes the BlueJoule-GATT service UUID in the primary advertising packet",
+            "Scored window: begins with the connection transaction and excludes preceding advertising energy",
+            "Transaction: connect, link-layer setup, targeted service discovery, targeted characteristic discovery, write `Command`, read `Status`, disconnect, return toward idle or sleep",
+            "Discovery: targeted to the benchmark service and characteristics; full generic GATT enumeration is not required",
+            "Service UUID: `0000b100-0000-1000-8000-00805f9b34fb`",
+            "Status characteristic UUID: `0000b101-0000-1000-8000-00805f9b34fb`",
+            "Status characteristic operation: read",
+            "Command characteristic UUID: `0000b102-0000-1000-8000-00805f9b34fb`",
+            "Command characteristic operation: write",
+            "Handle discovery: benchmark central knows the UUIDs but discovers handles at runtime",
+            "Primary measured quantity: energy per completed BlueJoule-GATT transaction",
+            "Conformance basis: observable behavior, not a canonical source implementation"
+        ],
+        "references": []
+    },
+    "platform": {
+        "moniker": "nrf-52832-zephyr",
+        "url": "https://github.com/em-foundation/PEDS/blob/main/platforms/nrf-52832-zephyr.md",
+        "title": "Nordic nRF52 DK · Zephyr",
+        "factoids": [
+            "MCU: Nordic nRF52832",
+            "CPU: 64 MHz Arm Cortex-M4",
+            "Flash: 512 KB",
+            "SRAM: 64 KB",
+            "Board: Nordic nRF52 Development Kit",
+            "Software stack: Zephyr",
+            "nRF Connect SDK: 3.0.2",
+            "Toolchain: nRF Connect SDK Toolchain 3.0.2"
+        ],
+        "references": [
+            {
+                "title": "Nordic nRF52832",
+                "url": "https://www.nordicsemi.com/Products/nRF52832"
+            },
+            {
+                "title": "Nordic nRF52 DK",
+                "url": "https://www.nordicsemi.com/Products/Development-hardware/nRF52-DK"
+            },
+            {
+                "title": "Board pinout",
+                "url": "https://github.com/em-foundation/emscope/blob/docs-stable/docs/boards/nrf-52-dk.png"
+            },
+            {
+                "title": "nRF Connect SDK",
+                "url": "https://www.nordicsemi.com/Products/Development-software/nRF-Connect-SDK"
+            }
+        ]
+    },
+    "power": {
+        "moniker": "bench",
+        "url": "https://github.com/em-foundation/PEDS/blob/main/power/bench.md",
+        "title": "Bench Supply",
+        "factoids": [
+            "Power source: regulated bench supply",
+            "State of charge: not applicable",
+            "Battery model: none"
+        ],
+        "references": []
+    },
+    "capture": {
+        "name": "3V0-V",
+        "subtitle": "3V0-V",
+        "device": "JS220",
+        "created": "2026-10-01T13:23:56.045Z",
+        "generated": "2026-10-01T13:24:57.465Z",
+        "duration": 12,
+        "sampling_rate": 1000000,
+        "sample_count": 12000000,
+        "voltage": {
+            "source": "measured",
+            "avg": 2.995964648700597,
+            "min": 2.990969181060791,
+            "max": 3.001110076904297,
+            "std": 0.0008561859929194539,
+            "droop": 0.004995467639806073
+        },
+        "images": [
+            "event-B.png"
+        ]
+    },
+    "events": {
+        "count": 10,
+        "duration_avg": 0.14999999999999997,
+        "duration_std": 2.7755575615628914e-17,
+        "energy_avg": 0.0003083110989281583,
+        "energy_std": 2.741846600600928e-7
+    },
+    "sleep": {
+        "current_avg": 0.0000013773812511133176,
+        "current_std": 0.0000867563984175228,
+        "power_avg": 0.0000041265855361184995
+    },
+    "boundary": {
+        "event_window": {
+            "count": 10,
+            "sample_width": 150000,
+            "duration": 0.15,
+            "first_sample_offset": 753750,
+            "last_sample_end": 9884250,
+            "duration_total": 1.5,
+            "duration_avg": 0.14999999999999997,
+            "duration_std": 2.7755575615628914e-17
+        },
+        "sleep_window": {
+            "sample_offset": 5903750,
+            "sample_width": 100000,
+            "start": 5.90375,
+            "end": 6.00375,
+            "duration": 0.1
+        },
+        "accounting_scope": {
+            "sample_offset": 253750,
+            "sample_width": 10000000,
+            "start": 0.25375,
+            "end": 10.25375,
+            "duration": 9.76425,
+            "measured_current_avg": 0.00010655931136876208,
+            "measured_power_avg": 0.00031924792985069084
+        },
+        "partition": {
+            "event_count": 10,
+            "event_duration_total": 1.5,
+            "sleep_duration": 8.26425,
+            "sleep_current_avg": 0.0000013773812511133176,
+            "sleep_current_std": 0.0000867563984175228,
+            "event_energy_total": 0.003083110989281583,
+            "modeled_energy": 0.0031172141237984503,
+            "modeled_power_avg": 0.0003192476763497913
+        },
+        "closure_residual": 7.94056517904277e-7,
+        "floor_residual": -8.444005807388015e-8
+    },
+    "measured": {
+        "adv-1s": {
+            "event_energy": 0.0003083110989281583,
+            "energy_per_period": 0.000311818696633859,
+            "energy_per_day": 26.941135389165417,
+            "emeralds": 2.9694368423749733
+        }
+    },
+    "projections": {
+        "adv-10s": {
+            "event_energy": 0.0003083110989281583,
+            "energy_per_period": 0.0003489579664589255,
+            "energy_per_day": 3.014996830205116,
+            "emeralds": 26.534024579573916
+        }
+    }
+}
