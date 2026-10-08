@@ -1,0 +1,9 @@
+/.history/
+/.test/
+/.vscode/
+.emscope/
+/node_modules/
+
+*.jls
+
+.DS_Store
