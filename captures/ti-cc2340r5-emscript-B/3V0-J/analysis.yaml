@@ -1,0 +1,243 @@
+span:
+    offset: 772500
+    width: 10000000
+events:
+    -
+        offset: 1272500
+        width: 150000
+    -
+        offset: 2305250
+        width: 150000
+    -
+        offset: 3141500
+        width: 150000
+    -
+        offset: 4175000
+        width: 150000
+    -
+        offset: 5206750
+        width: 150000
+    -
+        offset: 6240000
+        width: 150000
+    -
+        offset: 7272750
+        width: 150000
+    -
+        offset: 8305500
+        width: 150000
+    -
+        offset: 9141750
+        width: 150000
+    -
+        offset: 10174500
+        width: 150000
+excluded:
+    -
+        offset: 1010500
+        width: 4250
+    -
+        offset: 1043250
+        width: 4250
+    -
+        offset: 1076000
+        width: 4250
+    -
+        offset: 1108750
+        width: 4250
+    -
+        offset: 1141500
+        width: 4000
+    -
+        offset: 1174250
+        width: 4000
+    -
+        offset: 1207000
+        width: 4000
+    -
+        offset: 1239750
+        width: 4000
+    -
+        offset: 2010750
+        width: 3750
+    -
+        offset: 2043250
+        width: 4250
+    -
+        offset: 2076000
+        width: 4500
+    -
+        offset: 2108750
+        width: 4250
+    -
+        offset: 2141500
+        width: 4250
+    -
+        offset: 2174250
+        width: 4000
+    -
+        offset: 2207250
+        width: 3750
+    -
+        offset: 2239750
+        width: 4000
+    -
+        offset: 2272500
+        width: 4000
+    -
+        offset: 3010750
+        width: 4000
+    -
+        offset: 3043500
+        width: 4000
+    -
+        offset: 3076250
+        width: 4000
+    -
+        offset: 3109000
+        width: 4000
+    -
+        offset: 4010750
+        width: 4000
+    -
+        offset: 4044250
+        width: 3750
+    -
+        offset: 4077000
+        width: 4000
+    -
+        offset: 4109750
+        width: 3750
+    -
+        offset: 4142250
+        width: 4250
+    -
+        offset: 5010750
+        width: 3750
+    -
+        offset: 5043500
+        width: 4000
+    -
+        offset: 5076250
+        width: 3000
+    -
+        offset: 5108500
+        width: 4250
+    -
+        offset: 5141250
+        width: 4250
+    -
+        offset: 5174000
+        width: 4000
+    -
+        offset: 6010750
+        width: 3750
+    -
+        offset: 6043500
+        width: 4000
+    -
+        offset: 6076250
+        width: 4000
+    -
+        offset: 6109000
+        width: 4000
+    -
+        offset: 6141750
+        width: 4000
+    -
+        offset: 6174500
+        width: 4250
+    -
+        offset: 6207250
+        width: 4000
+    -
+        offset: 7010750
+        width: 4000
+    -
+        offset: 7043500
+        width: 3750
+    -
+        offset: 7076250
+        width: 4000
+    -
+        offset: 7109000
+        width: 4000
+    -
+        offset: 7141750
+        width: 4000
+    -
+        offset: 7174500
+        width: 3250
+    -
+        offset: 7207250
+        width: 4250
+    -
+        offset: 7240000
+        width: 4000
+    -
+        offset: 8010750
+        width: 4000
+    -
+        offset: 8043500
+        width: 4000
+    -
+        offset: 8076250
+        width: 3750
+    -
+        offset: 8109000
+        width: 4000
+    -
+        offset: 8141750
+        width: 4000
+    -
+        offset: 8174500
+        width: 4000
+    -
+        offset: 8207250
+        width: 3250
+    -
+        offset: 8240000
+        width: 4000
+    -
+        offset: 8272750
+        width: 4000
+    -
+        offset: 9010500
+        width: 4250
+    -
+        offset: 9043500
+        width: 4000
+    -
+        offset: 9076250
+        width: 4000
+    -
+        offset: 9109000
+        width: 4000
+    -
+        offset: 10010250
+        width: 4500
+    -
+        offset: 10043500
+        width: 4000
+    -
+        offset: 10076250
+        width: 4000
+    -
+        offset: 10109000
+        width: 3750
+    -
+        offset: 10141750
+        width: 4000
+event_width: 150000
+sleep:
+    avg: 2.47237714467996e-10
+    std: 0.000003926084188446332
+    'off': 8422500
+    width: 100000
+options:
+    - '--gap 15'
+    - '--min-duration 75'
+    - '--sleep-window 100'
+    - '--trim 10'
+    - '--event-window 150'
+version: 26.2.3

@@ -1,0 +1,172 @@
+{
+    "id": "bluejoule-gatt:nrf-52832-emscript:3V0-J",
+    "schema_version": "1",
+    "generator": {
+        "name": "EM•Scope",
+        "version": "26.2.3"
+    },
+    "units": {
+        "time": "s",
+        "current": "A",
+        "voltage": "V",
+        "power": "W",
+        "energy": "J"
+    },
+    "activity": {
+        "moniker": "bluejoule-gatt",
+        "url": "https://github.com/em-foundation/PEDS/blob/main/activities/bluejoule-gatt.md",
+        "title": "BlueJoule-GATT",
+        "factoids": [
+            "Activity: Bluetooth Low Energy peripheral connection and GATT transaction",
+            "Role: BLE peripheral",
+            "PHY: LE 1M",
+            "TX power: 0 dBm",
+            "Advertising: connectable advertising used only to establish the connection",
+            "Advertising payload: includes the BlueJoule-GATT service UUID in the primary advertising packet",
+            "Scored window: begins with the connection transaction and excludes preceding advertising energy",
+            "Transaction: connect, link-layer setup, targeted service discovery, targeted characteristic discovery, write `Command`, read `Status`, disconnect, return toward idle or sleep",
+            "Discovery: targeted to the benchmark service and characteristics; full generic GATT enumeration is not required",
+            "Service UUID: `0000b100-0000-1000-8000-00805f9b34fb`",
+            "Status characteristic UUID: `0000b101-0000-1000-8000-00805f9b34fb`",
+            "Status characteristic operation: read",
+            "Command characteristic UUID: `0000b102-0000-1000-8000-00805f9b34fb`",
+            "Command characteristic operation: write",
+            "Handle discovery: benchmark central knows the UUIDs but discovers handles at runtime",
+            "Primary measured quantity: energy per completed BlueJoule-GATT transaction",
+            "Conformance basis: observable behavior, not a canonical source implementation"
+        ],
+        "references": []
+    },
+    "platform": {
+        "moniker": "nrf-52832-emscript",
+        "url": "https://github.com/em-foundation/PEDS/blob/main/platforms/nrf-52832-emscript.md",
+        "title": "Nordic nRF52 DK · EM•Script",
+        "factoids": [
+            "MCU: Nordic nRF52832",
+            "CPU: 64 MHz Arm Cortex-M4",
+            "Flash: 512 KB",
+            "SRAM: 64 KB",
+            "Board: Nordic nRF52 Development Kit",
+            "Software environment: EM•Script",
+            "EM•Script SDK: 26.2.0"
+        ],
+        "references": [
+            {
+                "title": "Nordic nRF52832",
+                "url": "https://www.nordicsemi.com/Products/nRF52832"
+            },
+            {
+                "title": "Nordic nRF52 DK",
+                "url": "https://www.nordicsemi.com/Products/Development-hardware/nRF52-DK"
+            },
+            {
+                "title": "Board pinout",
+                "url": "https://github.com/em-foundation/emscope/blob/docs-stable/docs/boards/nrf-52-dk.png"
+            },
+            {
+                "title": "EM•Script project",
+                "url": "https://github.com/em-foundation/emporium"
+            }
+        ]
+    },
+    "power": {
+        "moniker": "bench",
+        "url": "https://github.com/em-foundation/PEDS/blob/main/power/bench.md",
+        "title": "Bench Supply",
+        "factoids": [
+            "Power source: regulated bench supply",
+            "State of charge: not applicable",
+            "Battery model: none"
+        ],
+        "references": []
+    },
+    "capture": {
+        "name": "3V0-J",
+        "subtitle": "Bench supply · 3V0",
+        "device": "JS220",
+        "created": "2026-10-01T12:49:11.113Z",
+        "generated": "2026-10-01T12:50:40.181Z",
+        "duration": 12,
+        "sampling_rate": 1000000,
+        "sample_count": 12000000,
+        "voltage": {
+            "source": "measured",
+            "avg": 2.99615908342532,
+            "min": 2.98992657661438,
+            "max": 3.0007221698760986,
+            "std": 0.000868223099852455,
+            "droop": 0.006232506810940119
+        },
+        "images": [
+            "event-B.png"
+        ]
+    },
+    "events": {
+        "count": 10,
+        "duration_avg": 0.14999999999999997,
+        "duration_std": 2.7755575615628914e-17,
+        "energy_avg": 0.00028283582200857953,
+        "energy_std": 5.433586543137914e-7
+    },
+    "sleep": {
+        "current_avg": 0.0000011994667368278487,
+        "current_std": 0.00007943786618447219,
+        "power_avg": 0.0000035937931588132865
+    },
+    "boundary": {
+        "event_window": {
+            "count": 10,
+            "sample_width": 150000,
+            "duration": 0.15,
+            "first_sample_offset": 627000,
+            "last_sample_end": 9876000,
+            "duration_total": 1.5,
+            "duration_avg": 0.14999999999999997,
+            "duration_std": 2.7755575615628914e-17
+        },
+        "sleep_window": {
+            "sample_offset": 8277000,
+            "sample_width": 100000,
+            "start": 8.277,
+            "end": 8.377,
+            "duration": 0.1
+        },
+        "accounting_scope": {
+            "sample_offset": 127000,
+            "sample_width": 10000000,
+            "start": 0.127,
+            "end": 10.127,
+            "duration": 9.7565,
+            "measured_current_avg": 0.00009777057819473735,
+            "measured_power_avg": 0.00029293620594990783
+        },
+        "partition": {
+            "event_count": 10,
+            "event_duration_total": 1.5,
+            "sleep_duration": 8.2565,
+            "sleep_current_avg": 0.0000011994667368278487,
+            "sleep_current_std": 0.00007943786618447219,
+            "event_energy_total": 0.002828358220085795,
+            "modeled_energy": 0.002858030373301537,
+            "modeled_power_avg": 0.00029293602965218434
+        },
+        "closure_residual": 6.018297496495696e-7,
+        "floor_residual": -2.698869911513145e-7
+    },
+    "measured": {
+        "adv-1s": {
+            "event_energy": 0.00028283582200857953,
+            "energy_per_period": 0.0002858905461935708,
+            "energy_per_day": 24.700943191124516,
+            "emeralds": 3.238742722534798
+        }
+    },
+    "projections": {
+        "adv-10s": {
+            "event_energy": 0.00028283582200857953,
+            "energy_per_period": 0.0003182346846228904,
+            "energy_per_day": 2.7495476751417733,
+            "emeralds": 29.09569480219142
+        }
+    }
+}
