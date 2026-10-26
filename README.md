@@ -39,7 +39,9 @@ Peripheral transmissions use the LE 1M PHY at 0 dBm.
 
 BlueJoule-GATT measurements use the reference central in [`central/`](central/). The reference central is part of the benchmark fixture: its hardware, software, connection parameters, and transaction behavior are held constant so that peripheral results are comparable.
 
-The reference central runs Zephyr on a Nordic nRF52 DK (`nrf52dk/nrf52832`) and requests a 7.5 ms connection interval, zero peripheral latency, and a 4 s supervision timeout. See [`central/README.md`](central/README.md) for the complete fixture definition and build provenance.
+The reference central requests a 7.5 ms connection interval, zero peripheral latency, and a 4 s supervision timeout. It uses the LE 1M PHY with automatic PHY and data-length updates disabled, and performs the benchmark without SMP/security. It discovers the benchmark service and characteristics, writes `0x04` to `Command`, reads `Status` expecting `0x84`, and disconnects.
+
+The current reference implementation runs Zephyr on a Nordic nRF52 DK (`nrf52dk/nrf52832`). See [`central/README.md`](central/README.md) for the complete fixture definition, source, firmware image, and build provenance.
 
 The peripheral implementation is not prescribed. Published platform implementations may be consulted as concrete examples.
 
