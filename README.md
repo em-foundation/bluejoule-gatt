@@ -12,7 +12,7 @@ A conforming peripheral shall:
 
 1. advertise connectably
 2. include the BlueJoule-GATT service UUID in the primary advertising packet
-3. accept a connection from the benchmark central
+3. accept a connection from the BlueJoule-GATT reference central
 4. complete targeted service and characteristic discovery
 5. accept one write to `Command`
 6. return one read from `Status`
@@ -35,7 +35,15 @@ Discovery is targeted to the benchmark service and its characteristics. Full gen
 
 Peripheral transmissions use the LE 1M PHY at 0 dBm.
 
-The benchmark is defined by this observable behavior, not by a single canonical source implementation. Published platform implementations may be consulted as concrete examples.
+### Reference Central
+
+BlueJoule-GATT measurements use the reference central in [`central/`](central/). The reference central is part of the benchmark fixture: its hardware, software, connection parameters, and transaction behavior are held constant so that peripheral results are comparable.
+
+The reference central requests a 7.5 ms connection interval, zero peripheral latency, and a 4 s supervision timeout. It uses the LE 1M PHY with automatic PHY and data-length updates disabled, and performs the benchmark without SMP/security. It discovers the benchmark service and characteristics, writes `0x04` to `Command`, reads `Status` expecting `0x84`, and disconnects.
+
+The current reference implementation runs Zephyr on a Nordic nRF52 DK (`nrf52dk/nrf52832`). See [`central/README.md`](central/README.md) for the complete fixture definition, source, firmware image, and build provenance.
+
+The peripheral implementation is not prescribed. Published platform implementations may be consulted as concrete examples.
 
 ## Measurement Window
 
@@ -55,6 +63,8 @@ return toward idle/sleep
 The advertising period preceding the connection is excluded.
 
 The primary measured quantity is energy per completed BlueJoule-GATT transaction.
+
+Sleep current is the average across all included non-activity samples within the accounting scope. Any minimum or quiet sleep window is diagnostic only; it is not the sleep value used for scoring.
 
 ## Measurement
 
@@ -77,6 +87,8 @@ Raw capture data is the authoritative measurement record. Generated summaries an
 ## Repository Structure
 
 ```text
+central/
+    reference central source, provenance, and release firmware
 captures/
     <vendor-prefixed-platform-id>/
         .platform
@@ -138,14 +150,3 @@ BlueJoule-GATT reports transaction energy, transaction duration, sleep behavior,
 
 Same-device comparisons are the strongest use of the benchmark because radio behavior, sleep current, memory hierarchy, and platform configuration differ across devices.
 
-## Status
-
-BlueJoule-GATT remains a candidate benchmark.
-
-The initial backend repository is being populated from the existing development capture corpus. Current work includes:
-
-- migrating representative captures into the shared BlueJoule backend structure
-- resolving stable PEDS platform declarations
-- regenerating `ABOUT.md` and `about.json`
-- preserving raw capture data through Git LFS
-- validating the benchmark definition and scoring workflow before a 1.0 release
