@@ -23,11 +23,11 @@ Advertising is required to establish the connection, but advertising energy befo
 
 ### GATT Profile
 
-| Attribute | UUID | Requirement |
-|---|---|---|
+| Attribute              | UUID                                   | Requirement     |
+| ---------------------- | -------------------------------------- | --------------- |
 | BlueJoule-GATT service | `0000b100-0000-1000-8000-00805f9b34fb` | Primary service |
-| Status characteristic | `0000b101-0000-1000-8000-00805f9b34fb` | Read |
-| Command characteristic | `0000b102-0000-1000-8000-00805f9b34fb` | Write |
+| Status characteristic  | `0000b101-0000-1000-8000-00805f9b34fb` | Read            |
+| Command characteristic | `0000b102-0000-1000-8000-00805f9b34fb` | Write           |
 
 The benchmark central knows these UUIDs but discovers handles at runtime.
 
@@ -150,3 +150,10 @@ BlueJoule-GATT reports transaction energy, transaction duration, sleep behavior,
 
 Same-device comparisons are the strongest use of the benchmark because radio behavior, sleep current, memory hierarchy, and platform configuration differ across devices.
 
+## Citation
+
+This dataset is archived on Zenodo: [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23781499.svg)](https://doi.org/10.5281/zenodo.23781499)
+
+The DOI above always resolves to the latest archived release. To cite release 26.10:
+
+> Frankel, B., & Afaneh, M. (2026). BlueJoule-GATT benchmark, release 26.10 (Version 26.10) [Dataset]. Zenodo. https://doi.org/10.5281/zenodo.23781500
