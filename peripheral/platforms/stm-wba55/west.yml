@@ -1,0 +1,19 @@
+manifest:
+  projects:
+    - name: zephyr
+      url: https://github.com/zephyrproject-rtos/zephyr
+      revision: v4.4.1
+      clone-depth: 1
+      import:
+        name-allowlist:
+          - cmsis
+          - cmsis_6
+          - hal_stm32
+          - mbedtls
+          - tf-psa-crypto
+          - mldsa-native
+          - picolibc
+          - zcbor
+          - segger
+  self:
+    path: manifest

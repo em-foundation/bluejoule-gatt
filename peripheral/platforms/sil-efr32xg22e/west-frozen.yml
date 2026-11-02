@@ -1,0 +1,88 @@
+manifest:
+  group-filter:
+  - -babblesim
+  - -optional
+  - -testing
+  projects:
+  - name: zephyr
+    url: https://github.com/siliconlabssoftware/zephyr
+    revision: f60fcfc44b27852017a302a08dfe236ccf94804a
+    west-commands: scripts/west-commands.yml
+  - name: hal_silabs
+    url: https://github.com/siliconlabssoftware/hal_silabs
+    revision: 80751f9d28b9f96b154fd70f36d562ff3f10dd40
+    path: modules/hal/silabs
+  - name: mcuboot
+    url: https://github.com/siliconlabssoftware/zephyr-mcuboot
+    revision: 40fbecd086a72f479fcfdce1172cbab9db87f4cd
+    path: bootloader/mcuboot
+  - name: tf-psa-crypto
+    url: https://github.com/siliconlabssoftware/zephyr-tf-psa-crypto
+    revision: 495a207fb17938041cad5d419fba1275b076c39f
+    path: modules/crypto/tf-psa-crypto
+  - name: zephyr-hal-silabs-extra
+    url: https://github.com/siliconlabssoftware/zephyr-hal-silabs-extra
+    revision: 5f7327c94bd73116bc92cb220d3c85356a57fe11
+    path: modules/hal/silabs_extra
+  - name: cmsis-dsp
+    url: https://github.com/zephyrproject-rtos/cmsis-dsp
+    revision: 97512610ec92058f0119450b9e743eeb7e95b5c8
+    path: modules/lib/cmsis-dsp
+  - name: cmsis-nn
+    url: https://github.com/zephyrproject-rtos/cmsis-nn
+    revision: d20117c9e88cf9018d6fa06744dddac700c3e3a1
+    path: modules/lib/cmsis-nn
+  - name: cmsis_6
+    url: https://github.com/zephyrproject-rtos/CMSIS_6
+    revision: 30a859f44ef8ab4dc8f84b03ed586fd16ccf9d74
+    path: modules/hal/cmsis_6
+    groups:
+    - hal
+  - name: fatfs
+    url: https://github.com/zephyrproject-rtos/fatfs
+    revision: f4ead3bf4a6dab3a07d7b5f5315795c073db568d
+    path: modules/fs/fatfs
+    groups:
+    - fs
+  - name: littlefs
+    url: https://github.com/zephyrproject-rtos/littlefs
+    revision: 8f5ca347843363882619d8f96c00d8dbd88a8e79
+    path: modules/fs/littlefs
+    groups:
+    - fs
+  - name: lvgl
+    url: https://github.com/zephyrproject-rtos/lvgl
+    revision: 85aa60d18b3d5e5588d7b247abf90198f07c8a63
+    path: modules/lib/gui/lvgl
+  - name: mbedtls
+    url: https://github.com/zephyrproject-rtos/mbedtls
+    revision: a3e190fe44c78d1ba67f55979e1257328cc7d0d8
+    path: modules/crypto/mbedtls
+    groups:
+    - crypto
+  - name: mldsa-native
+    url: https://github.com/zephyrproject-rtos/mldsa-native
+    revision: 3fc19982839305d305071f0de0c540bc9c9bea8a
+    path: modules/crypto/mldsa-native
+    groups:
+    - crypto
+  - name: openthread
+    url: https://github.com/zephyrproject-rtos/openthread
+    revision: e4d97681c53ec1cc34af1404ad2960adda4ba691
+    path: modules/lib/openthread
+  - name: picolibc
+    url: https://github.com/zephyrproject-rtos/picolibc
+    revision: 01254932e8e81085817ed61fd858648584ffe37c
+    path: modules/lib/picolibc
+  - name: segger
+    url: https://github.com/zephyrproject-rtos/segger
+    revision: 50892fdbcf2f570e67baa72b8894a66b16946f72
+    path: modules/debug/segger
+    groups:
+    - debug
+  - name: zcbor
+    url: https://github.com/zephyrproject-rtos/zcbor
+    revision: 9164bd18dcd88ff9d9ef98279501fc1093571017
+    path: modules/lib/zcbor
+  self:
+    path: zephyr-silabs

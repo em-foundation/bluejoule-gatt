@@ -1,0 +1,6 @@
+{
+  "board": "nrf52dk/nrf52832",
+  "environment": "nordic",
+  "loader": "nrfutil",
+  "sysbuild": true
+}

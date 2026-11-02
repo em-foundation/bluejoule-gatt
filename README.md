@@ -45,6 +45,10 @@ The current reference implementation runs Zephyr on a Nordic nRF52 DK (`nrf52dk/
 
 The peripheral implementation is not prescribed. Published platform implementations may be consulted as concrete examples.
 
+## Zephyr Peripheral Source
+
+The portable reference peripheral and platform build recipes are in [peripheral/](peripheral/). Initial RC-26.11 targets are Silicon Labs G22E and ST WBA55; see the platform notes for environment requirements and baseline limitations.
+
 ## Measurement Window
 
 The scored window covers the connection transaction only:

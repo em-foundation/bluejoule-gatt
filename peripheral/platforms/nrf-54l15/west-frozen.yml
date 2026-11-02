@@ -1,0 +1,265 @@
+manifest:
+  projects:
+  - name: nrf
+    path: nrf
+    url: https://github.com/nrfconnect/sdk-nrf
+    revision: 89ba1294ac9b624e28271a5c71e99193ed4d92a4
+  - name: zephyr
+    path: zephyr
+    url: https://github.com/nrfconnect/sdk-zephyr
+    revision: f791c49f492c40da0d18efd51087b6fe1ec56aa0
+    west-commands: scripts/west-commands.yml
+  - name: hostap
+    path: modules/lib/hostap
+    url: https://github.com/nrfconnect/sdk-hostap
+    revision: 8cd83053a3723d12c1d4ace712dfced687cb0b9b
+  - name: wfa-qt-control-app
+    path: modules/lib/wfa-qt-control-app
+    url: https://github.com/nrfconnect/sdk-wi-fiquicktrack-controlappc
+    revision: af011c8a8d338ba529f17aed2cc2ef4c1c591a58
+  - name: mcuboot
+    path: bootloader/mcuboot
+    url: https://github.com/nrfconnect/sdk-mcuboot
+    revision: ae1ee57f390621a20696387d0ad89e9e1f7ed1b7
+  - name: qcbor
+    path: modules/tee/tf-m/qcbor
+    url: https://github.com/laurencelundblade/QCBOR
+    revision: 751d36583a9ce1a640900c57e13c9b6b8f3a2ba2
+  - name: mbedtls
+    path: modules/crypto/mbedtls
+    url: https://github.com/nrfconnect/sdk-mbedtls
+    revision: 44ce293d1d9bf4251e337160250d7dd477f52edd
+  - name: oberon-psa-crypto
+    path: modules/crypto/oberon-psa-crypto
+    url: https://github.com/nrfconnect/sdk-oberon-psa-crypto
+    revision: de2e3e0c9f086b179a0bd7c45d4c74753f7eca07
+  - name: nrfxlib
+    path: nrfxlib
+    url: https://github.com/nrfconnect/sdk-nrfxlib
+    revision: 3a14dbc326c385a0161fc122f72b6d9be308f7d6
+  - name: trusted-firmware-m
+    path: modules/tee/tf-m/trusted-firmware-m
+    url: https://github.com/nrfconnect/sdk-trusted-firmware-m
+    revision: 17765832a390987ea7cfcd5667d65320be00ec0b
+  - name: psa-arch-tests
+    path: modules/tee/tf-m/psa-arch-tests
+    url: https://github.com/nrfconnect/sdk-psa-arch-tests
+    revision: 3da9313e64806d352c519e3205e81cf959067588
+  - name: matter
+    path: modules/lib/matter
+    url: https://github.com/nrfconnect/sdk-connectedhomeip
+    revision: b16d42678846cacd5ef9cadd01ceab00e2119bf6
+  - name: cjson
+    path: modules/lib/cjson
+    url: https://github.com/nrfconnect/sdk-cjson
+    revision: c6af068b7f05207b28d68880740e4b9ec1e4b50a
+  - name: azure-sdk-for-c
+    path: modules/lib/azure-sdk-for-c
+    url: https://github.com/nrfconnect/azure-sdk-for-c
+    revision: 308c171cb4b5eed266649012a68406487ec81fb2
+  - name: cirrus
+    path: modules/hal/cirrus-logic
+    url: https://github.com/nrfconnect/sdk-mcu-drivers
+    revision: 3873a08377d93a479105a75ac390d3bbcd31d690
+  - name: openthread
+    path: modules/lib/openthread
+    url: https://github.com/nrfconnect/sdk-openthread
+    revision: 0e26667136c2c49d42c96b8104ec2e90e8d55e4d
+  - name: suit-generator
+    path: modules/lib/suit-generator
+    url: https://github.com/nrfconnect/suit-generator
+    revision: d6afcd80b376b069eeb59061c50721983932ab6f
+  - name: suit-processor
+    path: modules/lib/suit-processor
+    url: https://github.com/nrfconnect/suit-processor
+    revision: 94effb7561b3a970195df76165e4b15e4ac0c34e
+  - name: cmock
+    path: test/cmock
+    url: https://github.com/ThrowTheSwitch/cmock
+    revision: f65066f15d8248e6dcb778efb8739904a4512087
+  - name: memfault-firmware-sdk
+    path: modules/lib/memfault-firmware-sdk
+    url: https://github.com/memfault/memfault-firmware-sdk
+    revision: 0bd360fec3b5bf3af0286a1bba3e1faa8c7b8b1b
+  - name: bsim
+    path: tools/bsim
+    url: https://github.com/BabbleSim/bsim_west
+    revision: a88d3353451387ca490a6a7f7c478a90c4ee05b7
+  - name: coremark
+    path: modules/benchmark/coremark
+    url: https://github.com/eembc/coremark
+    revision: d5fad6bd094899101a4e5fd53af7298160ced6ab
+  - name: canopennode
+    path: modules/lib/canopennode
+    url: https://github.com/zephyrproject-rtos/canopennode
+    revision: dec12fa3f0d790cafa8414a4c2930ea71ab72ffd
+  - name: chre
+    path: modules/lib/chre
+    url: https://github.com/zephyrproject-rtos/chre
+    revision: 3b32c76efee705af146124fb4190f71be5a4e36e
+  - name: lz4
+    path: modules/lib/lz4
+    url: https://github.com/zephyrproject-rtos/lz4
+    revision: 11b8a1e22fa651b524494e55d22b69d3d9cebcfd
+  - name: nanopb
+    path: modules/lib/nanopb
+    url: https://github.com/zephyrproject-rtos/nanopb
+    revision: 7307ce399b81ddcb3c3a5dc862c52d4754328d38
+  - name: tf-m-tests
+    path: modules/tee/tf-m/tf-m-tests
+    url: https://github.com/zephyrproject-rtos/tf-m-tests
+    revision: 502ea90105ee18f20c78f710e2ba2ded0fc0756e
+  - name: zscilib
+    path: modules/lib/zscilib
+    url: https://github.com/zephyrproject-rtos/zscilib
+    revision: ee1b287d9dd07208d2cc52284240ac25bb66eae3
+  - name: cmsis
+    path: modules/hal/cmsis
+    url: https://github.com/zephyrproject-rtos/cmsis
+    revision: 4b96cbb174678dcd3ca86e11e1f24bc5f8726da0
+  - name: cmsis-dsp
+    path: modules/lib/cmsis-dsp
+    url: https://github.com/zephyrproject-rtos/cmsis-dsp
+    revision: d80a49b2bb186317dc1db4ac88da49c0ab77e6e7
+  - name: cmsis-nn
+    path: modules/lib/cmsis-nn
+    url: https://github.com/zephyrproject-rtos/cmsis-nn
+    revision: ea987c1ca661be723de83bd159aed815d6cbd430
+  - name: edtt
+    path: tools/edtt
+    url: https://github.com/zephyrproject-rtos/edtt
+    revision: b9ca3c7030518f07b7937dacf970d37a47865a76
+  - name: fatfs
+    path: modules/fs/fatfs
+    url: https://github.com/zephyrproject-rtos/fatfs
+    revision: 427159bf95ea49b7680facffaa29ad506b42709b
+  - name: hal_nordic
+    path: modules/hal/nordic
+    url: https://github.com/zephyrproject-rtos/hal_nordic
+    revision: 8cdcc33c6e5c7618ca4e77ff19a0eab557cc4bd5
+  - name: hal_st
+    path: modules/hal/st
+    url: https://github.com/zephyrproject-rtos/hal_st
+    revision: 05fd4533730a9aea845261c5d24ed9832a6f0b6e
+  - name: hal_tdk
+    path: modules/hal/tdk
+    url: https://github.com/zephyrproject-rtos/hal_tdk
+    revision: e0ade95b29841d915c38bc157bb5509270e8aa21
+  - name: hal_wurthelektronik
+    path: modules/hal/wurthelektronik
+    url: https://github.com/zephyrproject-rtos/hal_wurthelektronik
+    revision: e3e2797b224fc48fdef1bc3e5a12a7c73108bba2
+  - name: liblc3
+    path: modules/lib/liblc3
+    url: https://github.com/zephyrproject-rtos/liblc3
+    revision: bb85f7dde4195bfc0fca9e9c7c2eed0f8694203c
+  - name: libmetal
+    path: modules/hal/libmetal
+    url: https://github.com/zephyrproject-rtos/libmetal
+    revision: 14f519529a1e4a46aaea6826f5a41d99a3347276
+  - name: littlefs
+    path: modules/fs/littlefs
+    url: https://github.com/zephyrproject-rtos/littlefs
+    revision: 009bcff0ed4853a53df8256039fa815bda6854dd
+  - name: loramac-node
+    path: modules/lib/loramac-node
+    url: https://github.com/zephyrproject-rtos/loramac-node
+    revision: fb00b383072518c918e2258b0916c996f2d4eebe
+  - name: lvgl
+    path: modules/lib/gui/lvgl
+    url: https://github.com/zephyrproject-rtos/lvgl
+    revision: 6decbb7f7783f6e48d4591fcb9f7810c2fb08e61
+  - name: mipi-sys-t
+    path: modules/debug/mipi-sys-t
+    url: https://github.com/zephyrproject-rtos/mipi-sys-t
+    revision: 71ace1f5caa03e56c8740a09863e685efb4b2360
+  - name: net-tools
+    path: tools/net-tools
+    url: https://github.com/zephyrproject-rtos/net-tools
+    revision: 93acc8bac4661e74e695eb1aea94c7c5262db2e2
+  - name: nrf_hw_models
+    path: modules/bsim_hw_models/nrf_hw_models
+    url: https://github.com/zephyrproject-rtos/nrf_hw_models
+    revision: b84bd7314a239f818e78f6927f5673247816df53
+  - name: nrf_wifi
+    path: modules/lib/nrf_wifi
+    url: https://github.com/zephyrproject-rtos/nrf_wifi
+    revision: 5e185a2b33b4f5b9524999a5bfd96121d25ffdbc
+  - name: open-amp
+    path: modules/lib/open-amp
+    url: https://github.com/zephyrproject-rtos/open-amp
+    revision: f7f4d083c7909a39d86e217376c69b416ec4faf3
+  - name: percepio
+    path: modules/debug/percepio
+    url: https://github.com/zephyrproject-rtos/percepio
+    revision: 0d44033c744978ca2505a06640b4f6964c5411e6
+  - name: picolibc
+    path: modules/lib/picolibc
+    url: https://github.com/zephyrproject-rtos/picolibc
+    revision: 82d62ed1ac55b4e34a12d0390aced2dc9af13fc9
+  - name: segger
+    path: modules/debug/segger
+    url: https://github.com/zephyrproject-rtos/segger
+    revision: cf56b1d9c80f81a26e2ac5727c9cf177116a4692
+  - name: tinycrypt
+    path: modules/crypto/tinycrypt
+    url: https://github.com/zephyrproject-rtos/tinycrypt
+    revision: 1012a3ebee18c15ede5efc8332ee2fc37817670f
+  - name: uoscore-uedhoc
+    path: modules/lib/uoscore-uedhoc
+    url: https://github.com/zephyrproject-rtos/uoscore-uedhoc
+    revision: 84ef879a46d7bfd9a423fbfb502b04289861f9ea
+  - name: zcbor
+    path: modules/lib/zcbor
+    url: https://github.com/zephyrproject-rtos/zcbor
+    revision: 9b07780aca6fb21f82a241ba386ad9b379809337
+  - name: babblesim_base
+    path: tools/bsim/components
+    url: https://github.com/BabbleSim/base
+    revision: 153101c61ce7106f6ba8b108b5c6488efdc1151a
+  - name: babblesim_ext_2G4_channel_NtNcable
+    path: tools/bsim/components/ext_2G4_channel_NtNcable
+    url: https://github.com/BabbleSim/ext_2G4_channel_NtNcable
+    revision: 20a38c997f507b0aa53817aab3d73a462fff7af1
+  - name: babblesim_ext_2G4_channel_multiatt
+    path: tools/bsim/components/ext_2G4_channel_multiatt
+    url: https://github.com/BabbleSim/ext_2G4_channel_multiatt
+    revision: bde72a57384dde7a4310bcf3843469401be93074
+  - name: babblesim_ext_2G4_device_WLAN_actmod
+    path: tools/bsim/components/ext_2G4_device_WLAN_actmod
+    url: https://github.com/BabbleSim/ext_2G4_device_WLAN_actmod
+    revision: 9cb6d8e72695f6b785e57443f0629a18069d6ce4
+  - name: babblesim_ext_2G4_device_burst_interferer
+    path: tools/bsim/components/ext_2G4_device_burst_interferer
+    url: https://github.com/BabbleSim/ext_2G4_device_burst_interferer
+    revision: 5b5339351d6e6a2368c686c734dc8b2fc65698fc
+  - name: babblesim_ext_2G4_device_playback
+    path: tools/bsim/components/ext_2G4_device_playback
+    url: https://github.com/BabbleSim/ext_2G4_device_playback
+    revision: abb48cd71ddd4e2a9022f4bf49b2712524c483e8
+  - name: babblesim_ext_2G4_device_playbackv2
+    path: tools/bsim/components/ext_2G4_device_playbackv2
+    url: https://github.com/BabbleSim/ext_2G4_device_playbackv2
+    revision: 0a3c28ecd59b5ee08ed4668446c243d3ffd98b46
+  - name: babblesim_ext_2G4_libPhyComv1
+    path: tools/bsim/components/ext_2G4_libPhyComv1
+    url: https://github.com/BabbleSim/ext_2G4_libPhyComv1
+    revision: 15ae0f87fa049e04cbec48a866f3bc37d903f950
+  - name: babblesim_ext_2G4_modem_BLE_simple
+    path: tools/bsim/components/ext_2G4_modem_BLE_simple
+    url: https://github.com/BabbleSim/ext_2G4_modem_BLE_simple
+    revision: 4d2379de510684cd4b1c3bbbb09bce7b5a20bc1f
+  - name: babblesim_ext_2G4_modem_magic
+    path: tools/bsim/components/ext_2G4_modem_magic
+    url: https://github.com/BabbleSim/ext_2G4_modem_magic
+    revision: edfcda2d3937a74be0a59d6cd47e0f50183453da
+  - name: babblesim_ext_2G4_phy_v1
+    path: tools/bsim/components/ext_2G4_phy_v1
+    url: https://github.com/BabbleSim/ext_2G4_phy_v1
+    revision: 62e797b2c518e5bb6123a198382ed2b64b8c068e
+  - name: babblesim_ext_libCryptov1
+    path: tools/bsim/components/ext_libCryptov1
+    url: https://github.com/BabbleSim/ext_libCryptov1
+    revision: da246018ebe031e4fe4a8228187fb459e9f3b2fa
+  self:
+    path: manifest

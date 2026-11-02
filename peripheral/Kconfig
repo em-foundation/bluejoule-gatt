@@ -1,0 +1,16 @@
+# WBA55 radio uses IRQ 66, omitted from Zephyr 4.4.1's computed count.
+config NUM_IRQS
+    int
+    default 67 if BOARD_NUCLEO_WBA55CG
+
+source "Kconfig.zephyr"
+
+menu "BlueJoule-GATT options"
+
+config BLUEJOULE_CACHE_STATS
+    bool "Enable BlueJoule cache statistics"
+    default n
+    help
+        Enable per-benchmark-cycle cache profiling output.
+
+endmenu

@@ -1,0 +1,5 @@
+{
+  "board": "lp_em_cc2340r5",
+  "environment": "ti",
+  "loader": "uniflash"
+}

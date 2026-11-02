@@ -1,0 +1,6 @@
+{
+  "board": "nrf54l15dk/nrf54l15/cpuapp",
+  "environment": "nordic",
+  "loader": "nrfutil",
+  "sysbuild": true
+}

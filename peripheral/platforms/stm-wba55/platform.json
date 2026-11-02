@@ -1,0 +1,5 @@
+{
+  "board": "nucleo_wba55cg",
+  "environment": "st",
+  "loader": "stm32cubeprogrammer"
+}
