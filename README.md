@@ -45,9 +45,23 @@ The current reference implementation runs Zephyr on a Nordic nRF52 DK (`nrf52dk/
 
 The peripheral implementation is not prescribed. Published platform implementations may be consulted as concrete examples.
 
-## Zephyr Peripheral Source
+## Build, Load, and Inspect Peripheral Firmware
 
-The portable reference peripheral and platform build recipes are in [peripheral/](peripheral/). Initial RC-26.11 targets are Silicon Labs G22E and ST WBA55; see the platform notes for environment requirements and baseline limitations.
+The portable Zephyr peripheral supports Nordic nRF52832, Nordic nRF54L15, TI CC2340R5, Silicon Labs G22E, and ST WBA55. See [peripheral/README.md](peripheral/README.md) for environment setup, all command options, and board-specific loading notes.
+
+Run these commands from `peripheral/` after configuring your local environment paths:
+
+```text
+python build.py platforms/nrf-52832
+python load.py platforms/nrf-52832 --probe SERIAL
+python load.py platforms/nrf-52832 --probe SERIAL --hex /path/to/published.hex
+python size.py platforms/nrf-52832
+python size.py platforms/nrf-52832 --report all
+```
+
+Building requires a prepared vendor Zephyr environment. Loading an existing HEX requires only Python, the vendor loader, and probe drivers. Platform arguments accept short names or folder paths. Protected Nordic devices may require explicit `--recover`, which erases device user nonvolatile memory. Build/load `--dry-run` checks command selection without running the tools.
+
+All five boards have been built, loaded, and observed working against the central in the maintainer's Windows setup. Fresh environment installation and other host operating systems remain unverified.
 
 ## Measurement Window
 

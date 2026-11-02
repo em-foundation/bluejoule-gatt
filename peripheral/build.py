@@ -10,7 +10,7 @@ ROOT = Path(__file__).resolve().parent
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('platform', choices=sorted(p.name for p in (ROOT/'platforms').iterdir() if p.is_dir()))
+    parser.add_argument('platform', type=lambda value: value.replace(chr(92), '/').rstrip('/').rsplit('/', 1)[-1], choices=sorted(p.name for p in (ROOT/'platforms').iterdir() if p.is_dir()))
     parser.add_argument('--environments', type=Path, default=ROOT/'environments.local.json')
     parser.add_argument('--dry-run', action='store_true')
     args = parser.parse_args()

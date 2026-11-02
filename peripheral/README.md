@@ -1,53 +1,81 @@
-# Zephyr GATT peripheral
+# Peripheral firmware tools
 
-One common application implements the BlueJoule-GATT exchange. Platform folders identify hardware; capture identifiers additionally include the implementation suffix, such as `-zephyr`. The reference central remains in `../central/`.
+One common Zephyr application implements ordinary BlueJoule-GATT. Platform folders identify hardware; capture identifiers additionally identify the implementation (for example `nrf-52832-zephyr`). The fixed reference central is in `../central/`.
 
-## Build
+## Choose a platform
 
-The launcher requires Python 3.10 or newer, with no additional Python packages. Firmware builds use a separately prepared vendor environment. It does not install or activate environments, flash hardware, or require Bash.
+| Platform argument | Board | Environment key | Loading tool |
+| --- | --- | --- | --- |
+| `nrf-52832` | Nordic nRF52 DK / nRF52832 | `nordic` | nrfutil device |
+| `nrf-54l15` | Nordic nRF54L15 DK | `nordic` | nrfutil device |
+| `ti-cc2340r5` | TI LP-EM-CC2340R5 | `ti` | UniFlash DSLite |
+| `sil-efr32xg22e` | Silicon Labs G22E Explorer Kit | `silabs` | Simplicity Commander |
+| `stm-wba55` | ST NUCLEO-WBA55CG | `st` | STM32CubeProgrammer |
 
-1. Prepare the platform workspace, Python virtual environment, and SDK described in its README.
-2. Copy `environments.example.json` to `environments.local.json`. Replace each path with your environment's absolute path. On Windows use forward slashes in JSON paths. The Python path is the environment's `Scripts/python.exe` on Windows or `bin/python` on Linux/macOS.
-3. Run from this folder:
+Every command accepts either the short name or a folder path, including a trailing slash. For shell completion, type `platforms/` and complete the board folder. Only the last path segment selects the platform.
 
+## Set up once
+
+The helpers require Python 3.10 or newer and only its standard library. They do not install dependencies or require Bash. Read the relevant `platforms/<platform>/README.md` for the tested vendor environment and setup history.
+
+Copy `environments.example.json` to `environments.local.json` and replace placeholder paths. Use absolute paths; Windows forward slashes avoid JSON escaping. This local file is excluded from Git. Paths do not need to match the maintainer's drives.
+
+- `build.<environment>` supplies `python`, `zephyr`, and `sdk`. Python means the prepared environment's executable (`Scripts/python.exe` on Windows, usually `bin/python` on Linux/macOS). Nordic also uses `toolchain`, the bundle root. Optional `build_root` selects a shorter output location, useful for TI's long Windows filenames.
+- `load.<environment>` supplies the vendor loader `executable`. TI also requires `config`, the CC2340R5 ccxml path. Select its probe through that file.
+
+Fill in only the environments and sections you use. Loading an explicit HEX does not read build settings. No shell activation is needed: building invokes the selected environment's Python directly. The main launcher Python and the vendor Python can have different versions.
+
+## Commands
+
+Run from this directory:
+
+```text
+python build.py platforms/nrf-52832
+python load.py platforms/nrf-52832 --probe SERIAL
+python load.py platforms/nrf-52832 --probe SERIAL --hex /path/to/published.hex
+python size.py platforms/nrf-52832
+python size.py platforms/nrf-52832 --report all
 ```
-python BuildZephyr.py sil-efr32xg22e
-python BuildZephyr.py stm-wba55
-```
 
-Use `--dry-run` to inspect the selected command. Outputs are under `build/<platform-id>/zephyr/`. Existing output for the selected target is regenerated on each build. Other targets are unaffected.
+| Command / option | Meaning |
+| --- | --- |
+| `build.py PLATFORM` | Cleanly regenerate and build the selected Zephyr target; does not flash |
+| `load.py PLATFORM` | Load the existing default build image; does not build |
+| `load.py --hex PATH` | Load an explicit board-compatible HEX from any implementation |
+| `load.py --probe SERIAL` | Required for Nordic; optional for Silicon Labs/ST; TI uses ccxml instead |
+| `load.py --recover` | Nordic only: erase user nonvolatile memory and remove access protection before loading; stops if recovery fails |
+| `build.py --dry-run` / `load.py --dry-run` | Validate paths and print commands without building, recovering, or flashing |
+| `size.py PLATFORM` | Read section sizes from the existing ELF without rebuilding |
+| `size.py --report rom` / `ram` / `all` | Zephyr symbol/source breakdown; requires build tools and may update prerequisites |
+| `--environments PATH` | All three commands: use another settings JSON instead of `environments.local.json` |
+| `--help` | All three commands: show available arguments |
 
-The helper invokes the selected Python's `-m west build`, puts that environment's tools on PATH, and selects its Zephyr and SDK. CMake combines the shared `prj.conf` with platform `prj.conf`, optional overlay, and `platform.cmake`. Users may invoke the printed west command directly with the same environment variables.
+Never use a HEX for a different board. Platform selection currently does not validate the image's target family or memory layout. Loading programs hardware immediately unless `--dry-run` is supplied; recovery is never automatic.
 
-## Layout and contributions
+## Build outputs and sizes
 
-`src/main.c` preserves the dev application's workload, including its configuration-controlled encrypted permissions. Cache instrumentation is retained and disabled by default. This release provides ordinary GATT builds only.
+Default output root is `build/<platform>/`; a configured `build_root` replaces `build/` for that environment. Only the selected target is regenerated. Generated files are excluded from Git.
 
-`platforms/<platform-id>/` owns board selection, platform configuration, overlays, support source, and setup notes. Common benchmark behavior belongs at the top level. Add another target by following this pattern and adding its environment entry locally.
+- Nordic uses sysbuild: the load image is `merged.hex`; application ELF and HEX are under `peripheral/zephyr/` in the platform output folder.
+- Other targets use `zephyr/zephyr.hex` and `zephyr/zephyr.elf` in the platform output folder.
 
-Vendor improvements are welcome. Explain the change, preserve the GATT workload and fixed central, identify tool/source revisions and patches, and supply build and transaction evidence. Power improvements need captures and measurement conditions. A newer SDK is a new baseline requiring validation; it does not retroactively replace old capture provenance.
+load.py follows the configured output root unless `--hex` overrides it. size.py selects the corresponding application ELF. Its default text/data/BSS section totals are useful for comparison; text + data approximates flash and data + BSS approximates RAM. Reserved capacity, partition padding, and runtime stack/heap high-water usage are not fully represented. Zephyr's ROM/RAM reports provide a further breakdown and can differ from the linker's memory-region summary.
 
-The current environment recipes describe tested Windows installations. Linux/macOS require native tools and recreated virtual environments; those hosts have not been validated here. Local absolute paths and generated files are ignored. No Zephyr checkout, SDK, or virtual environment is distributed here. Cross-benchmark sharing is deferred until this layout is proven.
+## Loading notes from board testing
 
-## Load an existing HEX
+All five boards have been built and loaded successfully and observed working with the reference central in the maintainer's Windows setup.
 
-Loading is independent of building. Python 3.10+ and the board's native loading tool and probe drivers are required; Zephyr, west, and a compiler are not required. Install Silicon Labs Simplicity Commander for G22E or STM32CubeProgrammer for WBA55. Configure their executable paths in the `load` section of `environments.local.json`. The `build` section is needed only by BuildZephyr. You may omit unused sections and environment entries.
+- **Silicon Labs:** another attached J-Link board, including the central, can confuse probe selection. Use `--probe SERIAL` to select the intended probe, or disconnect the other board as done during testing.
+- **ST WBA55:** a sleeping target may resist attachment. The working manual sequence was to hold the board reset button while starting load.py, then release it promptly after loading begins. The loader uses SWD hardware reset.
+- **Nordic:** supply the correct probe serial and platform. Locked devices require `--recover`. After one recovery, J-Link failed to prepare target RAM for programming; power-cycling the target and probe resolved it. Keep verification enabled. A successful write alone does not prove that an image built for another Nordic family will run.
+- **TI:** programming is followed by separate TI device-management verification. Generic readback verification disagrees with loader-managed CCFG data; the helper preserves the tested two-command recipe.
 
-```
-python LoadHex.py sil-efr32xg22e --hex /path/to/published.hex
-python LoadHex.py stm-wba55 --hex /path/to/published.hex
-```
+Board power, probe drivers, and physical connections remain prerequisites. Loading tools are separate installations from the Zephyr compiler environment.
 
-Without `--hex`, the image defaults to `build/<platform-id>/zephyr/zephyr.hex` under this folder. No build occurs. An explicit image may come from another implementation, provided its board and memory layout match. Platform selection does not validate image compatibility.
+## Architecture and contributions
 
-Use `--probe SERIAL` to select a probe (recommended when several are connected); otherwise the vendor tool selects its default. `--dry-run` validates paths and prints the command without running the loader. Without this flag, LoadHex programs the connected board and starts the image using the existing dev loading recipes. ST uses SWD hardware reset; G22E specifies its exact device. Board setup, probe firmware, access permissions, and power connections remain prerequisites.
+`src/` holds the common application. `prj.conf` holds shared GATT settings. Each `platforms/<platform>/` contains board/environment selection, platform configuration, optional overlay and support source, and setup notes. CMake combines these inputs. Security-controlled permissions remain in the common source, but this release supplies ordinary GATT recipes only. Cache instrumentation is disabled by default.
 
-Your local paths belong in `environments.local.json`, which is ignored by Git. The template separates `build` and `load` settings by vendor. No shell activation is necessary. Loading with an explicit HEX never reads the build section.
+Vendor improvements are welcome. Preserve the workload and fixed central; explain toolchain/configuration changes and provide build and transaction evidence. Supply captures and measurement conditions for claimed power improvements. Published results retain their original provenance when environments evolve.
 
-## TI CC2340R5
-
-TI is also supported: `python BuildZephyr.py ti-cc2340r5` and `python LoadHex.py ti-cc2340r5`. See its platform README for the older build dependencies and UniFlash setup. Loading performs programming followed by separate TI image verification.
-
-## Nordic
-
-Both Nordic targets share build.nordic and load.nordic settings. Use `python BuildZephyr.py nrf-52832` or `python BuildZephyr.py nrf-54l15`. Loading requires a probe serial: `python LoadHex.py nrf-52832 --probe SERIAL` (optionally add `--hex path/to/image.hex`). See each platform README for the NCS environment and migrated single-application build.
+No Zephyr checkout, SDK, or virtual environment is shipped here. Recorded manifests and Python inventories describe existing environments; clean setup from scratch and Linux/macOS execution have not yet been validated. Cross-benchmark sharing remains deferred while this GATT layout is proven.

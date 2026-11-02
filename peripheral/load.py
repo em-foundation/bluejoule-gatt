@@ -9,11 +9,12 @@ ROOT = Path(__file__).resolve().parent
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('platform', choices=sorted(p.name for p in (ROOT/'platforms').iterdir() if p.is_dir()))
+    parser.add_argument('platform', type=lambda value: value.replace(chr(92), '/').rstrip('/').rsplit('/', 1)[-1], choices=sorted(p.name for p in (ROOT/'platforms').iterdir() if p.is_dir()))
     parser.add_argument('--hex', type=Path, dest='image')
     parser.add_argument('--probe', help='Probe serial number')
     parser.add_argument('--environments', type=Path, default=ROOT/'environments.local.json')
     parser.add_argument('--dry-run', action='store_true')
+    parser.add_argument('--recover', action='store_true', help='Nordic only: erase device and remove access protection before programming')
     args = parser.parse_args()
     try:
         platform = json.loads((ROOT/'platforms'/args.platform/'platform.json').read_text())
@@ -29,6 +30,8 @@ def main():
             raise ValueError(f'Loader executable not found: {tool}')
         if not image.is_file() or image.suffix.lower() != '.hex':
             raise ValueError(f'HEX file not found or wrong extension: {image}')
+        if args.recover and platform['loader'] != 'nrfutil':
+            raise ValueError('--recover is supported only for Nordic platforms')
         if platform['loader'] == 'commander':
             command = [str(tool), 'flash', '--device', platform['device']]
             if args.probe:
@@ -65,6 +68,14 @@ def main():
             return 0
         else:
             raise ValueError('Unsupported loader: '+platform['loader'])
+        if args.recover:
+            recovery = [str(tool), 'device', 'recover', '--serial-number', args.probe]
+            print('Recovery erases device user nonvolatile memory and removes access protection.', flush=True)
+            print('Command:', json.dumps(recovery), flush=True)
+            if not args.dry_run:
+                result = subprocess.call(recovery, cwd=ROOT)
+                if result:
+                    return result
         print('Platform:', args.platform, flush=True)
         print('Command:', json.dumps(command), flush=True)
         return 0 if args.dry_run else subprocess.call(command, cwd=ROOT)
