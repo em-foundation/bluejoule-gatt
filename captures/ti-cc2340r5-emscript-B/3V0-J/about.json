@@ -14,7 +14,7 @@
     },
     "activity": {
         "moniker": "bluejoule-gatt",
-        "url": "https://github.com/em-foundation/PEDS/blob/main/activities/bluejoule-gatt.md",
+        "url": "file:///C:/Users/bob/work/PEDS/activities/bluejoule-gatt.md",
         "title": "BlueJoule-GATT",
         "factoids": [
             "Activity: Bluetooth Low Energy peripheral connection and GATT transaction",
@@ -39,7 +39,7 @@
     },
     "platform": {
         "moniker": "ti-cc2340r5-emscript-B",
-        "url": "https://github.com/em-foundation/PEDS/blob/main/platforms/ti-cc2340r5-emscript-B.md",
+        "url": "file:///C:/Users/bob/work/PEDS/platforms/ti-cc2340r5-emscript-B.md",
         "title": "Texas Instruments CC2340R5 LaunchPad · EM•Script · SRAM",
         "factoids": [
             "Board: Texas Instruments CC2340R5 LaunchPad",
@@ -65,7 +65,7 @@
     },
     "power": {
         "moniker": "bench",
-        "url": "https://github.com/em-foundation/PEDS/blob/main/power/bench.md",
+        "url": "file:///C:/Users/bob/work/PEDS/power/bench.md",
         "title": "Bench Supply",
         "factoids": [
             "Power source: regulated bench supply",
@@ -79,7 +79,7 @@
         "subtitle": "Bench supply · 3V0",
         "device": "JS220",
         "created": "2026-10-08T01:38:48.145Z",
-        "generated": "2026-10-08T01:40:21.615Z",
+        "generated": "2026-11-03T18:47:54.113Z",
         "duration": 12,
         "sampling_rate": 1000000,
         "sample_count": 12000000,

@@ -14,7 +14,7 @@
     },
     "activity": {
         "moniker": "bluejoule-gatt",
-        "url": "https://github.com/em-foundation/PEDS/blob/main/activities/bluejoule-gatt.md",
+        "url": "file:///C:/Users/bob/work/PEDS/activities/bluejoule-gatt.md",
         "title": "BlueJoule-GATT",
         "factoids": [
             "Activity: Bluetooth Low Energy peripheral connection and GATT transaction",
@@ -39,7 +39,7 @@
     },
     "platform": {
         "moniker": "nrf-54l15-zephyr",
-        "url": "https://github.com/em-foundation/PEDS/blob/main/platforms/nrf-54l15-zephyr.md",
+        "url": "file:///C:/Users/bob/work/PEDS/platforms/nrf-54l15-zephyr.md",
         "title": "Nordic nRF54L15 DK · Zephyr · NCS 3.0.2",
         "factoids": [
             "MCU: Nordic nRF54L15",
@@ -51,9 +51,10 @@
             "nRF Connect SDK: 3.0.2",
             "Toolchain: nRF Connect SDK Toolchain 3.0.2",
             "Retained SRAM: default configuration",
-            "LF clock source: ...",
+            "LF clock source: LFXO (50 ppm configuration)",
             "DC-DC converter: enabled",
-            "Compiler optimization: ..."
+            "Compiler optimization: size (`CONFIG_SIZE_OPTIMIZATIONS=y`)",
+            "Nordic toolchain bundle `66cdf9b75e`; sysbuild; external LF crystal configured at 50 ppm; size optimization."
         ],
         "references": [
             {
@@ -67,12 +68,20 @@
             {
                 "title": "nRF Connect SDK",
                 "url": "https://www.nordicsemi.com/Products/Development-software/nRF-Connect-SDK"
+            },
+            {
+                "title": "Platform configuration and environment inventory",
+                "url": "https://github.com/em-foundation/bluejoule-gatt/tree/RC-26.11/peripheral/platforms/nrf-54l15"
+            },
+            {
+                "title": "Common application and build/load instructions",
+                "url": "https://github.com/em-foundation/bluejoule-gatt/tree/RC-26.11/peripheral"
             }
         ]
     },
     "power": {
         "moniker": "bench",
-        "url": "https://github.com/em-foundation/PEDS/blob/main/power/bench.md",
+        "url": "file:///C:/Users/bob/work/PEDS/power/bench.md",
         "title": "Bench Supply",
         "factoids": [
             "Power source: regulated bench supply",
@@ -86,7 +95,7 @@
         "subtitle": "Bench supply · 3V0",
         "device": "JS220",
         "created": "2026-10-01T12:37:39.873Z",
-        "generated": "2026-10-01T12:41:45.595Z",
+        "generated": "2026-11-03T18:47:51.331Z",
         "duration": 12,
         "sampling_rate": 1000000,
         "sample_count": 12000000,
