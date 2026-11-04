@@ -1,1 +1,6 @@
-{"board":"lp_em_cc2755p10","environment":"ti"}
+{
+  "board": "lp_em_cc2755p10",
+  "environment": "ti",
+  "loader": "uniflash",
+  "load_environment": "ti-cc2755p10"
+}

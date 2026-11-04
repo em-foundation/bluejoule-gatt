@@ -35,6 +35,10 @@
     },
     "nordic": {
       "executable": "/path/to/nrfutil"
+    },
+    "ti-cc2755p10": {
+      "executable": "/path/to/uniflash/dslite",
+      "config": "/path/to/CC2755P10.ccxml"
     }
   }
 }

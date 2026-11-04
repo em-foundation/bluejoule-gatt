@@ -19,7 +19,7 @@ def main():
     try:
         platform = json.loads((ROOT/'platforms'/args.platform/'platform.json').read_text())
         environments = json.loads(args.environments.read_text())
-        settings = environments['load'][platform['environment']]
+        settings = environments['load'][platform.get('load_environment', platform['environment'])]
         tool = Path(settings['executable']).expanduser().resolve()
         build_root = ROOT/'build'
         if args.image is None:
