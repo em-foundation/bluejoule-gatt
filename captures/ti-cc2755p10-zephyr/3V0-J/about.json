@@ -1,0 +1,162 @@
+{
+    "id": "bluejoule-gatt:ti-cc2755p10-zephyr:3V0-J",
+    "schema_version": "1",
+    "generator": {
+        "name": "EM•Scope",
+        "version": "26.2.4"
+    },
+    "units": {
+        "time": "s",
+        "current": "A",
+        "voltage": "V",
+        "power": "W",
+        "energy": "J"
+    },
+    "activity": {
+        "moniker": "bluejoule-gatt",
+        "url": "file:///C:/Users/bob/work/PEDS/activities/bluejoule-gatt.md",
+        "title": "BlueJoule-GATT",
+        "factoids": [
+            "Activity: Bluetooth Low Energy peripheral connection and GATT transaction",
+            "Role: BLE peripheral",
+            "PHY: LE 1M",
+            "TX power: 0 dBm",
+            "Advertising: connectable advertising used only to establish the connection",
+            "Advertising payload: includes the BlueJoule-GATT service UUID in the primary advertising packet",
+            "Scored window: begins with the connection transaction and excludes preceding advertising energy",
+            "Transaction: connect, link-layer setup, targeted service discovery, targeted characteristic discovery, write `Command`, read `Status`, disconnect, return toward idle or sleep",
+            "Discovery: targeted to the benchmark service and characteristics; full generic GATT enumeration is not required",
+            "Service UUID: `0000b100-0000-1000-8000-00805f9b34fb`",
+            "Status characteristic UUID: `0000b101-0000-1000-8000-00805f9b34fb`",
+            "Status characteristic operation: read",
+            "Command characteristic UUID: `0000b102-0000-1000-8000-00805f9b34fb`",
+            "Command characteristic operation: write",
+            "Handle discovery: benchmark central knows the UUIDs but discovers handles at runtime",
+            "Primary measured quantity: energy per completed BlueJoule-GATT transaction",
+            "Conformance basis: observable behavior, not a canonical source implementation"
+        ],
+        "references": []
+    },
+    "platform": {
+        "moniker": "ti-cc2755p10-zephyr",
+        "url": "file:///C:/Users/bob/work/PEDS/platforms/ti-cc2755p10-zephyr.md",
+        "title": "Texas Instruments CC2755P10 LaunchPad · Zephyr",
+        "factoids": [
+            "Board: LP-EM-CC2755P10",
+            "MCU: Texas Instruments CC2755P10",
+            "Zephyr board target: `lp_em_cc2755p10`",
+            "Software stack: TI SimpleLink Zephyr `v3.7.0-ti-9.14.02_ea`",
+            "Toolchain: Zephyr SDK 0.16.8"
+        ],
+        "references": [
+            {
+                "title": "TI board documentation",
+                "url": "https://www.ti.com/tool/LP-EM-CC2755P10"
+            },
+            {
+                "title": "BlueJoule-GATT platform configuration",
+                "url": "https://github.com/em-foundation/bluejoule-gatt/tree/RC-26.11/peripheral/platforms/ti-cc2755p10"
+            }
+        ]
+    },
+    "power": {
+        "moniker": "bench",
+        "url": "file:///C:/Users/bob/work/PEDS/power/bench.md",
+        "title": "Bench Supply",
+        "factoids": [
+            "Power source: regulated bench supply",
+            "State of charge: not applicable",
+            "Battery model: none"
+        ],
+        "references": []
+    },
+    "capture": {
+        "name": "3V0-J",
+        "subtitle": "Bench supply · 3V0",
+        "device": "JS220",
+        "created": "2026-11-03T23:43:48.462Z",
+        "generated": "2026-11-04T00:12:41.243Z",
+        "duration": 12,
+        "sampling_rate": 1000000,
+        "sample_count": 12000000,
+        "voltage": {
+            "source": "measured",
+            "avg": 2.997156679501401,
+            "min": 2.9852654933929443,
+            "max": 3.0048680305480957,
+            "std": 0.0011689203193246307,
+            "droop": 0.01189118610845652
+        },
+        "images": [
+            "event-B.png"
+        ]
+    },
+    "events": {
+        "count": 10,
+        "duration_avg": 0.14999999999999997,
+        "duration_std": 2.7755575615628914e-17,
+        "energy_avg": 0.0005466570880992506,
+        "energy_std": 7.511173030814678e-7
+    },
+    "sleep": {
+        "current_avg": 3.8459713900832606e-7,
+        "current_std": 0.00006671294303409064,
+        "power_avg": 0.0000011526978840959332
+    },
+    "boundary": {
+        "event_window": {
+            "count": 10,
+            "sample_width": 150000,
+            "duration": 0.15,
+            "first_sample_offset": 1315000,
+            "last_sample_end": 10685000,
+            "duration_total": 1.5,
+            "duration_avg": 0.14999999999999997,
+            "duration_std": 2.7755575615628914e-17
+        },
+        "sleep_window": {
+            "sample_offset": 4365000,
+            "sample_width": 100000,
+            "start": 4.365,
+            "end": 4.465,
+            "duration": 0.1
+        },
+        "accounting_scope": {
+            "sample_offset": 815000,
+            "sample_width": 10000000,
+            "start": 0.815,
+            "end": 10.815,
+            "duration": 9.84725,
+            "measured_current_avg": 0.0001855474254604153,
+            "measured_power_avg": 0.000556114705582972
+        },
+        "partition": {
+            "event_count": 10,
+            "event_duration_total": 1.5,
+            "sleep_duration": 8.34725,
+            "sleep_current_avg": 3.8459713900832606e-7,
+            "sleep_current_std": 0.00006671294303409064,
+            "event_energy_total": 0.005466570880992507,
+            "modeled_energy": 0.005476192738405526,
+            "modeled_power_avg": 0.0005561139138749932
+        },
+        "closure_residual": 0.0000014236415092962266,
+        "floor_residual": -3.2491766347245843e-7
+    },
+    "measured": {
+        "adv-1s": {
+            "event_energy": 0.0005466570880992506,
+            "energy_per_period": 0.0005476368813007322,
+            "energy_per_day": 47.315826544383256,
+            "emeralds": 1.6907661947944266
+        }
+    },
+    "projections": {
+        "adv-10s": {
+            "event_energy": 0.0005466570880992506,
+            "energy_per_period": 0.0005580111622575956,
+            "energy_per_day": 4.821216441905626,
+            "emeralds": 16.59332265289864
+        }
+    }
+}

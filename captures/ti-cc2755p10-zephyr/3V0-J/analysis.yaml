@@ -1,0 +1,285 @@
+span:
+    offset: 815000
+    width: 10000000
+events:
+    -
+        offset: 1315000
+        width: 150000
+    -
+        offset: 2164000
+        width: 150000
+    -
+        offset: 3207000
+        width: 150000
+    -
+        offset: 4234000
+        width: 150000
+    -
+        offset: 5281000
+        width: 150000
+    -
+        offset: 6339000
+        width: 150000
+    -
+        offset: 7198000
+        width: 150000
+    -
+        offset: 8225000
+        width: 150000
+    -
+        offset: 9285000
+        width: 150000
+    -
+        offset: 10535000
+        width: 150000
+excluded:
+    -
+        offset: 1006250
+        width: 1500
+    -
+        offset: 1025500
+        width: 4250
+    -
+        offset: 1061000
+        width: 2500
+    -
+        offset: 1100000
+        width: 1750
+    -
+        offset: 1138000
+        width: 1750
+    -
+        offset: 1177000
+        width: 1750
+    -
+        offset: 1212000
+        width: 1750
+    -
+        offset: 1250000
+        width: 1750
+    -
+        offset: 1281000
+        width: 1750
+    -
+        offset: 1906500
+        width: 1250
+    -
+        offset: 2026500
+        width: 3250
+    -
+        offset: 2059000
+        width: 1750
+    -
+        offset: 2099000
+        width: 1750
+    -
+        offset: 2129000
+        width: 1750
+    -
+        offset: 2890000
+        width: 1250
+    -
+        offset: 3027500
+        width: 3250
+    -
+        offset: 3062000
+        width: 1750
+    -
+        offset: 3100000
+        width: 1750
+    -
+        offset: 3137000
+        width: 1750
+    -
+        offset: 3175000
+        width: 1750
+    -
+        offset: 4028500
+        width: 3250
+    -
+        offset: 4067000
+        width: 1750
+    -
+        offset: 4102000
+        width: 1750
+    -
+        offset: 4132000
+        width: 1750
+    -
+        offset: 4168000
+        width: 1750
+    -
+        offset: 4201000
+        width: 1750
+    -
+        offset: 4955750
+        width: 750
+    -
+        offset: 5029500
+        width: 3250
+    -
+        offset: 5066000
+        width: 1750
+    -
+        offset: 5105000
+        width: 1750
+    -
+        offset: 5139000
+        width: 1750
+    -
+        offset: 5177000
+        width: 1750
+    -
+        offset: 5208000
+        width: 1750
+    -
+        offset: 5242000
+        width: 1750
+    -
+        offset: 5853500
+        width: 1500
+    -
+        offset: 6030500
+        width: 3250
+    -
+        offset: 6063000
+        width: 1750
+    -
+        offset: 6096000
+        width: 1750
+    -
+        offset: 6130000
+        width: 1750
+    -
+        offset: 6162000
+        width: 1750
+    -
+        offset: 6199000
+        width: 1750
+    -
+        offset: 6237000
+        width: 1750
+    -
+        offset: 6270000
+        width: 1750
+    -
+        offset: 6307000
+        width: 1750
+    -
+        offset: 7031250
+        width: 3500
+    -
+        offset: 7069000
+        width: 1750
+    -
+        offset: 7105000
+        width: 1750
+    -
+        offset: 7137000
+        width: 1750
+    -
+        offset: 7168000
+        width: 1750
+    -
+        offset: 7925000
+        width: 1500
+    -
+        offset: 8032250
+        width: 3500
+    -
+        offset: 8065000
+        width: 1750
+    -
+        offset: 8096000
+        width: 1750
+    -
+        offset: 8126000
+        width: 1750
+    -
+        offset: 8164000
+        width: 1750
+    -
+        offset: 8195000
+        width: 1750
+    -
+        offset: 8957750
+        width: 1250
+    -
+        offset: 9033500
+        width: 3250
+    -
+        offset: 9068000
+        width: 1750
+    -
+        offset: 9108000
+        width: 1750
+    -
+        offset: 9140000
+        width: 1750
+    -
+        offset: 9171000
+        width: 1750
+    -
+        offset: 9208000
+        width: 1750
+    -
+        offset: 9248000
+        width: 1750
+    -
+        offset: 9863000
+        width: 1500
+    -
+        offset: 10034500
+        width: 3250
+    -
+        offset: 10073000
+        width: 1750
+    -
+        offset: 10106000
+        width: 1750
+    -
+        offset: 10140000
+        width: 1750
+    -
+        offset: 10176000
+        width: 1750
+    -
+        offset: 10213000
+        width: 2500
+    -
+        offset: 10249000
+        width: 1750
+    -
+        offset: 10281000
+        width: 1750
+    -
+        offset: 10314000
+        width: 1750
+    -
+        offset: 10352000
+        width: 1750
+    -
+        offset: 10386000
+        width: 1750
+    -
+        offset: 10421000
+        width: 1750
+    -
+        offset: 10460000
+        width: 1750
+    -
+        offset: 10497000
+        width: 1750
+event_width: 150000
+sleep:
+    avg: 5.967947553586762e-8
+    std: 0.000002409725748023202
+    'off': 4365000
+    width: 100000
+options:
+    - '--gap 15'
+    - '--min-duration 75'
+    - '--sleep-window 100'
+    - '--trim 10'
+    - '--event-window 150'
+version: 26.2.4
