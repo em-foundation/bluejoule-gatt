@@ -6,6 +6,25 @@ This repository is the technical backend for the benchmark. It contains the benc
 
 Public presentation, comparisons, and leaderboards belong at **bluejoule.org**.
 
+## Current RC scores
+
+RC-26.11 capture results at 3.0 V, projected at one transaction per 10 seconds.
+
+| Capture | EM•eralds |
+| --- | ---: |
+| [nrf-52832-emscript/3V0-J](captures/nrf-52832-emscript/3V0-J/ABOUT.md) | 29.10 |
+| [nrf-52832-zephyr/3V0-J](captures/nrf-52832-zephyr/3V0-J/ABOUT.md) | 26.53 |
+| [nrf-54l15-emscript/3V0-J](captures/nrf-54l15-emscript/3V0-J/ABOUT.md) | 55.99 |
+| [nrf-54l15-flpr-emscript/3V0-J](captures/nrf-54l15-flpr-emscript/3V0-J/ABOUT.md) | 58.61 |
+| [nrf-54l15-zephyr/3V0-J](captures/nrf-54l15-zephyr/3V0-J/ABOUT.md) | 41.41 |
+| [sil-efr32xg22e-zephyr/3V0-J](captures/sil-efr32xg22e-zephyr/3V0-J/ABOUT.md) | 26.99 |
+| [stm-wba55-zephyr/3V0-J-v1](captures/stm-wba55-zephyr/3V0-J-v1/ABOUT.md) | 14.21 |
+| [stm-wba55-zephyr/3V0-J-v2](captures/stm-wba55-zephyr/3V0-J-v2/ABOUT.md) | 14.29 |
+| [ti-cc2340r5-emscript/3V0-J](captures/ti-cc2340r5-emscript/3V0-J/ABOUT.md) | 31.47 |
+| [ti-cc2340r5-emscript-B/3V0-J](captures/ti-cc2340r5-emscript-B/3V0-J/ABOUT.md) | 32.29 |
+| [ti-cc2340r5-zephyr/3V0-J](captures/ti-cc2340r5-zephyr/3V0-J/ABOUT.md) | 19.37 |
+| [ti-cc2755p10-zephyr/3V0-J](captures/ti-cc2755p10-zephyr/3V0-J/ABOUT.md) | 16.59 |
+
 ## Benchmark Activity
 
 A conforming peripheral shall:
