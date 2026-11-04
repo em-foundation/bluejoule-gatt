@@ -1,0 +1,4 @@
+/* Permit the port's implemented standby-with-RAM-retention state. */
+&cpu0 {
+    cpu-power-states = <&stop0 &stop1 &standby>;
+};

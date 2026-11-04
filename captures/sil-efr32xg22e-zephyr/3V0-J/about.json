@@ -1,0 +1,171 @@
+{
+    "id": "bluejoule-gatt:sil-efr32xg22e-zephyr:3V0-J",
+    "schema_version": "1",
+    "generator": {
+        "name": "EM•Scope",
+        "version": "26.2.3"
+    },
+    "units": {
+        "time": "s",
+        "current": "A",
+        "voltage": "V",
+        "power": "W",
+        "energy": "J"
+    },
+    "activity": {
+        "moniker": "bluejoule-gatt",
+        "url": "file:///C:/Users/bob/work/PEDS/activities/bluejoule-gatt.md",
+        "title": "BlueJoule-GATT",
+        "factoids": [
+            "Activity: Bluetooth Low Energy peripheral connection and GATT transaction",
+            "Role: BLE peripheral",
+            "PHY: LE 1M",
+            "TX power: 0 dBm",
+            "Advertising: connectable advertising used only to establish the connection",
+            "Advertising payload: includes the BlueJoule-GATT service UUID in the primary advertising packet",
+            "Scored window: begins with the connection transaction and excludes preceding advertising energy",
+            "Transaction: connect, link-layer setup, targeted service discovery, targeted characteristic discovery, write `Command`, read `Status`, disconnect, return toward idle or sleep",
+            "Discovery: targeted to the benchmark service and characteristics; full generic GATT enumeration is not required",
+            "Service UUID: `0000b100-0000-1000-8000-00805f9b34fb`",
+            "Status characteristic UUID: `0000b101-0000-1000-8000-00805f9b34fb`",
+            "Status characteristic operation: read",
+            "Command characteristic UUID: `0000b102-0000-1000-8000-00805f9b34fb`",
+            "Command characteristic operation: write",
+            "Handle discovery: benchmark central knows the UUIDs but discovers handles at runtime",
+            "Primary measured quantity: energy per completed BlueJoule-GATT transaction",
+            "Conformance basis: observable behavior, not a canonical source implementation"
+        ],
+        "references": []
+    },
+    "platform": {
+        "moniker": "sil-efr32xg22e-zephyr",
+        "url": "file:///C:/Users/bob/work/PEDS/platforms/sil-efr32xg22e-zephyr.md",
+        "title": "Silicon Labs EFR32xG22E · Zephyr",
+        "factoids": [
+            "Board model reported by Zephyr: Silicon Labs BRD2710A (xG22 Explorer Kit)",
+            "Zephyr board target: `xg22_ek2710a`",
+            "MCU selected by the board device tree: EFR32MG22E224F512IM40",
+            "Flash: 512 KB",
+            "SRAM: 32 KB",
+            "Software stack: Silicon Labs Zephyr fork, reports Zephyr 4.4.1",
+            "Zephyr repository: `https://github.com/siliconlabssoftware/zephyr`",
+            "Zephyr commit: `f60fcfc44b27852017a302a08dfe236ccf94804a`",
+            "Board target: `xg22_ek2710a`",
+            "Toolchain: Zephyr SDK 1.0.1, GNU Arm GCC 14.3.0",
+            "Tested host environment: Windows; Python 3.13.5, west 1.5.0",
+            "System power management: enabled",
+            "Controller TX-power configuration: 0 dBm",
+            "EM2 debugging: disabled with `SL_POWER_MANAGER_INIT_EMU_EM2_DEBUG_ENABLE=0`",
+            "Ordinary GATT; security and automatic PHY/data-length updates disabled",
+            "Serial console and logging disabled"
+        ],
+        "references": [
+            {
+                "title": "Platform configuration and environment inventory",
+                "url": "https://github.com/em-foundation/bluejoule-gatt/tree/RC-26.11/peripheral/platforms/sil-efr32xg22e"
+            },
+            {
+                "title": "Common application and build/load instructions",
+                "url": "https://github.com/em-foundation/bluejoule-gatt/tree/RC-26.11/peripheral"
+            }
+        ]
+    },
+    "power": {
+        "moniker": "bench",
+        "url": "file:///C:/Users/bob/work/PEDS/power/bench.md",
+        "title": "Bench Supply",
+        "factoids": [
+            "Power source: regulated bench supply",
+            "State of charge: not applicable",
+            "Battery model: none"
+        ],
+        "references": []
+    },
+    "capture": {
+        "name": "3V0-J",
+        "subtitle": "Bench supply · 3V0",
+        "device": "JS220",
+        "created": "2026-11-01T20:33:51.231Z",
+        "generated": "2026-11-03T18:47:51.922Z",
+        "duration": 12,
+        "sampling_rate": 1000000,
+        "sample_count": 12000000,
+        "voltage": {
+            "source": "measured",
+            "avg": 2.996983796065426,
+            "min": 2.9793975353240967,
+            "max": 3.0044565200805664,
+            "std": 0.0010698582434167892,
+            "droop": 0.017586260741329518
+        },
+        "images": []
+    },
+    "events": {
+        "count": 10,
+        "duration_avg": 0.14999999999999997,
+        "duration_std": 2.7755575615628914e-17,
+        "energy_avg": 0.00031505820665225293,
+        "energy_std": 0.000005368363989533575
+    },
+    "sleep": {
+        "current_avg": 9.476743605857109e-7,
+        "current_std": 0.00000354483574874133,
+        "power_avg": 0.0000028401647026220394
+    },
+    "boundary": {
+        "event_window": {
+            "count": 10,
+            "sample_width": 150000,
+            "duration": 0.15,
+            "first_sample_offset": 1387750,
+            "last_sample_end": 10552750,
+            "duration_total": 1.5,
+            "duration_avg": 0.14999999999999997,
+            "duration_std": 2.7755575615628914e-17
+        },
+        "sleep_window": {
+            "sample_offset": 6537750,
+            "sample_width": 100000,
+            "start": 6.53775,
+            "end": 6.63775,
+            "duration": 0.1
+        },
+        "accounting_scope": {
+            "sample_offset": 887750,
+            "sample_width": 10000000,
+            "start": 0.88775,
+            "end": 10.88775,
+            "duration": 9.827,
+            "measured_current_avg": 0.0001077790056098995,
+            "measured_power_avg": 0.0003230119333689134
+        },
+        "partition": {
+            "event_count": 10,
+            "event_duration_total": 1.5,
+            "sleep_duration": 8.327,
+            "sleep_current_avg": 9.476743605857109e-7,
+            "sleep_current_std": 0.00000354483574874133,
+            "event_energy_total": 0.0031505820665225295,
+            "modeled_energy": 0.003174232118001263,
+            "modeled_power_avg": 0.0003230113074184658
+        },
+        "closure_residual": 0.0000019378554875286922,
+        "floor_residual": -5.791287333789265e-7
+    },
+    "measured": {
+        "adv-1s": {
+            "event_energy": 0.00031505820665225293,
+            "energy_per_period": 0.00031747234664948165,
+            "energy_per_day": 27.429610750515213,
+            "emeralds": 2.916556152678811
+        }
+    },
+    "projections": {
+        "adv-10s": {
+            "event_energy": 0.00031505820665225293,
+            "energy_per_period": 0.00034303382897308003,
+            "energy_per_day": 2.9638122823274116,
+            "emeralds": 26.992262795124763
+        }
+    }
+}

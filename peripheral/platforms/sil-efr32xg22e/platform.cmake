@@ -1,0 +1,1 @@
+target_compile_definitions(app PRIVATE SL_POWER_MANAGER_INIT_EMU_EM2_DEBUG_ENABLE=0)

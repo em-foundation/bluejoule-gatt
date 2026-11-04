@@ -6,6 +6,25 @@ This repository is the technical backend for the benchmark. It contains the benc
 
 Public presentation, comparisons, and leaderboards belong at **bluejoule.org**.
 
+## Current RC scores
+
+RC-26.11 capture results at 3.0 V, projected at one transaction per 10 seconds.
+
+| Capture | EM•eralds |
+| --- | ---: |
+| [nrf-52832-emscript/3V0-J](captures/nrf-52832-emscript/3V0-J/ABOUT.md) | 29.10 |
+| [nrf-52832-zephyr/3V0-J](captures/nrf-52832-zephyr/3V0-J/ABOUT.md) | 26.53 |
+| [nrf-54l15-emscript/3V0-J](captures/nrf-54l15-emscript/3V0-J/ABOUT.md) | 55.99 |
+| [nrf-54l15-flpr-emscript/3V0-J](captures/nrf-54l15-flpr-emscript/3V0-J/ABOUT.md) | 58.61 |
+| [nrf-54l15-zephyr/3V0-J](captures/nrf-54l15-zephyr/3V0-J/ABOUT.md) | 41.41 |
+| [sil-efr32xg22e-zephyr/3V0-J](captures/sil-efr32xg22e-zephyr/3V0-J/ABOUT.md) | 26.99 |
+| [stm-wba55-zephyr/3V0-J-v1](captures/stm-wba55-zephyr/3V0-J-v1/ABOUT.md) | 14.21 |
+| [stm-wba55-zephyr/3V0-J-v2](captures/stm-wba55-zephyr/3V0-J-v2/ABOUT.md) | 14.29 |
+| [ti-cc2340r5-emscript/3V0-J](captures/ti-cc2340r5-emscript/3V0-J/ABOUT.md) | 31.47 |
+| [ti-cc2340r5-emscript-B/3V0-J](captures/ti-cc2340r5-emscript-B/3V0-J/ABOUT.md) | 32.29 |
+| [ti-cc2340r5-zephyr/3V0-J](captures/ti-cc2340r5-zephyr/3V0-J/ABOUT.md) | 19.37 |
+| [ti-cc2755p10-zephyr/3V0-J](captures/ti-cc2755p10-zephyr/3V0-J/ABOUT.md) | 16.59 |
+
 ## Benchmark Activity
 
 A conforming peripheral shall:
@@ -44,6 +63,24 @@ The reference central requests a 7.5 ms connection interval, zero peripheral lat
 The current reference implementation runs Zephyr on a Nordic nRF52 DK (`nrf52dk/nrf52832`). See [`central/README.md`](central/README.md) for the complete fixture definition, source, firmware image, and build provenance.
 
 The peripheral implementation is not prescribed. Published platform implementations may be consulted as concrete examples.
+
+## Build, Load, and Inspect Peripheral Firmware
+
+The portable Zephyr peripheral supports Nordic nRF52832, Nordic nRF54L15, TI CC2340R5, Silicon Labs G22E, and ST WBA55. See [peripheral/README.md](peripheral/README.md) for environment setup, all command options, and board-specific loading notes.
+
+Run these commands from `peripheral/` after configuring your local environment paths:
+
+```text
+python build.py platforms/nrf-52832
+python load.py platforms/nrf-52832 --probe SERIAL
+python load.py platforms/nrf-52832 --probe SERIAL --hex /path/to/published.hex
+python size.py platforms/nrf-52832
+python size.py platforms/nrf-52832 --report all
+```
+
+Building requires a prepared vendor Zephyr environment. Loading an existing HEX requires only Python, the vendor loader, and probe drivers. Platform arguments accept short names or folder paths. Protected Nordic devices may require explicit `--recover`, which erases device user nonvolatile memory. Build/load `--dry-run` checks command selection without running the tools.
+
+All five boards have been built, loaded, and observed working against the central in the maintainer's Windows setup. Fresh environment installation and other host operating systems remain unverified.
 
 ## Measurement Window
 

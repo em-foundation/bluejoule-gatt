@@ -1,0 +1,6 @@
+{
+  "board": "xg22_ek2710a",
+  "environment": "silabs",
+  "loader": "commander",
+  "device": "EFR32MG22E224F512IM40"
+}

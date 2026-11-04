@@ -1,10 +1,10 @@
 <!-- GENERATED FILE — DO NOT EDIT -->
 
 <h1 align="center">Nordic nRF52 DK · Zephyr</h1>
-<h3 align="center">3V0-V</h3>
+<h3 align="center">Bench supply · 3V0</h3>
 
 
-<p align="right"><sub>captured on 2026-10-01 @ 13:23:56<br>generated on 2026-10-01 @ 13:24:57</sub></p>
+<p align="right"><sub>captured on 2026-10-01 @ 13:23:56<br>generated on 2026-11-03 @ 18:47:48</sub></p>
 
 ## Activity
 
@@ -37,6 +37,10 @@
 - Software stack: Zephyr
 - nRF Connect SDK: 3.0.2
 - Toolchain: nRF Connect SDK Toolchain 3.0.2
+- Software stack: Zephyr
+- nRF Connect SDK: 3.0.2
+- Toolchain: nRF Connect SDK Toolchain 3.0.2
+- Nordic toolchain bundle `66cdf9b75e`; sysbuild; external LF crystal configured at 50 ppm; size optimization.
 
 ### References
 
@@ -44,6 +48,8 @@
 - [Nordic nRF52 DK](https://www.nordicsemi.com/Products/Development-hardware/nRF52-DK)
 - [Board pinout](https://github.com/em-foundation/emscope/blob/docs-stable/docs/boards/nrf-52-dk.png)
 - [nRF Connect SDK](https://www.nordicsemi.com/Products/Development-software/nRF-Connect-SDK)
+- [Platform configuration and environment inventory](https://github.com/em-foundation/bluejoule-gatt/tree/RC-26.11/peripheral/platforms/nrf-52832)
+- [Common application and build/load instructions](https://github.com/em-foundation/bluejoule-gatt/tree/RC-26.11/peripheral)
 
 ## Power Source
 

@@ -37,3 +37,20 @@ west build --build-dir build_dk . --pristine --board nrf52dk/nrf52832 -- -DCONFI
 The central passively scans for the BlueJoule-GATT service, connects, performs targeted service and characteristic discovery, writes `0x04` to `Command`, reads `Status` expecting `0x84`, disconnects, and then restarts scanning.
 
 The source project is retained here together with the known-good release firmware artifact used for the benchmark.
+
+## Build and load helpers
+
+From this directory, run:
+
+```text
+python build.py
+python load.py --probe CENTRAL_SERIAL --dry-run
+python load.py --probe CENTRAL_SERIAL
+```
+
+Both helpers use the Nordic settings in the sibling peripheral directory's
+`environments.local.json`. Use `--environments PATH` to select another file.
+The build outputs `build/zephyr/zephyr.hex`. Loading defaults to that central
+image. Pass `--hex PATH` to load an existing central image. Select the central
+board's probe serial. Explicit `--recover` erases device user nonvolatile memory
+before loading. Use the matching central fixture for each benchmark.

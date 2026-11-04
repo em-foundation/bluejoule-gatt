@@ -4,7 +4,7 @@
 <h3 align="center">Bench supply · 3V0</h3>
 
 
-<p align="right"><sub>captured on 2026-10-08 @ 11:40:53<br>generated on 2026-10-08 @ 11:43:56</sub></p>
+<p align="right"><sub>captured on 2026-10-08 @ 11:40:53<br>generated on 2026-11-03 @ 18:47:54</sub></p>
 
 ## Activity
 
@@ -38,14 +38,17 @@
 - Repository: Texas Instruments simplelink-zephyr
 - Branch: v3.7.0-ti-9.14
 - Tag: v3.7.0-ti-9.14.02_ea
-- Commit: 8526f94c81d
+- Commit: `8526f94c81dc471faa049dc6054f65b194681815`
 - TI SimpleLink Zephyr release: v3.7.0-ti-9.14.02_ea
+- Zephyr SDK 0.16.8; Python 3.10.2; CMake 3.31.10. The recorded module and package inventories describe the tested TI environment.
 
 ### References
 
 - [LP-EM-CC2340R5 Development Kit](https://www.ti.com/tool/LP-EM-CC2340R5)
 - [CC2340R5 SoC](https://www.ti.com/product/CC2340R5)
 - [TI SimpleLink Zephyr](https://github.com/TexasInstruments/simplelink-zephyr/tree/v3.7.0-ti-9.14.02_ea)
+- [Platform configuration and environment inventory](https://github.com/em-foundation/bluejoule-gatt/tree/RC-26.11/peripheral/platforms/ti-cc2340r5)
+- [Common application and build/load instructions](https://github.com/em-foundation/bluejoule-gatt/tree/RC-26.11/peripheral)
 
 ## Power Source
 

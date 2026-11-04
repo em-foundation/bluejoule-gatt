@@ -4,7 +4,7 @@
 <h3 align="center">Bench supply · 3V0</h3>
 
 
-<p align="right"><sub>captured on 2026-10-01 @ 12:37:39<br>generated on 2026-10-01 @ 12:41:45</sub></p>
+<p align="right"><sub>captured on 2026-10-01 @ 12:37:39<br>generated on 2026-11-03 @ 18:47:51</sub></p>
 
 ## Activity
 
@@ -38,15 +38,18 @@
 - nRF Connect SDK: 3.0.2
 - Toolchain: nRF Connect SDK Toolchain 3.0.2
 - Retained SRAM: default configuration
-- LF clock source: ...
+- LF clock source: LFXO (50 ppm configuration)
 - DC-DC converter: enabled
-- Compiler optimization: ...
+- Compiler optimization: size (`CONFIG_SIZE_OPTIMIZATIONS=y`)
+- Nordic toolchain bundle `66cdf9b75e`; sysbuild; external LF crystal configured at 50 ppm; size optimization.
 
 ### References
 
 - [nRF54L15 product page](https://www.nordicsemi.com/Products/nRF54L15)
 - [nRF54L15 DK](https://www.nordicsemi.com/Products/Development-hardware/nRF54L15-DK)
 - [nRF Connect SDK](https://www.nordicsemi.com/Products/Development-software/nRF-Connect-SDK)
+- [Platform configuration and environment inventory](https://github.com/em-foundation/bluejoule-gatt/tree/RC-26.11/peripheral/platforms/nrf-54l15)
+- [Common application and build/load instructions](https://github.com/em-foundation/bluejoule-gatt/tree/RC-26.11/peripheral)
 
 ## Power Source
 

@@ -1,0 +1,44 @@
+{
+  "build": {
+    "silabs": {
+      "python": "/absolute/path/to/venv/python",
+      "zephyr": "/absolute/path/to/workspace/zephyr",
+      "sdk": "/absolute/path/to/zephyr-sdk"
+    },
+    "st": {
+      "python": "/absolute/path/to/venv/python",
+      "zephyr": "/absolute/path/to/workspace/zephyr",
+      "sdk": "/absolute/path/to/zephyr-sdk"
+    },
+    "ti": {
+      "python": "/path/to/ti/venv/python",
+      "zephyr": "/path/to/ti/zephyr",
+      "sdk": "/path/to/zephyr-sdk-0.16.8"
+    },
+    "nordic": {
+      "python": "/path/to/nordic/python",
+      "zephyr": "/path/to/ncs/zephyr",
+      "sdk": "/path/to/nordic/toolchain/opt/zephyr-sdk",
+      "toolchain": "/path/to/nordic/toolchain"
+    }
+  },
+  "load": {
+    "silabs": {
+      "executable": "/path/to/commander"
+    },
+    "st": {
+      "executable": "/path/to/STM32_Programmer_CLI"
+    },
+    "ti": {
+      "executable": "/path/to/uniflash/dslite",
+      "config": "/path/to/peripheral/platforms/ti-cc2340r5/CC2340R5.ccxml"
+    },
+    "nordic": {
+      "executable": "/path/to/nrfutil"
+    },
+    "ti-cc2755p10": {
+      "executable": "/path/to/uniflash/dslite",
+      "config": "/path/to/CC2755P10.ccxml"
+    }
+  }
+}
